@@ -1628,6 +1628,7 @@ const store={
 const SUPABASE_URL = 'https://iyzojejpeueoqgapseuh.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_CoL8WD5Kj0Psqarh7ai28w_GUm6o0B4';
 const AUTH_KEY  = 'semef2026_auth';
+const APAGA_KEY = 'semef2026_apagamento_pendente';
 const EMAIL_KEY = 'semef2026_email';
 
 // armazenamento a prova de navegador bloqueado (file://, aba anonima)
@@ -1648,7 +1649,8 @@ try {
   }
 } catch(e) { console.warn('Supabase indisponível', e); }
 
-let syncUser=null, syncTimer=null, sincronizando=false, syncPendente=false;
+let syncUser=null, syncTimer=null, sincronizando=false, syncPendente=false, epocaDados=0;
+let forcarEnvio = store.get(APAGA_KEY) === true;   // sobrevive a recarregar a pagina
 let syncMsg = sb ? 'aguardando…' : 'desligada (biblioteca não carregou)';
 
 function setSync(t){
@@ -1729,11 +1731,27 @@ async function sincronizar(opcoes){
   const user=await usuarioAtual(silencioso);
   if(!user){ setSync('não conectado — toque em “Entrar”'); return false }
 
-  sincronizando=true; setSync('sincronizando…');
+  sincronizando=true; setSync(forcarEnvio ? 'aplicando na nuvem…' : 'sincronizando…');
+  const ep = epocaDados;
   try{
+    if(forcarEnvio){
+      const up=await sb.from('app_state').upsert(
+        { user_id:user.id, progresso, meus, updated_at:new Date().toISOString() },
+        { onConflict:'user_id' });
+      if(up.error) throw up.error;
+      forcarEnvio=false;
+      store.set(APAGA_KEY, false);
+      setSync('nuvem atualizada · '+new Date().toLocaleTimeString().slice(0,5));
+      if(!silencioso) toast('Aplicado também na nuvem');
+      return true;
+    }
     const { data, error } = await sb.from('app_state')
       .select('progresso,meus,updated_at').eq('user_id',user.id).maybeSingle();
     if(error) throw error;
+    if(ep !== epocaDados){       // o usuario apagou algo enquanto o banco respondia
+      syncPendente = true;       // descarta esta resposta e refaz do zero
+      return false;
+    }
 
     const remoto=data||{};
     const progAntes=JSON.stringify(progresso), meusAntes=JSON.stringify(meus);
@@ -1785,6 +1803,18 @@ async function sincronizarNuvem(){
   await sincronizar({silencioso:false});
 }
 
+/* apagamento deliberado: a nuvem obedece, nao mescla */
+function marcarApagamento(){
+  forcarEnvio = true;
+  store.set(APAGA_KEY, true);   // se o app fechar ou recarregar agora, o apagamento nao se perde
+  epocaDados++;                 // invalida qualquer sincronizacao ainda em voo
+  clearTimeout(syncTimer);
+  sincronizando = false;        // cancela qualquer trava de sync em andamento para priorizar o apagamento
+  syncPendente = false;         // limpa pendencias anteriores para evitar mesclagem posterior
+  setSync('apagamento pendente — enviando…');
+  if(sb) sincronizar({silencioso:true});
+}
+
 /* chamado a cada salvamento: junta varias alteracoes num envio so */
 function agendarSync(){
   if(!sb) return;
@@ -1796,6 +1826,7 @@ function agendarSync(){
 /* liga o automatico (chamado uma vez, no fim do script) */
 function iniciarSync(){
   if(!sb){ setSync('sincronização desligada'); return }
+  if(forcarEnvio) setSync('apagamento pendente — enviando…');
   sb.auth.onAuthStateChange((_e,session)=>{ syncUser=(session&&session.user)||null });
   sincronizar({silencioso:true});
   setInterval(()=>{ if(document.visibilityState==='visible') sincronizar({silencioso:true}) },120000);
@@ -1907,7 +1938,7 @@ function responderQuestao(id, nota, altEscolhida=null){
 
 function refazerQuestao(id){
   delete progresso[id];
-  salvarProg();
+  salvarProg(); marcarApagamento();
   estado.respondida = null;
   estado.selecionada = null;
   if(estado.riscadas[id]) delete estado.riscadas[id];
@@ -1918,9 +1949,9 @@ function refazerQuestao(id){
 function restaurarTodasDoFiltro(){
   const l = fila('questoes');
   if(!l.length) return;
-  if(confirm(`Deseja restaurar/limpar o histórico de todas as ${l.length} questões deste filtro?`)){
+  if(confirm(`Restaurar o histórico das ${l.length} questões deste filtro? Isso apaga também na nuvem.`)){
     l.forEach(i => delete progresso[i.id]);
-    salvarProg();
+    salvarProg(); marcarApagamento();
     estado.idx = 0;
     estado.respondida = null;
     estado.selecionada = null;
@@ -2399,7 +2430,7 @@ function ligarAjustes(){
     }catch(e){ toast('JSON inválido') }
   };
   document.getElementById('zerar').onclick=()=>{
-    if(confirm('Zerar todo o progresso? Os itens continuam.')){ progresso={}; salvarProg(); toast('Progresso zerado'); render() }
+    if(confirm('Zerar todo o progresso? Isso apaga também na nuvem e nos outros aparelhos. Os itens continuam.')){ progresso={}; salvarProg(); marcarApagamento(); toast('Progresso zerado'); render() }
   };
   const bl=document.getElementById('limpar');
   if(bl) bl.onclick=()=>{
@@ -2410,7 +2441,7 @@ function ligarAjustes(){
     if(!confirm('Apagar '+ids.length+' itens de '+m+' / '+t+'? O progresso deles também some.')) return;
     ['juris','questoes'].forEach(x=>{ meus[x]=meus[x].filter(i=>!alvo(i)) });
     ids.forEach(i=>{ delete progresso[i] });
-    salvarMeus(); salvarProg(); estado.tema='TODOS'; toast(ids.length+' itens apagados'); render();
+    salvarMeus(); salvarProg(); marcarApagamento(); estado.tema='TODOS'; toast(ids.length+' itens apagados'); render();
   };
 }
 
