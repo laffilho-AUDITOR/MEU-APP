@@ -410,7 +410,7 @@ nav button.on{color:var(--ouro)}
 <div class="toast" id="toast">App gerado com sucesso!</div>
 
 <script id="script-dados">
-const SEED = {
+let SEED = {
   "juris": [
     {
       "id": "j-iptu-001",
@@ -1814,6 +1814,34 @@ const hoje=()=>new Date().toISOString().slice(0,10);
 const somaDias=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+const KEY_CONT='semef2026_conteudo_v1';
+let fonteConteudo='embutido no HTML';
+
+function aplicarConteudo(d,fonte){
+  if(!d || !Array.isArray(d.juris) || !Array.isArray(d.questoes)) return false;
+  SEED = { juris:d.juris, questoes:d.questoes };
+  fonteConteudo = fonte;
+  const ocupado = estado.revelado || estado.respondida!==null || estado.aba==='add';
+  if(!ocupado && document.getElementById('tela')) render();
+  return true;
+}
+
+async function carregarConteudo(){
+  const cache = store.get(KEY_CONT);
+  if(cache && cache.dados) aplicarConteudo(cache.dados,'conteudo.json (cópia local)');
+  if(location.protocol==='file:') return;              // fetch não funciona por duplo clique
+  try{
+    const r = await fetch('./conteudo.json?v='+Date.now(), {cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const d = await r.json();
+    if(!aplicarConteudo(d,'conteudo.json')) throw new Error('formato inválido');
+    store.set(KEY_CONT,{dados:d, em:new Date().toISOString()});
+  }catch(e){
+    console.warn('[conteudo.json]', e.message);
+    if(!cache) fonteConteudo='embutido no HTML (conteudo.json não carregou)';
+  }
+}
+
 function base(tipo){
   const map=new Map();
   (SEED[tipo]||[]).forEach(i=>map.set(i.id,i));
@@ -2088,7 +2116,7 @@ function vAjustes(){
       <button class="btn linha cheio" id="btSincronizar">🔄 Sincronizar agora</button>
       <button class="btn linha" id="btEntrar">Entrar / trocar conta</button>
       <button class="btn linha err" id="btSair">Sair da conta neste aparelho</button></div>
-    <div class="item"><h4>Situação</h4><p>${SEED.juris.length+SEED.questoes.length} itens no arquivo · ${meus.juris.length+meus.questoes.length} adicionados por você · ${vistos} itens já estudados</p></div>
+    <div class="item"><h4>Situação</h4><p>Conteúdo: <b>${esc(fonteConteudo)}</b><br>${SEED.juris.length+SEED.questoes.length} itens no arquivo · ${meus.juris.length+meus.questoes.length} adicionados por você · ${vistos} itens já estudados</p></div>
     
     <label>Portabilidade (PC ↔ Celular)</label>
     <button class="btn linha cheio" id="baixarApp">Baixar APP com meus dados embutidos</button>
@@ -2331,8 +2359,8 @@ function ligarAjustes(){
       juris: SEED.juris.concat(meus.juris),
       questoes: SEED.questoes.concat(meus.questoes)
     };
-    const dadosStr = 'const SEED = ' + JSON.stringify(novoSeed, null, 2) + ';';
-    const regex = /const SEED = \{[\s\S]*?\};/;
+    const dadosStr = 'let SEED = ' + JSON.stringify(novoSeed, null, 2) + ';';
+    const regex = /(?:const|let) SEED = \{[\s\S]*?\};/;
     const novoHtml = html.replace(regex, () => dadosStr);
     
     const blob=new Blob([novoHtml],{type:'text/html'});
@@ -2432,6 +2460,7 @@ document.getElementById('cErradas').onclick=()=>{
 
 render();
 iniciarSync();
+carregarConteudo();
 </script>
 
 <script>
