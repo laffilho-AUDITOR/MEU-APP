@@ -1,4 +1,4 @@
-const CACHE = 'semef-manaus-v2';
+const CACHE = 'semef-manaus-v3';
 const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -21,9 +21,10 @@ self.addEventListener('fetch', e => {
   const ehPagina = req.mode === 'navigate' || /\.(html|json)$/.test(url.pathname);
 
   if (ehPagina) {
-    // rede primeiro: nunca mais serve HTML velho do cache
+    // rede primeiro, e ignora qualquer cache HTTP do navegador/CDN no caminho:
+    // nunca mais serve HTML velho, nem do Service Worker nem do cache do navegador
     e.respondWith(
-      fetch(req).then(r => {
+      fetch(req, { cache: 'no-store' }).then(r => {
         const copia = r.clone();
         caches.open(CACHE).then(c => c.put(req, copia));
         return r;
