@@ -2142,7 +2142,15 @@ function base(tipo){
 function prog(id){ return progresso[id] || {caixa:0, prox:'2000-01-01', acertos:0, erros:0, ultimaResp:null} }
 function devida(id){ return prog(id).prox <= hoje() }
 
-let estado={aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false, idx:0, revelado:false, respondida:null, fontSize:15, riscadas:{}, selecionada:null};
+let estado={aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false, idx:0, revelado:false, respondida:null, fontSize:15, riscadas:{}, selecionada:null, errMateria:'TODAS', errTema:'TODOS'};
+
+/* No modo "So as erradas" a questao volta EM BRANCO, para ser respondida de novo.
+   O historico continua guardado; so nao e mostrado marcado na tela. */
+function respostaVisivel(p){
+  if(estado.respondida !== null) return estado.respondida;
+  if(estado.soErradas && estado.aba==='questoes') return null;
+  return p.ultimaResp;
+}
 
 function materiasDisponiveis(){
   const s=new Set();
@@ -2206,10 +2214,56 @@ function refazerQuestao(id){
   render();
 }
 
+/* ---------- rede de seguranca do progresso ---------- */
+const KEY_BKP='semef2026_backups_prog_v1';
+function lerBackups(){ const b=store.get(KEY_BKP); return Array.isArray(b)?b:[] }
+function snapshotProgresso(rotulo){
+  try{
+    const lista=lerBackups();
+    lista.push({em:new Date().toISOString(), rotulo:rotulo||'restauração', progresso:JSON.parse(JSON.stringify(progresso))});
+    while(lista.length>8) lista.shift();
+    store.set(KEY_BKP,lista);
+  }catch(e){ console.warn('[backup]',e) }
+}
+function desfazerUltimaRestauracao(){
+  const lista=lerBackups();
+  if(!lista.length){ toast('Não há restauração para desfazer'); return }
+  const ult=lista[lista.length-1];
+  const quando=new Date(ult.em).toLocaleString('pt-BR');
+  if(!confirm(`Desfazer "${ult.rotulo}" e trazer de volta o progresso de ${quando}?\n\nNada do que você respondeu depois é perdido: o app fica com o melhor dos dois.`)) return;
+  progresso = mesclarProgresso(progresso, ult.progresso||{});
+  lista.pop(); store.set(KEY_BKP,lista);
+  salvarProg(); marcarApagamento();
+  estado.respondida=null; estado.selecionada=null;
+  toast('Progresso restaurado');
+  render();
+}
+
+/* ---------- questoes erradas por caderno ---------- */
+function erradasDoCaderno(materia,tema){
+  return base('questoes').filter(i =>
+    (materia==='TODAS' || (i.materia||'Sem matéria')===materia) &&
+    (tema==='TODOS'   || (i.tema||'Sem tema')===tema) &&
+    prog(i.id).erros > 0
+  );
+}
+function restaurarErradas(materia,tema){
+  const l=erradasDoCaderno(materia,tema);
+  if(!l.length){ toast('Nenhuma questão errada nesse caderno'); return }
+  if(!confirm(`Restaurar ${l.length} questão(ões) errada(s) de ${materia} / ${tema}?\n\nSó o histórico dessas questões volta a zero. Todo o resto do seu progresso continua intacto, aqui e na nuvem.`)) return;
+  snapshotProgresso(`erradas · ${materia} / ${tema}`);
+  l.forEach(i=>{ delete progresso[i.id]; if(estado.riscadas[i.id]) delete estado.riscadas[i.id] });
+  salvarProg(); marcarApagamento();
+  estado.idx=0; estado.respondida=null; estado.selecionada=null;
+  toast(l.length+' questões erradas restauradas');
+  render();
+}
+
 function restaurarTodasDoFiltro(){
   const l = fila('questoes');
   if(!l.length) return;
   if(confirm(`Restaurar o histórico das ${l.length} questões deste filtro? Isso apaga também na nuvem.`)){
+    snapshotProgresso('restaurar todas do filtro');
     l.forEach(i => delete progresso[i.id]);
     salvarProg(); marcarApagamento();
     estado.idx = 0;
@@ -2294,7 +2348,7 @@ function vQuestao(){
   if(estado.idx>=l.length) estado.idx=0;
   
   const q=l[estado.idx], p=prog(q.id);
-  const r = (estado.respondida !== null) ? estado.respondida : p.ultimaResp;
+  const r = respostaVisivel(p);
   
   const letras='ABCDE';
   const riscadas = estado.riscadas[q.id] || {};
@@ -2321,8 +2375,9 @@ function vQuestao(){
           Questão <b>${estado.idx + 1}</b> de <b>${totalCaderno}</b> 
           <span style="font-size:12px; display:block; margin-top:2px;">(<span class="st-res"><b>${resolvidasCaderno}</b> Resolvidas</span>, <span class="st-ok"><b>${acertosCaderno}</b> Acertos</span> e <span class="st-err"><b>${errosCaderno}</b> Erros</span>)</span>
         </div>
-        <button class="btn-restaurar-todas" id="btn-restaurar-todas" title="Zerar histórico deste caderno">Restaurar Todas</button>
+        <button class="btn-restaurar-todas" id="btn-restaurar-todas" title="${estado.soErradas?'Zerar o histórico só das erradas deste filtro':'Zerar histórico deste caderno'}">${estado.soErradas?'Restaurar Erradas':'Restaurar Todas'}</button>
       </div>
+      ${estado.soErradas?`<div class="aviso" style="margin:0 0 10px">Modo <b>só as erradas</b>: as questões voltam em branco para você responder de novo. O histórico continua guardado.</div>`:''}
 
       <div class="enunciado">
         <div class="eyebrow"><b>#${q.id||'--'}</b> ${esc(q.origem||'')} — ${esc(q.materia||'')}</div>
@@ -2397,6 +2452,29 @@ function listaMeus(){
     : '';
 }
 
+function optErrMateria(){
+  const l=erradasDoCaderno('TODAS','TODOS');
+  const mapa=new Map();
+  l.forEach(i=>{ const m=i.materia||'Sem matéria'; mapa.set(m,(mapa.get(m)||0)+1) });
+  const itens=[['TODAS',l.length],...[...mapa.entries()].sort((a,b)=>String(a[0]).localeCompare(String(b[0])))];
+  if(!itens.some(([m])=>m===estado.errMateria)) estado.errMateria='TODAS';
+  return itens.map(([m,n])=>`<option value="${esc(m)}" ${m===estado.errMateria?'selected':''}>${esc(m)} (${n})</option>`).join('');
+}
+function optErrTema(materia){
+  const l=erradasDoCaderno(materia,'TODOS');
+  const mapa=new Map();
+  l.forEach(i=>{ const t=i.tema||'Sem tema'; mapa.set(t,(mapa.get(t)||0)+1) });
+  const itens=[['TODOS',l.length],...[...mapa.entries()].sort((a,b)=>String(a[0]).localeCompare(String(b[0])))];
+  if(!itens.some(([t])=>t===estado.errTema)) estado.errTema='TODOS';
+  return itens.map(([t,n])=>`<option value="${esc(t)}" ${t===estado.errTema?'selected':''}>${esc(t)} (${n})</option>`).join('');
+}
+function textoDesfazer(){
+  const l=lerBackups();
+  if(!l.length) return 'Desfazer última restauração (nenhuma guardada)';
+  const u=l[l.length-1];
+  return `↩ Desfazer: ${esc(u.rotulo)} · ${esc(new Date(u.em).toLocaleString('pt-BR'))}`;
+}
+
 function vAjustes(){
   const todos=['juris','questoes'].flatMap(t=>base(t));
   const vistos=todos.filter(i=>progresso[i.id]).length;
@@ -2422,6 +2500,17 @@ function vAjustes(){
     <textarea id="restaurar" placeholder="Ou cole aqui o conteúdo do JSON de backup"></textarea>
     <button class="btn linha" id="btRestaurar">Restaurar backup</button>
     
+    <hr>
+    <label>Restaurar somente as questões ERRADAS (por caderno)</label>
+    <select id="errMateria">${optErrMateria()}</select>
+    <select id="errTema">${optErrTema(estado.errMateria)}</select>
+    <button class="btn linha err" id="btRestErradas">Restaurar as erradas</button>
+    <div class="aviso">Zera o histórico só das questões com erro no caderno escolhido (ex.: só as erradas de IPTU, ou só as de ITBI). Elas voltam a aparecer em branco, prontas para responder. Nada mais do seu progresso é tocado — nem aqui, nem na nuvem.</div>
+
+    <label>Rede de segurança</label>
+    <button class="btn linha" id="btDesfazer">${textoDesfazer()}</button>
+    <div class="aviso">Antes de cada restauração o app guarda uma cópia do progresso (as 8 últimas). Ao desfazer, ele junta a cópia com o que você respondeu depois — nenhum dos dois lados se perde.</div>
+
     <hr>
     <label>Limpar itens por matéria e tema</label>
     <select id="limpMateria">${materiasDisponiveis().map(m=>`<option>${esc(m)}</option>`).join('')}</select>
@@ -2489,7 +2578,7 @@ function ligar(){
       ev.preventDefault();
       const l = fila('questoes'), q = l[estado.idx], i = +b.dataset.alt;
       const p = prog(q.id);
-      if (estado.respondida !== null || p.ultimaResp !== null) return;
+      if (respostaVisivel(p) !== null) return;
 
       if (tapTimer && lastTapAlt === i) {
         clearTimeout(tapTimer);
@@ -2675,7 +2764,7 @@ function ligarAjustes(){
     fr.onload=()=>{
       try{
         const d=JSON.parse(fr.result);
-        if(d.progresso){ progresso=d.progresso; salvarProg() }
+        if(d.progresso){ snapshotProgresso('restaurar backup de arquivo'); progresso=d.progresso; salvarProg() }
         if(d.meus){ meus=d.meus; salvarMeus() }
         toast('Backup restaurado'); render();
       }catch(err){ toast('Arquivo inválido') }
@@ -2686,14 +2775,22 @@ function ligarAjustes(){
   document.getElementById('btRestaurar').onclick=()=>{
     try{
       const d=JSON.parse(document.getElementById('restaurar').value);
-      if(d.progresso){ progresso=d.progresso; salvarProg() }
+      if(d.progresso){ snapshotProgresso('restaurar backup colado'); progresso=d.progresso; salvarProg() }
       if(d.meus){ meus=d.meus; salvarMeus() }
       toast('Backup restaurado'); render();
     }catch(e){ toast('JSON inválido') }
   };
   document.getElementById('zerar').onclick=()=>{
-    if(confirm('Zerar todo o progresso? Isso apaga também na nuvem e nos outros aparelhos. Os itens continuam.')){ progresso={}; salvarProg(); marcarApagamento(); toast('Progresso zerado'); render() }
+    if(confirm('Zerar todo o progresso? Isso apaga também na nuvem e nos outros aparelhos. Os itens continuam.')){ snapshotProgresso('zerar todo o progresso'); progresso={}; salvarProg(); marcarApagamento(); toast('Progresso zerado'); render() }
   };
+
+  const em=document.getElementById('errMateria'), et=document.getElementById('errTema');
+  if(em) em.onchange=e=>{ estado.errMateria=e.target.value; estado.errTema='TODOS'; if(et) et.innerHTML=optErrTema(estado.errMateria) };
+  if(et) et.onchange=e=>{ estado.errTema=e.target.value };
+  const bre=document.getElementById('btRestErradas');
+  if(bre) bre.onclick=()=>restaurarErradas(estado.errMateria, estado.errTema);
+  const bdf=document.getElementById('btDesfazer');
+  if(bdf) bdf.onclick=()=>desfazerUltimaRestauracao();
   const bl=document.getElementById('limpar');
   if(bl) bl.onclick=()=>{
     const m=document.getElementById('limpMateria').value, t=document.getElementById('limpTema').value;
@@ -2701,6 +2798,7 @@ function ligarAjustes(){
     const ids=['juris','questoes'].flatMap(x=>base(x).filter(alvo).map(i=>i.id));
     if(!ids.length){ toast('Nada corresponde a esse filtro'); return }
     if(!confirm('Apagar '+ids.length+' itens de '+m+' / '+t+'? O progresso deles também some.')) return;
+    snapshotProgresso('apagar itens · '+m+' / '+t);
     ['juris','questoes'].forEach(x=>{ meus[x]=meus[x].filter(i=>!alvo(i)) });
     meus.excluidos=[...new Set([...(meus.excluidos||[]), ...ids])];
     ids.forEach(i=>{ delete progresso[i] });
