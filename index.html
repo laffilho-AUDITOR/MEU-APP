@@ -381,6 +381,95 @@ nav button.on{color:var(--ouro)}
 }
 .toast.on{opacity:1}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ---- cartão moderno de jurisprudência ---- */
+.juris-card {
+  background: var(--barranco);
+  border: 1px solid var(--linha);
+  border-radius: var(--r);
+  padding: 20px 18px;
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.juris-card:active {
+  transform: scale(0.995);
+}
+.juris-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.juris-tag {
+  background: rgba(224, 163, 46, 0.15);
+  color: var(--ouro);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.juris-meta {
+  font-size: 12px;
+  color: var(--texto-fraco);
+  font-weight: 500;
+}
+.juris-pergunta {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--texto);
+  font-weight: 500;
+  text-align: justify;
+}
+
+/* Verso Revelado */
+.juris-resposta {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--linha);
+  animation: fadeInJuris 0.2s ease-in-out;
+}
+.juris-tese-box {
+  background: rgba(63, 178, 127, 0.12);
+  border-left: 4px solid var(--certo);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 14px;
+  color: #a3e6cb;
+  font-size: 14.5px;
+  line-height: 1.5;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.juris-obs-box {
+  background: rgba(224, 163, 46, 0.08);
+  border: 1px solid rgba(224, 163, 46, 0.25);
+  border-radius: 8px;
+  padding: 11px 13px;
+  color: var(--areia-fraca);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.juris-obs-box b {
+  color: var(--ouro);
+}
+.dica {
+  text-align: center;
+  color: var(--texto-fraco);
+  font-size: 12px;
+  margin: 14px 0 0;
+}
+
+@keyframes fadeInJuris {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 <body>
@@ -2306,7 +2395,7 @@ function render(){
 function vazio(msg){ return `<div class="vazio"><b>Nada por aqui</b>${msg}</div>` }
 
 function vJuris(){
-  const l=fila('juris');
+  const l = fila('juris');
   if(!l.length){
     return `
       <div class="vazio">
@@ -2314,32 +2403,49 @@ function vJuris(){
         <button class="btn linha cheio" id="btn-adiantar" style="margin-top:14px;">Adiantar Revisão</button>
       </div>`;
   }
-  if(estado.idx>=l.length) estado.idx=0;
-  const it=l[estado.idx], p=prog(it.id);
-  const frente = it.ref;
-  const olho   = `${it.tribunal||''} · ${it.materia||''}`;
-  const verso  = it.tese;
-  const rodape = it.obs||'';
+  if(estado.idx >= l.length) estado.idx = 0;
+  const it = l[estado.idx];
+
+  // Limpa caracteres brutos como ">>>" e "<<<" se existirem
+  const teseLimpa = (it.tese || '').replace(/>>>\s*|\s*<<</g, '').trim();
+
   return `
-    <div style="display:flex; justify-content:flex-end; margin-bottom:8px;">
-      <button class="chip ${estado.adiantarJuris?'on':''}" id="btn-adiantar-toggle">
-        ${estado.adiantarJuris?'Modo: Adiantando Todas':'Adiantar Revisão'}
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <span style="font-size:12px; color:var(--texto-fraco);">${estado.idx+1} de ${l.length}</span>
+      <button class="chip ${estado.adiantarJuris ? 'on' : ''}" id="btn-adiantar-toggle">
+        ${estado.adiantarJuris ? 'Modo: Adiantando Todas' : 'Adiantar Revisão'}
       </button>
     </div>
-    <div class="card" id="card">
-      <div class="eyebrow">${esc(olho)}</div>
-      <div class="chave">${esc(frente)}</div>
-      ${estado.revelado?`
-        <div class="verso">${esc(verso)}</div>
-        ${rodape?`<div class="fonte">${esc(rodape)}</div>`:''}`:''}
+
+    <div class="juris-card" id="card">
+      <div>
+        <div class="juris-header">
+          <span class="juris-tag">${esc(it.materia || 'TRIBUTÁRIO')}</span>
+          <span class="juris-meta">${esc(it.tribunal || '')}</span>
+        </div>
+        <div class="juris-pergunta">${esc(it.ref)}</div>
+      </div>
+
+      ${estado.revelado ? `
+        <div class="juris-resposta">
+          <div class="juris-tese-box">
+            ${esc(teseLimpa)}
+          </div>
+          ${it.obs ? `
+            <div class="juris-obs-box">
+              <b>Atenção / Pegadinha da Banca:</b><br>${esc(it.obs)}
+            </div>` : ''}
+        </div>` : `
+        <p class="dica">Toque no cartão para revelar a resposta</p>`}
     </div>
-    ${estado.revelado?`
+
+    ${estado.revelado ? `
       <div class="acoes">
-        <button class="btn meio" data-dias="1">Revisar em 1 dia</button>
-        <button class="btn meio" data-dias="3">Revisar em 3 dias</button>
-        <button class="btn ok"    data-dias="7">Revisar em 7 dias</button>
-      </div>`:`<p class="dica">toque no cartão para revelar · ${estado.idx+1} de ${l.length}</p>`}
-    <button class="btn linha" id="pular">Pular</button>`;
+        <button class="btn err"  data-dias="1">Difícil (+1d)</button>
+        <button class="btn meio" data-dias="3">Bom (+3d)</button>
+        <button class="btn ok"   data-dias="7">Fácil (+7d)</button>
+      </div>` : ''}
+    <button class="btn linha" id="pular" style="margin-top:10px;">Pular cartão</button>`;
 }
 
 function vQuestao(){
