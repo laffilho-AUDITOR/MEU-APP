@@ -482,7 +482,7 @@ nav button.on{color:var(--ouro)}
   <div class="filtros">
     <select id="fMateria"><option selected="">TODAS</option><option>IPTU</option></select>
     <select id="fTema"><option selected="">TODOS</option><option>Sem tema</option></select>
-    <button class="chip" id="cDevidas">Só as devidas</button>
+    <button class="chip" id="cDevidas">Não respondidas</button>
     <button class="chip" id="cErradas">Só as erradas</button>
   </div>
 </header>
@@ -2260,7 +2260,8 @@ function fila(tipo){
     return l;
   }
   if(estado.soErradas){ l=l.filter(i=>prog(i.id).erros > 0); }
-  else if(estado.soDevidas || tipo==='juris'){ l=l.filter(i=>devida(i.id)) }
+  else if(estado.soDevidas){ l=l.filter(i=>{ const p=prog(i.id); return (p.acertos||0)+(p.erros||0) === 0 }) }
+  else if(tipo==='juris'){ l=l.filter(i=>devida(i.id)) }
   return l;
 }
 
