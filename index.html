@@ -59,7 +59,11 @@ textarea{min-height:78px;resize:vertical;line-height:1.4;border-radius:9px}
 }
 .chip.on{background:var(--ouro);border-color:var(--ouro);color:#1a1206;font-weight:700}
 .chip.erradas-on{background:var(--errado);border-color:var(--errado);color:#ffffff;font-weight:700}
-main{padding:14px;max-width:720px;margin:0 auto}
+main{padding:14px;width:100%;max-width:1040px;margin:0 auto}
+@media (min-width: 768px) {
+  main { padding: 20px 24px; }
+  .questao-container { padding: 24px 24px; }
+}
 .vazio{border:1px dashed var(--linha);border-radius:var(--r);padding:26px 18px;text-align:center;color:var(--texto-fraco);font-size:14px}
 .vazio b{color:var(--areia);display:block;margin-bottom:6px;font-size:15px}
 
@@ -263,8 +267,9 @@ main{padding:14px;max-width:720px;margin:0 auto}
   font-size:calc(var(--font-size-base) - 1px);
   line-height:1.65;
   color:#166534;
-  white-space:pre-line;
-  word-break:break-word;
+  white-space:pre-wrap;
+  word-break:normal;
+  overflow-wrap:anywhere;
 }
 .gab b{
   color:#15803d;
@@ -536,7 +541,7 @@ let SEED = {
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const KEY_PROG='semef2026_progresso_v1', KEY_USER='semef2026_meusitens_v1';
+const KEY_PROG='semef2026_progresso_v1', KEY_USER='semef2026_meusitens_v1', KEY_FONT='semef2026_fontsize_v1';
 const mem={};
 const store={
   get(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null }catch(e){ return mem[k]??null } },
@@ -801,7 +806,7 @@ function base(tipo){
 function prog(id){ return progresso[id] || {caixa:0, prox:'2000-01-01', acertos:0, erros:0, ultimaResp:null} }
 function devida(id){ return prog(id).prox <= hoje() }
 
-let estado={aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false, idx:0, revelado:false, respondida:null, fontSize:15, riscadas:{}, selecionada:null, errMateria:'TODAS', errTema:'TODOS'};
+let estado={aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false, idx:0, revelado:false, respondida:null, fontSize:store.get(KEY_FONT)||16, riscadas:{}, selecionada:null, errMateria:'TODAS', errTema:'TODOS'};
 
 function respostaVisivel(p){
   if(estado.respondida !== null) return estado.respondida;
@@ -1302,8 +1307,16 @@ function ligar(){
 
   const aumentar=document.getElementById('aumentar-fonte');
   const diminuir=document.getElementById('diminuir-fonte');
-  if(aumentar) aumentar.onclick=()=>{ estado.fontSize=Math.min(estado.fontSize+2,24); render() };
-  if(diminuir) diminuir.onclick=()=>{ estado.fontSize=Math.max(estado.fontSize-2,12); render() };
+  if(aumentar) aumentar.onclick=()=>{ 
+    estado.fontSize=Math.min(estado.fontSize+2,24); 
+    store.set(KEY_FONT, estado.fontSize);
+    render(); 
+  };
+  if(diminuir) diminuir.onclick=()=>{ 
+    estado.fontSize=Math.max(estado.fontSize-2,12); 
+    store.set(KEY_FONT, estado.fontSize);
+    render(); 
+  };
 
   document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{
     document.querySelectorAll('[data-add]').forEach(x=>x.classList.remove('on'));
