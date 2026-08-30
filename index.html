@@ -1408,8 +1408,11 @@ function importarArray(arr){
     jaTem.add(item.id); 
     n++;
   });
-  salvarMeus(); 
-  placar(); 
+  salvarMeus();
+  // Importação de novos itens deve prevalecer sobre uma exclusão antiga já gravada na nuvem.
+  // Força o envio do estado completo atual, evitando que a sincronização restaure a exclusão.
+  marcarApagamento();
+  placar();
   filtros();
   return { n, pulados };
 }
