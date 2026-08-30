@@ -276,6 +276,7 @@ nav button.on{color:var(--accent);font-weight:700}
 <div class="toast" id="toast">App pronto!</div>
 
 <script id="script-dados">
+// SEED limpo: questões e jurisprudências carregam de conteudo.json e simulados vêm de localStorage/Supabase
 let SEED = {
   "juris": [],
   "questoes": [],
@@ -333,20 +334,41 @@ function escolherProg(a,b){
   if(va!==vb) return va>vb?a:b;
   return (a.prox||'')>=(b.prox||'')?a:b;
 }
+
 function mesclarProgresso(local,remoto){
   const out=Object.assign({},local||{});
   Object.entries(remoto||{}).forEach(([id,pr])=>{ out[id]=out[id]?escolherProg(out[id],pr):pr });
   return out;
 }
-function mesclarMeus(local,remoto){
-  const x=new Set([...(((local||{}).excluidos)||[]), ...(((remoto||{}).excluidos)||[])]);
-  const out={juris:[],questoes:[],simulados:[],excluidos:[...x]};
-  ['juris','questoes','simulados'].forEach(t=>{
-    const map=new Map();
-    ((local||{})[t]||[]).forEach(i=>{ if(!x.has(i.id)) map.set(i.id,i) });
-    ((remoto||{})[t]||[]).forEach(i=>{ if(!x.has(i.id) && !map.has(i.id)) map.set(i.id,i) });
-    out[t]=[...map.values()];
+
+function mesclarMeus(local, remoto){
+  const localVal = local || {};
+  const remotoVal = remoto || {};
+  
+  const excluidosLocal = Array.isArray(localVal.excluidos) ? localVal.excluidos : [];
+  const excluidosRemoto = Array.isArray(remotoVal.excluidos) ? remotoVal.excluidos : [];
+  const x = new Set([...excluidosLocal, ...excluidosRemoto]);
+  
+  const out = { juris: [], questoes: [], simulados: [], excluidos: [...x] };
+
+  ['juris', 'questoes', 'simulados'].forEach(t => {
+    const map = new Map();
+    const itensLocal = Array.isArray(localVal[t]) ? localVal[t] : [];
+    const itensRemoto = Array.isArray(remotoVal[t]) ? remotoVal[t] : [];
+
+    // Prioridade para os itens salvos localmente no aparelho
+    itensLocal.forEach(i => {
+      if (i && i.id && !x.has(i.id)) map.set(i.id, i);
+    });
+
+    // Adiciona novidades remotas sem sobrescrever adições locais recentes
+    itensRemoto.forEach(i => {
+      if (i && i.id && !x.has(i.id) && !map.has(i.id)) map.set(i.id, i);
+    });
+
+    out[t] = [...map.values()];
   });
+
   return out;
 }
 
@@ -419,12 +441,15 @@ async function sincronizar(opcoes){
     const progAntes=JSON.stringify(progresso), meusAntes=JSON.stringify(meus);
 
     progresso = mesclarProgresso(progresso, remoto.progresso||{});
-    meus      = mesclarMeus(meus, remoto.meus||{juris:[],questoes:[],simulados:[]});
+    meus      = mesclarMeus(meus, remoto.meus||{juris:[],questoes:[],simulados:[],excluidos:[]});
     ['juris','questoes','simulados'].forEach(t=>{ if(!Array.isArray(meus[t])) meus[t]=[] });
     if(!Array.isArray(meus.excluidos)) meus.excluidos=[];
 
     const mudouLocal = JSON.stringify(progresso)!==progAntes || JSON.stringify(meus)!==meusAntes;
-    if(mudouLocal){ store.set(KEY_PROG,progresso); store.set(KEY_USER,meus) }
+    if(mudouLocal){ 
+      store.set(KEY_PROG,progresso); 
+      store.set(KEY_USER,meus); 
+    }
 
     const precisaSubir = !data
       || JSON.stringify(remoto.progresso||{}) !== JSON.stringify(progresso)
@@ -1140,10 +1165,6 @@ function vAjustes(){
       <button class="btn linha err" id="btSair">Sair da conta neste aparelho</button></div>
     <div class="item"><h4>Situação</h4><p>Conteúdo: <b>${esc(fonteConteudo)}</b><br>${SEED.juris.length+SEED.questoes.length} itens no arquivo base · ${meus.juris.length+meus.questoes.length} adicionados por você · ${vistos} estudados</p></div>
     
-    <label>Portabilidade (PC ↔ Celular)</label>
-    <button class="btn linha cheio" id="baixarApp">Baixar APP com meus dados embutidos</button>
-    <div class="aviso">Gera um arquivo .html atualizado com tudo gravado internamente para abrir offline onde quiser.</div>
-    
     <hr>
     <label>Backup de Dados</label>
     <button class="btn linha" id="exportar">Exportar Backup (.json)</button>
@@ -1195,7 +1216,7 @@ function ligar(){
   const pular=document.getElementById('pular');
   if(pular) pular.onclick=()=>{ estado.revelado=false; estado.idx++; estado.riscadas={}; render() };
 
-  // NAVEGAÇÃO POR SWIPE (DESLIZE DO DEDO)
+  // Navegação por Swipe (Deslize)
   const container = document.getElementById('questao-container');
   if(container){
     container.addEventListener('touchstart', e => { 
@@ -1208,9 +1229,9 @@ function ligar(){
       if(Math.abs(dist) > 70){
         if(estado.aba === 'questoes'){
           const l = fila('questoes');
-          if(dist < 0 && estado.idx < l.length - 1){ // Swipe Esquerda -> Próxima
+          if(dist < 0 && estado.idx < l.length - 1){
             estado.idx++; estado.riscadas={}; estado.selecionada=null; estado.respondida=null; render();
-          } else if(dist > 0 && estado.idx > 0){ // Swipe Direita -> Anterior
+          } else if(dist > 0 && estado.idx > 0){
             estado.idx--; estado.riscadas={}; estado.selecionada=null; estado.respondida=null; render();
           }
         } else if(estado.aba === 'simulados' && estado.simuladoId){
@@ -1226,7 +1247,7 @@ function ligar(){
     }, { passive: true });
   }
 
-  // Toque simples (seleciona) e Toque duplo (risca alternativa)
+  // Toque simples seleciona, Toque duplo risca
   document.querySelectorAll('[data-alt]').forEach(b=>{
     b.onclick = ev => {
       ev.preventDefault();
@@ -1408,25 +1429,6 @@ function ligarAjustes(){
   if(be) be.onclick=async()=>{ const u=await entrarNaConta(); if(u) sincronizar({silencioso:false}); };
   const bx=document.getElementById('btSair');
   if(bx) bx.onclick=sairDaConta;
-
-  document.getElementById('baixarApp').onclick=()=>{
-    const html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
-    const x=fora();
-    const juntar=(a,b)=>{ const m=new Map(); (a||[]).concat(b||[]).forEach(i=>{ if(!x.has(i.id)) m.set(i.id,i) }); return [...m.values()] };
-    const novoSeed = {
-      juris: juntar(SEED.juris, meus.juris),
-      questoes: juntar(SEED.questoes, meus.questoes),
-      simulados: juntar(SEED.simulados, meus.simulados)
-    };
-    const dadosStr = 'let SEED = ' + JSON.stringify(novoSeed, null, 2) + ';';
-    const regex = /(?:const|let) SEED = \{[\s\S]*?\};/;
-    const novoHtml = html.replace(regex, () => dadosStr);
-    
-    const blob=new Blob([novoHtml],{type:'text/html'});
-    const a=document.createElement('a');
-    a.href=URL.createObjectURL(blob); a.download='app_semef_dados.html'; a.click();
-    toast('App gerado com sucesso!');
-  };
 
   document.getElementById('exportar').onclick=()=>{
     const blob=new Blob([JSON.stringify({progresso,meus},null,1)],{type:'application/json'});
