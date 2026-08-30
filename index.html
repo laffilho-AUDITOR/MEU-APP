@@ -276,7 +276,7 @@ nav button.on{color:var(--accent);font-weight:700}
 <div class="toast" id="toast">App pronto!</div>
 
 <script id="script-dados">
-// SEED limpo: questões e jurisprudências carregam de conteudo.json e simulados vêm de localStorage/Supabase
+// SEED inicial vazio: dados vêm do conteudo.json e simulados vêm de localStorage/Supabase
 let SEED = {
   "juris": [],
   "questoes": [],
@@ -356,7 +356,7 @@ function mesclarMeus(local, remoto){
     const itensLocal = Array.isArray(localVal[t]) ? localVal[t] : [];
     const itensRemoto = Array.isArray(remotoVal[t]) ? remotoVal[t] : [];
 
-    // Prioridade para os itens salvos localmente no aparelho
+    // Prioriza o que está no aparelho local
     itensLocal.forEach(i => {
       if (i && i.id && !x.has(i.id)) map.set(i.id, i);
     });
@@ -560,8 +560,8 @@ async function carregarConteudo(){
 
 function base(tipo){
   const map=new Map(), x=fora();
-  (SEED[tipo]||[]).forEach(i=>{ if(!x.has(i.id)) map.set(i.id,i) });
-  (meus[tipo]||[]).forEach(i=>{ if(!x.has(i.id)) map.set(i.id,i) });
+  (SEED[tipo]||[]).forEach(i=>{ if(i && i.id && !x.has(i.id)) map.set(i.id,i) });
+  ((meus && meus[tipo])||[]).forEach(i=>{ if(i && i.id && !x.has(i.id)) map.set(i.id,i) });
   return [...map.values()];
 }
 function prog(id){ return progresso[id] || {caixa:0, prox:'2000-01-01', acertos:0, erros:0, ultimaResp:null} }
@@ -1323,12 +1323,17 @@ function ligarForm(){
   document.getElementById('salvarItem').onclick=()=>{
     const tipo=f.dataset.tipo, v={};
     f.querySelectorAll('[data-k]').forEach(e=>v[e.dataset.k]=e.value.trim());
-    const id=tipo[0]+'-u-'+Date.now().toString(36);
+    const id = (tipo === 'simulados' ? 's-' : (tipo === 'questoes' ? 'q-' : 'j-')) + Date.now().toString(36);
     let item;
     if(tipo==='simulados'){
       let questoes = [];
-      try { questoes = JSON.parse(v.questoes_json); } catch(e){ return toast('JSON de questões inválido'); }
-      item = { id, titulo: v.titulo||'Simulado', descricao: v.descricao||'', questoes };
+      try { 
+        questoes = JSON.parse(v.questoes_json); 
+        if(!Array.isArray(questoes)) throw new Error();
+      } catch(e){ 
+        return toast('JSON de questões inválido! Verifique o formato.'); 
+      }
+      item = { id, titulo: v.titulo || 'Simulado Sem Título', descricao: v.descricao || '', questoes };
     } else if(tipo==='questoes'){
       const alts=['a','b','c','d','e'].map(k=>v[k]).filter(Boolean);
       const letra=(v.correta||'').toUpperCase();
@@ -1338,14 +1343,18 @@ function ligarForm(){
       if(!v.ref||!v.tese) return toast('Falta referência ou tese');
       item={id,materia:v.materia||'Sem matéria',tribunal:v.tribunal,ref:v.ref,tese:v.tese,obs:v.obs};
     }
-    if(!meus[tipo]) meus[tipo] = [];
     
+    if(!meus[tipo]) meus[tipo] = [];
     if(Array.isArray(meus.excluidos)) meus.excluidos = meus.excluidos.filter(x => x !== item.id);
     
     meus[tipo].push(item); 
     salvarMeus();
     f.querySelectorAll('[data-k]').forEach(e=>e.value='');
-    toast('Item adicionado!'); listaMeus(); ligarDel(); placar(); filtros();
+    toast('Item adicionado!'); 
+    listaMeus(); 
+    ligarDel(); 
+    placar(); 
+    filtros();
   };
   ligarDel();
 }
@@ -1382,21 +1391,27 @@ function idsExistentes(){
 
 function importarArray(arr){
   if(!Array.isArray(arr)) throw 0;
-  const jaTem=idsExistentes();
-  let n=0,pulados=0;
-  arr.forEach(o=>{
-    const tipo=o.tipo||(o.questoes?'simulados':'juris'); 
+  const jaTem = idsExistentes();
+  let n = 0, pulados = 0;
+  arr.forEach(o => {
+    // Se o objeto possui a chave "questoes" como array, é um Simulado
+    const tipo = o.tipo || (Array.isArray(o.questoes) ? 'simulados' : (o.alts ? 'questoes' : 'juris'));
     if(!meus[tipo]) meus[tipo] = [];
-    const item=Object.assign({},o); delete item.tipo;
-    item.id=item.id||tipo[0]+'-u-'+Math.random().toString(36).slice(2,9);
+    const item = Object.assign({}, o); 
+    delete item.tipo;
+    item.id = item.id || (tipo[0] + '-u-' + Math.random().toString(36).slice(2,9));
     
     if(Array.isArray(meus.excluidos)) meus.excluidos = meus.excluidos.filter(x => x !== item.id);
     
-    if(jaTem.has(item.id)){ pulados++; return }
-    meus[tipo].push(item); jaTem.add(item.id); n++;
+    if(jaTem.has(item.id)){ pulados++; return; }
+    meus[tipo].push(item); 
+    jaTem.add(item.id); 
+    n++;
   });
-  salvarMeus(); placar(); filtros();
-  return {n,pulados};
+  salvarMeus(); 
+  placar(); 
+  filtros();
+  return { n, pulados };
 }
 
 function ligarLote(){
