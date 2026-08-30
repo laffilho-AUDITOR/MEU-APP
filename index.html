@@ -101,6 +101,7 @@ main{
   color:#1e293b;
   box-shadow:0 4px 14px rgba(0,0,0,.25);
   width:100%;
+  touch-action: pan-y;
 }
 .tec-stats-container{
   display:flex;
@@ -883,7 +884,7 @@ function vSimulados(){
       </div>
 
       ${q ? `
-      <div class="questao-container">
+      <div class="questao-container" id="questao-container">
         <div class="enunciado">
           <div class="eyebrow">Questão <b>${qAtualIdx + 1}</b> de <b>${questoes.length}</b> (Peso ${q.peso||1}) — ${esc(q.materia||'')}</div>
           <div class="txt">${esc(q.enunciado)}</div>
@@ -924,7 +925,7 @@ function vSimulados(){
       `).join('')}
     </div>
 
-    <div class="questao-container">
+    <div class="questao-container" id="questao-container">
       <div class="enunciado">
         <div class="eyebrow">Questão <b>${estado.simIdx + 1}</b> de <b>${questoes.length}</b> (Peso ${q.peso||1}) — ${esc(q.materia||'')}</div>
         <div class="txt">${esc(q.enunciado)}</div>
@@ -988,7 +989,12 @@ function incorporarAoBanco(simId){
   sim.questoes.forEach(q=>{
     const item = Object.assign({}, q);
     item.id = item.id || 'q-sim-'+Math.random().toString(36).slice(2,8);
-    if(!jaTem.has(item.id)){ meus.questoes.push(item); jaTem.add(item.id); n++; }
+    if(!jaTem.has(item.id)){ 
+      if(Array.isArray(meus.excluidos)) meus.excluidos = meus.excluidos.filter(x=>x!==item.id);
+      meus.questoes.push(item); 
+      jaTem.add(item.id); 
+      n++; 
+    }
   });
   salvarMeus(); toast(n + ' questões adicionadas ao treino geral!');
 }
@@ -1161,6 +1167,8 @@ function vAjustes(){
 }
 
 /* ---------- Eventos e Ligação do DOM ---------- */
+let touchStartX = 0;
+let touchEndX = 0;
 let tapTimer = null;
 let lastTapAlt = null;
 
@@ -1187,6 +1195,38 @@ function ligar(){
   const pular=document.getElementById('pular');
   if(pular) pular.onclick=()=>{ estado.revelado=false; estado.idx++; estado.riscadas={}; render() };
 
+  // NAVEGAÇÃO POR SWIPE (DESLIZE DO DEDO)
+  const container = document.getElementById('questao-container');
+  if(container){
+    container.addEventListener('touchstart', e => { 
+      touchStartX = e.changedTouches[0].screenX; 
+    }, { passive: true });
+    
+    container.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      const dist = touchEndX - touchStartX;
+      if(Math.abs(dist) > 70){
+        if(estado.aba === 'questoes'){
+          const l = fila('questoes');
+          if(dist < 0 && estado.idx < l.length - 1){ // Swipe Esquerda -> Próxima
+            estado.idx++; estado.riscadas={}; estado.selecionada=null; estado.respondida=null; render();
+          } else if(dist > 0 && estado.idx > 0){ // Swipe Direita -> Anterior
+            estado.idx--; estado.riscadas={}; estado.selecionada=null; estado.respondida=null; render();
+          }
+        } else if(estado.aba === 'simulados' && estado.simuladoId){
+          if(dist < 0){
+            if(estado.simFinalizado) navegarRevisao(1);
+            else navegarSimulado(1);
+          } else if(dist > 0){
+            if(estado.simFinalizado) navegarRevisao(-1);
+            else navegarSimulado(-1);
+          }
+        }
+      }
+    }, { passive: true });
+  }
+
+  // Toque simples (seleciona) e Toque duplo (risca alternativa)
   document.querySelectorAll('[data-alt]').forEach(b=>{
     b.onclick = ev => {
       ev.preventDefault();
@@ -1278,7 +1318,11 @@ function ligarForm(){
       item={id,materia:v.materia||'Sem matéria',tribunal:v.tribunal,ref:v.ref,tese:v.tese,obs:v.obs};
     }
     if(!meus[tipo]) meus[tipo] = [];
-    meus[tipo].push(item); salvarMeus();
+    
+    if(Array.isArray(meus.excluidos)) meus.excluidos = meus.excluidos.filter(x => x !== item.id);
+    
+    meus[tipo].push(item); 
+    salvarMeus();
     f.querySelectorAll('[data-k]').forEach(e=>e.value='');
     toast('Item adicionado!'); listaMeus(); ligarDel(); placar(); filtros();
   };
@@ -1290,16 +1334,13 @@ function ligarDel(){
     ev.preventDefault();
     const {del,tipo}=a.dataset;
     
-    // 1. Remove da memória local
     if(meus[tipo]) {
       meus[tipo] = meus[tipo].filter(i=>i.id !== del);
     }
     
-    // 2. Registra nos excluídos para sincronizar a remoção definitiva
     if(!Array.isArray(meus.excluidos)) meus.excluidos = [];
     if(!meus.excluidos.includes(del)) meus.excluidos.push(del);
     
-    // 3. Limpa progresso e força a sincronização de apagamento no Supabase
     delete progresso[del];
     salvarMeus();
     salvarProg();
@@ -1327,6 +1368,9 @@ function importarArray(arr){
     if(!meus[tipo]) meus[tipo] = [];
     const item=Object.assign({},o); delete item.tipo;
     item.id=item.id||tipo[0]+'-u-'+Math.random().toString(36).slice(2,9);
+    
+    if(Array.isArray(meus.excluidos)) meus.excluidos = meus.excluidos.filter(x => x !== item.id);
+    
     if(jaTem.has(item.id)){ pulados++; return }
     meus[tipo].push(item); jaTem.add(item.id); n++;
   });
