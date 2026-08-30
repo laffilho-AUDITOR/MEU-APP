@@ -1289,8 +1289,26 @@ function ligarDel(){
   document.querySelectorAll('[data-del]').forEach(a=>a.onclick=ev=>{
     ev.preventDefault();
     const {del,tipo}=a.dataset;
-    meus[tipo]=meus[tipo].filter(i=>i.id!==del); salvarMeus();
-    listaMeus(); ligarDel(); placar(); toast('Apagado');
+    
+    // 1. Remove da memória local
+    if(meus[tipo]) {
+      meus[tipo] = meus[tipo].filter(i=>i.id !== del);
+    }
+    
+    // 2. Registra nos excluídos para sincronizar a remoção definitiva
+    if(!Array.isArray(meus.excluidos)) meus.excluidos = [];
+    if(!meus.excluidos.includes(del)) meus.excluidos.push(del);
+    
+    // 3. Limpa progresso e força a sincronização de apagamento no Supabase
+    delete progresso[del];
+    salvarMeus();
+    salvarProg();
+    marcarApagamento();
+    
+    listaMeus();
+    ligarDel();
+    placar();
+    toast('Apagado e sincronizado!');
   });
 }
 
