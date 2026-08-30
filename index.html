@@ -2,32 +2,39 @@
 <html lang="pt-BR" style="--font-size-base: 15px;"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0B1412">
+<meta name="theme-color" content="#0F172A">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>SEMEF Manaus 2026</title>
 <style>
 :root{
-  --agua-preta:#0B1412;
-  --agua-funda:#101E1B;
-  --barranco:#172A26;
-  --linha:#24413A;
-  --areia:#EFE7D6;
-  --areia-fraca:#C9BFA8;
-  --ouro:#E0A32E;
-  --ouro-fraco:#8A6A22;
-  --certo:#3FB27F;
-  --errado:#D9584B;
-  --texto:#DCE9E4;
-  --texto-fraco:#8FA8A0;
-  --r:14px;
+  --bg-primary: #0F172A;
+  --bg-surface: #1E293B;
+  --bg-elevated: #334155;
+  --border-subtle: #334155;
+  --border-strong: #475569;
+  
+  --accent: #3B82F6;
+  --accent-soft: rgba(59, 130, 246, 0.15);
+  --accent-hover: #2563EB;
+  --ouro: #F59E0B;
+  --ouro-soft: rgba(245, 158, 11, 0.12);
+  
+  --certo: #10B981;
+  --errado: #EF4444;
+  
+  --texto-primary: #F8FAFC;
+  --texto-secondary: #94A3B8;
+  --texto-muted: #64748B;
+  
+  --r: 12px;
   --font-size-base: 16px;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
 body{
-  background:var(--agua-preta);
-  color:var(--texto);
+  background:var(--bg-primary);
+  color:var(--texto-primary);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,sans-serif;
   font-size:var(--font-size-base);line-height:1.45;
   padding-bottom:86px;
@@ -35,32 +42,30 @@ body{
 }
 header{
   position:sticky;top:0;z-index:20;
-  background:linear-gradient(180deg,var(--agua-funda) 70%,rgba(16,30,27,.85));
-  border-bottom:1px solid var(--linha);
+  background:linear-gradient(180deg,var(--bg-surface) 85%,rgba(30,41,59,.9));
+  border-bottom:1px solid var(--border-subtle);
   padding:calc(env(safe-area-inset-top) + 10px) 14px 8px;
 }
 .topo{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
-h1{font-size:15px;margin:0;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--areia)}
-h1 small{display:block;letter-spacing:.04em;text-transform:none;font-weight:400;font-size:11px;color:var(--texto-fraco);margin-top:2px}
-.placar{font-variant-numeric:tabular-nums;font-size:12px;color:var(--texto-fraco);text-align:right;white-space:nowrap}
-.placar b{color:var(--ouro);font-size:15px}
+h1{font-size:15px;margin:0;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--texto-primary)}
+h1 small{display:block;letter-spacing:.03em;text-transform:none;font-weight:400;font-size:11px;color:var(--texto-secondary);margin-top:2px}
+.placar{font-variant-numeric:tabular-nums;font-size:12px;color:var(--texto-secondary);text-align:right;white-space:nowrap}
+.placar b{color:var(--accent);font-size:15px}
 .filtros{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
 select,input,textarea,button{font-family:inherit;font-size:calc(var(--font-size-base) - 2px)}
 select,input,textarea{
-  background:var(--barranco);color:var(--texto);border:1px solid var(--linha);
-  border-radius:99px;padding:8px 10px;width:100%;
+  background:var(--bg-elevated);color:var(--texto-primary);border:1px solid var(--border-strong);
+  border-radius:8px;padding:8px 10px;width:100%;
 }
-select,input{border-radius:9px}
-textarea{min-height:78px;resize:vertical;line-height:1.4;border-radius:9px}
+textarea{min-height:78px;resize:vertical;line-height:1.4}
 .filtros select{flex:1;min-width:120px}
 .chip{
-  border:1px solid var(--linha);background:transparent;color:var(--texto-fraco);
-  border-radius:999px;padding:7px 12px;font-size:12px;cursor:pointer;white-space:nowrap
+  border:1px solid var(--border-strong);background:transparent;color:var(--texto-secondary);
+  border-radius:999px;padding:7px 12px;font-size:12px;cursor:pointer;white-space:nowrap;transition:all .15s ease
 }
-.chip.on{background:var(--ouro);border-color:var(--ouro);color:#1a1206;font-weight:700}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#ffffff;font-weight:700}
 .chip.erradas-on{background:var(--errado);border-color:var(--errado);color:#ffffff;font-weight:700}
 
-/* LARGURA TOTAL SEM BORDAS LATERAIS NO TABLET */
 main{
   padding:12px 14px;
   width:100%;
@@ -72,414 +77,168 @@ main{
   .questao-container { padding: 22px 24px; }
 }
 
-.vazio{border:1px dashed var(--linha);border-radius:var(--r);padding:26px 18px;text-align:center;color:var(--texto-fraco);font-size:14px}
-.vazio b{color:var(--areia);display:block;margin-bottom:6px;font-size:15px}
+.vazio{border:1px dashed var(--border-strong);border-radius:var(--r);padding:26px 18px;text-align:center;color:var(--texto-secondary);font-size:14px}
+.vazio b{color:var(--texto-primary);display:block;margin-bottom:6px;font-size:15px}
 
-/* ---- cartão ---- */
-.card{
-  background:var(--areia);color:#1B1B17;border-radius:var(--r);
-  padding:20px 18px;min-height:190px;
-  display:flex;flex-direction:column;justify-content:center;
-  box-shadow:0 10px 26px rgba(0,0,0,.45);cursor:pointer;position:relative;overflow:hidden
-}
-.card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ouro)}
-.eyebrow{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#7A6A45;margin-bottom:10px;font-weight:700}
-.chave{font-size:22px;font-weight:700;line-height:1.25;letter-spacing:-.01em}
-.verso{
-  font-family:Georgia,"Times New Roman",serif;font-size:17px;line-height:1.5;
-  margin-top:14px;padding-top:14px;border-top:1px solid #D5C9AC;white-space:pre-wrap
-}
-.fonte{margin-top:12px;font-size:12px;color:#6F6244;font-weight:600}
-.detalhe{margin-top:12px;font-size:13.5px;line-height:1.5;color:#4A4030;border-top:1px solid rgba(0,0,0,.12);padding-top:8px}
-.detalhe summary{cursor:pointer;font-size:12px;font-weight:600;color:#6F6244;letter-spacing:.02em;margin-bottom:6px}
-.conferir{display:inline-block;margin-top:8px;font-size:11px;background:#F3D9A0;color:#6B4E06;border-radius:6px;padding:3px 7px;font-weight:700}
-.dica{text-align:center;color:var(--texto-fraco);font-size:12px;margin:12px 0 0}
-
-/* ---- botoes de resposta ---- */
 .acoes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
 .btn{
-  border:1px solid var(--linha);background:var(--barranco);color:var(--texto);
-  border-radius:11px;padding:14px 8px;font-size:13px;font-weight:600;cursor:pointer;text-align:center;
+  border:1px solid var(--border-strong);background:var(--bg-surface);color:var(--texto-primary);
+  border-radius:8px;padding:12px 8px;font-size:13px;font-weight:600;cursor:pointer;text-align:center;
+  transition:background .15s ease;
 }
 .btn:active{transform:translateY(1px)}
-.btn.err{border-color:#5A2A26;color:#F0A79E}
-.btn.meio{border-color:#5E4A1B;color:#EBCB86}
-.btn.ok{border-color:#215243;color:#93E2C0}
-.btn.cheio{background:var(--ouro);border-color:var(--ouro);color:#1a1206}
+.btn.err{border-color:rgba(239,68,68,0.4);color:#FCA5A5;background:rgba(239,68,68,0.1)}
+.btn.meio{border-color:rgba(245,158,11,0.4);color:#FCD34D;background:rgba(245,158,11,0.1)}
+.btn.ok{border-color:rgba(16,185,129,0.4);color:#6EE7B7;background:rgba(16,185,129,0.1)}
+.btn.cheio{background:var(--accent);border-color:var(--accent);color:#ffffff}
+.btn.cheio:hover{background:var(--accent-hover)}
 .btn.linha{width:100%;margin-top:8px}
-.btn:focus-visible,.chip:focus-visible,.alt:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
 
-/* ---- QUESTAO ESTILO TEC CONCURSOS ---- */
 .questao-container{
   background:#ffffff;
   border-radius:10px;
   padding:20px 16px;
-  color:#2c3e50;
-  box-shadow:0 4px 12px rgba(0,0,0,.15);
+  color:#1e293b;
+  box-shadow:0 4px 14px rgba(0,0,0,.25);
   width:100%;
 }
-
-/* Placar Estilo TEC */
 .tec-stats-container{
   display:flex;
   justify-content:space-between;
   align-items:center;
   margin-bottom:12px;
   padding-bottom:8px;
-  border-bottom:1px solid #f0f0f0;
+  border-bottom:1px solid #e2e8f0;
 }
-.tec-stats{
-  font-size:14px;
-  color:#333;
-  font-weight:400;
-}
-.tec-stats b{ font-weight:700; }
-.tec-stats .st-res{ color:#555; }
-.tec-stats .st-ok{ color:#2e7d32; font-weight:700; }
-.tec-stats .st-err{ color:#c62828; font-weight:700; }
+.tec-stats{font-size:14px;color:#334155}
+.tec-stats b{font-weight:700}
+.tec-stats .st-res{color:#475569}
+.tec-stats .st-ok{color:#10b981;font-weight:700}
+.tec-stats .st-err{color:#ef4444;font-weight:700}
 
 .btn-restaurar-todas{
-  background:#fff0f0;
-  border:1px solid #ffccc7;
-  color:#d9363e;
-  border-radius:6px;
-  padding:4px 8px;
-  font-size:11px;
-  font-weight:600;
-  cursor:pointer;
-  white-space:nowrap;
+  background:#fee2e2;border:1px solid #fca5a5;color:#b91c1c;
+  border-radius:6px;padding:4px 8px;font-size:11px;font-weight:600;cursor:pointer;
 }
-.btn-restaurar-todas:hover{ background:#ff4d4f; color:#fff; }
+.btn-restaurar-todas:hover{background:#ef4444;color:#fff}
 
-.enunciado{
-  background:transparent;
-  border:none;
-  padding:0;
-  margin-bottom:20px;
-}
-.enunciado .eyebrow{
-  font-size:12px;
-  color:#7f8c8d;
-  margin-bottom:12px;
-  font-weight:600;
-  letter-spacing: normal;
-  text-transform: none;
-}
+.enunciado{background:transparent;border:none;padding:0;margin-bottom:20px}
+.enunciado .eyebrow{font-size:12px;color:#64748b;margin-bottom:10px;font-weight:600}
 .enunciado .txt{
-  font-size:var(--font-size-base);
-  line-height:1.65;
-  white-space:pre-line;
-  text-align:justify;
-  text-justify:inter-word;
-  color:#333;
+  font-size:var(--font-size-base);line-height:1.65;white-space:pre-line;text-align:justify;color:#0f172a
 }
 
-.alts{
-  margin:16px 0;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
+.alts{margin:16px 0;display:flex;flex-direction:column;gap:10px}
 .alt{
-  display:flex;
-  gap:14px;
-  text-align:left;
-  align-items:flex-start;
-  background:#f9fafb;
-  border:1px solid #e5e7eb;
-  color:#374151;
-  border-radius:8px;
-  padding:14px 16px;
-  cursor:pointer;
-  font-size:var(--font-size-base);
-  line-height:1.55;
-  width:100%;
-  position:relative;
-  transition:all .15s ease;
-  -webkit-user-select:none;
-  user-select:none;
+  display:flex;gap:14px;text-align:left;align-items:flex-start;background:#f8fafc;
+  border:1px solid #cbd5e1;color:#1e293b;border-radius:8px;padding:14px 16px;cursor:pointer;
+  font-size:var(--font-size-base);line-height:1.55;width:100%;position:relative;
+  transition:all .15s ease;-webkit-user-select:none;user-select:none;
 }
 .alt .letra{
-  font-weight:600;
-  color:#4b5563;
-  min-width:32px;
-  height:32px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid #d1d5db;
-  border-radius:50%;
-  flex-shrink:0;
-  font-size:13px;
-  background:#fff;
+  font-weight:600;color:#475569;min-width:30px;height:30px;display:flex;align-items:center;
+  justify-content:center;border:1px solid #cbd5e1;border-radius:50%;flex-shrink:0;font-size:13px;background:#fff
 }
-.alt .texto-alt{
-  flex:1;
-  white-space:pre-line;
-  text-align:justify;
-  text-justify:inter-word;
-}
+.alt .texto-alt{flex:1;white-space:pre-line;text-align:justify}
 
-/* Riscada com dois toques */
-.alt.riscada{
-  background:#f3f4f6!important;
-  border-color:#e5e7eb!important;
-}
-.alt.riscada .texto-alt{
-  text-decoration:line-through;
-  text-decoration-thickness: 1.5px;
-  opacity:0.4;
-  color:#6b7280;
-}
-.alt.riscada .letra{
-  opacity:0.35;
-  border-color:#d1d5db;
-  background:#e5e7eb;
-  text-decoration:line-through;
-}
+.alt.riscada{background:#f1f5f9!important;border-color:#e2e8f0!important}
+.alt.riscada .texto-alt{text-decoration:line-through;opacity:0.35;color:#94a3b8}
+.alt.riscada .letra{opacity:0.3;background:#e2e8f0}
 
-/* Seleção e Gabarito */
-.alt.selecionada{
-  border-color:#3b82f6;
-  background:#eff6ff;
-}
-.alt.selecionada .letra{
-  color:#1d4ed8;
-  border-color:#3b82f6;
-  background:#dbeafe;
-}
-.alt.certa{
-  border-color:#10b981!important;
-  background:#ecfdf5!important;
-}
-.alt.certa .letra{
-  color:#047857!important;
-  border-color:#10b981!important;
-  background:#d1fae5!important;
-}
-.alt.errada{
-  border-color:#ef4444!important;
-  background:#fef2f2!important;
-}
-.alt.errada .letra{
-  color:#b91c1c!important;
-  border-color:#ef4444!important;
-  background:#fee2e2!important;
-}
+.alt.selecionada{border-color:#3b82f6;background:#eff6ff}
+.alt.selecionada .letra{color:#1d4ed8;border-color:#3b82f6;background:#dbeafe}
+.alt.certa{border-color:#10b981!important;background:#ecfdf5!important}
+.alt.certa .letra{color:#047857!important;border-color:#10b981!important;background:#d1fae5!important}
+.alt.errada{border-color:#ef4444!important;background:#fef2f2!important}
+.alt.errada .letra{color:#b91c1c!important;border-color:#ef4444!important;background:#fee2e2!important}
 
 .gab{
-  margin-top:18px;
-  border-left:4px solid #10b981;
-  padding:16px;
-  background:#f0fdf4;
-  border-radius:0 8px 8px 0;
-  font-size:calc(var(--font-size-base) - 1px);
-  line-height:1.65;
-  color:#166534;
-  white-space:pre-wrap;
-  word-break:normal;
-  overflow-wrap:anywhere;
+  margin-top:18px;border-left:4px solid #10b981;padding:16px;background:#f0fdf4;
+  border-radius:0 8px 8px 0;font-size:calc(var(--font-size-base) - 1px);line-height:1.65;color:#166534;
+  white-space:pre-wrap;overflow-wrap:anywhere;
 }
-.gab b{
-  color:#15803d;
-  font-size:calc(var(--font-size-base) + 1px);
-  display:block;
-  margin-bottom:8px;
-}
+.gab b{color:#15803d;font-size:calc(var(--font-size-base) + 1px);display:block;margin-bottom:8px}
 
-/* Controles */
 .controles-questao{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin:12px 0 20px;
-  padding:8px 12px;
-  background:#f3f4f6;
-  border-radius:8px;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0 20px;
+  padding:8px 12px;background:#f1f5f9;border-radius:8px;
 }
-.controle-fonte{
-  display:flex;
-  gap:6px;
-  align-items:center;
-}
+.controle-fonte{display:flex;gap:6px;align-items:center}
 .btn-fonte{
-  background:#fff;
-  border:1px solid #d1d5db;
-  color:#374151;
-  border-radius:6px;
-  padding:4px 8px;
-  cursor:pointer;
-  font-size:12px;
-  font-weight:600;
-  min-width:28px;
+  background:#fff;border:1px solid #cbd5e1;color:#334155;border-radius:6px;padding:4px 8px;cursor:pointer;
+  font-size:12px;font-weight:600;min-width:28px
 }
-.info-questao{
-  font-size:12px;
-  color:#6b7280;
-  white-space:nowrap;
-}
+.info-questao{font-size:12px;color:#64748b;white-space:nowrap}
 
-/* Botão Resolver / Próxima em Largura Total */
 .btn-resolver{
-  width:100%;
-  padding:14px 16px;
-  background:#52c41a;
-  border:none;
-  color:#fff;
-  border-radius:6px;
-  font-size:14px;
-  font-weight:700;
-  cursor:pointer;
-  text-transform:uppercase;
-  letter-spacing:.04em;
-  box-shadow:0 2px 4px rgba(0,0,0,.1);
-  display:block;
-  text-align:center;
-  margin-top:12px;
+  width:100%;padding:14px 16px;background:#2563eb;border:none;color:#fff;
+  border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.04em;
+  box-shadow:0 2px 4px rgba(0,0,0,.1);display:block;text-align:center;margin-top:12px;
 }
-.btn-resolver:active{ opacity:0.9; }
+.btn-resolver:active{opacity:0.9}
 
-.linha-refazer{
-  display:flex;
-  justify-content:flex-end;
-  margin-top:12px;
-}
+.linha-refazer{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
 .btn-refazer-circulo{
-  width:38px;
-  height:38px;
-  background:#f3f4f6;
-  border:1px solid #d1d5db;
-  color:#4b5563;
-  border-radius:50%;
-  font-size:16px;
-  font-weight:700;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  transition:all .15s ease;
-}
-.btn-refazer-circulo:hover{
-  background:#e5e7eb;
-  color:#111827;
+  width:36px;height:36px;background:#f1f5f9;border:1px solid #cbd5e1;color:#475569;
+  border-radius:50%;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;
 }
 
-/* ---- listas / formulario ---- */
-.item{border:1px solid var(--linha);border-radius:12px;padding:12px;margin-bottom:8px;background:var(--agua-funda)}
-.item h4{margin:0 0 4px;font-size:14px;color:var(--areia)}
-.item p{margin:0;font-size:13px;color:var(--texto-fraco)}
-label{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--texto-fraco);margin:12px 0 5px;font-weight:600}
-.linha2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.aviso{font-size:13px;color:var(--texto-fraco);border:1px dashed var(--linha);border-radius:12px;padding:12px;margin-top:14px}
-.aviso code{color:var(--ouro);font-size:12px}
-hr{border:0;border-top:1px solid var(--linha);margin:20px 0}
+.juris-card{
+  background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r);
+  padding:20px 18px;min-height:210px;display:flex;flex-direction:column;justify-content:space-between;
+  box-shadow:0 8px 24px rgba(0,0,0,0.25);cursor:pointer;position:relative;
+}
+.juris-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.juris-tag{background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:700;padding:4px 9px;border-radius:6px;text-transform:uppercase}
+.juris-meta{font-size:12px;color:var(--texto-secondary);font-weight:500}
+.juris-pergunta{font-size:16px;line-height:1.6;color:var(--texto-primary);font-weight:500;text-align:justify}
+.juris-resposta{margin-top:16px;padding-top:16px;border-top:1px dashed var(--border-strong);animation:fadeInJuris 0.2s ease-in-out}
+.juris-tese-box{
+  background:rgba(16,185,129,0.12);border-left:4px solid var(--certo);border-radius:0 8px 8px 0;
+  padding:12px 14px;color:#6ee7b7;font-size:14.5px;line-height:1.5;font-weight:600;margin-bottom:12px;
+}
+.juris-obs-box{
+  background:var(--ouro-soft);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:11px 13px;color:#fde68a;font-size:13px;line-height:1.5;
+}
+.juris-obs-box b{color:var(--ouro)}
 
-/* ---- abas ---- */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+.stat-card{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r);padding:14px;text-align:center}
+.stat-card h3{margin:0;font-size:24px;font-weight:700;color:var(--texto-primary)}
+.stat-card p{margin:4px 0 0;font-size:12px;color:var(--texto-secondary)}
+.prog-bar-container{background:var(--bg-elevated);border-radius:99px;height:8px;overflow:hidden;margin-top:6px}
+.prog-bar{height:100%;background:var(--accent);transition:width .3s ease}
+
+.sim-grid-nav{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;margin-bottom:14px}
+.sim-nav-btn{background:var(--bg-surface);border:1px solid var(--border-subtle);color:var(--texto-secondary);border-radius:6px;height:36px;font-weight:600;cursor:pointer}
+.sim-nav-btn.respondida{background:var(--bg-elevated);color:var(--texto-primary);border-color:var(--accent)}
+.sim-nav-btn.atual{border:2px solid var(--accent);color:#fff;background:var(--accent-soft)}
+
+.item{border:1px solid var(--border-subtle);border-radius:12px;padding:14px;margin-bottom:10px;background:var(--bg-surface)}
+.item h4{margin:0 0 6px;font-size:14.5px;color:var(--texto-primary)}
+.item p{margin:0;font-size:13px;color:var(--texto-secondary)}
+label{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--texto-secondary);margin:12px 0 5px;font-weight:600}
+.aviso{font-size:13px;color:var(--texto-secondary);border:1px dashed var(--border-subtle);border-radius:10px;padding:12px;margin-top:14px}
+hr{border:0;border-top:1px solid var(--border-subtle);margin:20px 0}
+
 nav{
   position:fixed;left:0;right:0;bottom:0;z-index:30;
-  display:grid;grid-template-columns:repeat(4,1fr);
-  background:var(--agua-funda);border-top:1px solid var(--linha);
+  display:grid;grid-template-columns:repeat(6,1fr);
+  background:var(--bg-surface);border-top:1px solid var(--border-subtle);
   padding-bottom:env(safe-area-inset-bottom)
 }
 nav button{
-  background:none;border:0;color:var(--texto-fraco);padding:10px 2px 12px;
-  font-size:10.5px;letter-spacing:.04em;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px
+  background:none;border:0;color:var(--texto-secondary);padding:10px 2px 10px;
+  font-size:10px;letter-spacing:.02em;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px
 }
 nav button .ic{font-size:17px;line-height:1}
-nav button.on{color:var(--ouro)}
+nav button.on{color:var(--accent);font-weight:700}
 .toast{
   position:fixed;left:50%;transform:translateX(-50%);bottom:96px;z-index:50;
-  background:var(--areia);color:#1B1B17;padding:10px 16px;border-radius:999px;
-  font-size:13px;font-weight:600;box-shadow:0 8px 20px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .2s
+  background:#ffffff;color:#0f172a;padding:10px 18px;border-radius:999px;
+  font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .2s
 }
 .toast.on{opacity:1}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-
-/* ---- cartão moderno de jurisprudência ---- */
-.juris-card {
-  background: var(--barranco);
-  border: 1px solid var(--linha);
-  border-radius: var(--r);
-  padding: 20px 18px;
-  min-height: 210px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-  cursor: pointer;
-  position: relative;
-  transition: transform 0.15s ease, border-color 0.15s ease;
-  width: 100%;
-}
-.juris-card:active {
-  transform: scale(0.995);
-}
-.juris-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-.juris-tag {
-  background: rgba(224, 163, 46, 0.15);
-  color: var(--ouro);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 9px;
-  border-radius: 6px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.juris-meta {
-  font-size: 12px;
-  color: var(--texto-fraco);
-  font-weight: 500;
-}
-.juris-pergunta {
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--texto);
-  font-weight: 500;
-  text-align: justify;
-}
-
-/* Verso Revelado */
-.juris-resposta {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px dashed var(--linha);
-  animation: fadeInJuris 0.2s ease-in-out;
-}
-.juris-tese-box {
-  background: rgba(63, 178, 127, 0.12);
-  border-left: 4px solid var(--certo);
-  border-radius: 0 8px 8px 0;
-  padding: 12px 14px;
-  color: #a3e6cb;
-  font-size: 14.5px;
-  line-height: 1.5;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-.juris-obs-box {
-  background: rgba(224, 163, 46, 0.08);
-  border: 1px solid rgba(224, 163, 46, 0.25);
-  border-radius: 8px;
-  padding: 11px 13px;
-  color: var(--areia-fraca);
-  font-size: 13px;
-  line-height: 1.5;
-}
-.juris-obs-box b {
-  color: var(--ouro);
-}
-.dica {
-  text-align: center;
-  color: var(--texto-fraco);
-  font-size: 12px;
-  margin: 14px 0 0;
-}
 
 @keyframes fadeInJuris {
   from { opacity: 0; transform: translateY(4px); }
@@ -494,7 +253,7 @@ nav button.on{color:var(--ouro)}
     <h1>SEMEF Manaus<small>AFTM Manaus 2026 · FCC · prova 01/11</small></h1>
     <div class="placar" id="placar"><b>0</b>/0 dominados<br>0 para revisar hoje</div>
   </div>
-  <div class="filtros">
+  <div class="filtros" id="filtros-container">
     <select id="fMateria"><option selected="">TODAS</option></select>
     <select id="fTema"><option selected="">TODOS</option><option>Sem tema</option></select>
     <button class="chip" id="cDevidas">Não respondidas</button>
@@ -502,42 +261,15 @@ nav button.on{color:var(--ouro)}
   </div>
 </header>
 
-<main id="tela">
-    <div class="item"><h4>☁️ Sincronização automática</h4>
-      <p>Entre uma vez com o mesmo e-mail e senha no PC, celular e tablet. Depois disso o app envia e recebe sozinho: ao abrir, ao voltar para a tela, ao reconectar e alguns segundos depois de cada resposta.</p>
-      <p id="syncStatus" style="color:var(--ouro)">aguardando…</p>
-      <button class="btn linha cheio" id="btSincronizar">🔄 Sincronizar agora</button>
-      <button class="btn linha" id="btEntrar">Entrar / trocar conta</button>
-      <button class="btn linha err" id="btSair">Sair da conta neste aparelho</button></div>
-    <div class="item"><h4>Situação</h4><p>Conteúdo: <b>conteudo.json</b><br>Carregando dados...</p></div>
-    
-    <label>Portabilidade (PC ↔ Celular)</label>
-    <button class="btn linha cheio" id="baixarApp">Baixar APP com meus dados embutidos</button>
-    <div class="aviso">Esta é a melhor forma de levar seus dados para o celular. Ele gera um novo arquivo .html já com tudo que você adicionou dentro dele.</div>
-    
-    <hr>
-    <label>Backup de Dados</label>
-    <button class="btn linha" id="exportar">Exportar Backup (.json)</button>
-    
-    <label>Restaurar Backup</label>
-    <input type="file" accept=".json,application/json" id="arqBackup" style="margin-bottom:8px">
-    <textarea id="restaurar" placeholder="Ou cole aqui o conteúdo do JSON de backup"></textarea>
-    <button class="btn linha" id="btRestaurar">Restaurar backup</button>
-    
-    <hr>
-    <label>Limpar itens por matéria e tema</label>
-    <select id="limpMateria"><option>TODAS</option></select>
-    <select id="limpTema"><option>TODOS</option><option>Sem tema</option></select>
-    <button class="btn linha err" id="limpar">Apagar itens do filtro acima</button>
-    <hr>
-    <button class="btn linha err" id="zerar">Zerar progresso (mantém os itens)</button>
-    <div class="aviso">Se o celular "zerar" os dados ao fechar, é porque o navegador bloqueia o armazenamento local para arquivos. Use o botão <b>Baixar APP com meus dados</b> para salvar permanentemente.</div></main>
+<main id="tela"></main>
 
 <nav>
   <button data-aba="juris" class="on"><span class="ic">⚖</span>Juris</button>
-  <button data-aba="questoes" class=""><span class="ic">✎</span>Questões</button>
+  <button data-aba="questoes"><span class="ic">✎</span>Questões</button>
+  <button data-aba="simulados"><span class="ic">⏱</span>Simulado</button>
+  <button data-aba="stats"><span class="ic">📊</span>Stats</button>
   <button data-aba="add"><span class="ic">＋</span>Adicionar</button>
-  <button data-aba="ajustes" class=""><span class="ic">⚙</span>Ajustes</button>
+  <button data-aba="ajustes"><span class="ic">⚙</span>Ajustes</button>
 </nav>
 
 <div class="toast" id="toast">App pronto!</div>
@@ -545,7 +277,8 @@ nav button.on{color:var(--ouro)}
 <script id="script-dados">
 let SEED = {
   "juris": [],
-  "questoes": []
+  "questoes": [],
+  "simulados": []
 };
 </script>
 
@@ -558,14 +291,13 @@ const store={
   set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)) }catch(e){ mem[k]=v } }
 };
 
-// ===== SINCRONIZAÇÃO NA NUVEM (automática + manual) =====
+// ===== SINCRONIZAÇÃO NA NUVEM =====
 const SUPABASE_URL = 'https://iyzojejpeueoqgapseuh.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_CoL8WD5Kj0Psqarh7ai28w_GUm6o0B4';
 const AUTH_KEY  = 'semef2026_auth';
 const APAGA_KEY = 'semef2026_apagamento_pendente';
 const EMAIL_KEY = 'semef2026_email';
 
-// armazenamento a prova de navegador bloqueado (file://, aba anonima)
 const memAuth = {};
 const authStorage = {
   getItem   : k     => { try { return localStorage.getItem(k) } catch(e){ return memAuth[k] ?? null } },
@@ -593,7 +325,6 @@ function setSync(t){
   if (el) el.textContent = t;
 }
 
-/* ---- mescla: nunca apaga o que veio do outro aparelho ---- */
 function escolherProg(a,b){
   const ta=(a.acertos||0)+(a.erros||0), tb=(b.acertos||0)+(b.erros||0);
   if(ta!==tb) return ta>tb?a:b;
@@ -608,8 +339,8 @@ function mesclarProgresso(local,remoto){
 }
 function mesclarMeus(local,remoto){
   const x=new Set([...(((local||{}).excluidos)||[]), ...(((remoto||{}).excluidos)||[])]);
-  const out={juris:[],questoes:[],excluidos:[...x]};
-  ['juris','questoes'].forEach(t=>{
+  const out={juris:[],questoes:[],simulados:[],excluidos:[...x]};
+  ['juris','questoes','simulados'].forEach(t=>{
     const map=new Map();
     ((local||{})[t]||[]).forEach(i=>{ if(!x.has(i.id)) map.set(i.id,i) });
     ((remoto||{})[t]||[]).forEach(i=>{ if(!x.has(i.id) && !map.has(i.id)) map.set(i.id,i) });
@@ -618,7 +349,6 @@ function mesclarMeus(local,remoto){
   return out;
 }
 
-/* ---- conta ---- */
 async function usuarioAtual(silencioso){
   if(!sb) return null;
   if(syncUser) return syncUser;
@@ -646,22 +376,21 @@ async function entrarNaConta(){
   }
   authStorage.setItem(EMAIL_KEY,email);
   syncUser=data.user;
-  toast('Conectado! Daqui em diante sincroniza sozinho.');
+  toast('Conectado! Sincronizando...');
   return syncUser;
 }
 
 async function sairDaConta(){
   if(!sb) return;
   await sb.auth.signOut();
-  syncUser=null; setSync('desconectado'); toast('Você saiu da conta neste aparelho'); render();
+  syncUser=null; setSync('desconectado'); toast('Você saiu da conta'); render();
 }
 
-/* ---- sincronizacao ---- */
 async function sincronizar(opcoes){
   const silencioso = !opcoes || opcoes.silencioso !== false;
   if(!sb){ if(!silencioso) toast('Supabase não configurado'); return false }
   if(sincronizando){ syncPendente=true; return false }
-  if(!navigator.onLine){ setSync('offline — envia ao voltar a internet'); syncPendente=true; return false }
+  if(!navigator.onLine){ setSync('offline — envia ao voltar'); syncPendente=true; return false }
 
   const user=await usuarioAtual(silencioso);
   if(!user){ setSync('não conectado — toque em “Entrar”'); return false }
@@ -677,23 +406,20 @@ async function sincronizar(opcoes){
       forcarEnvio=false;
       store.set(APAGA_KEY, false);
       setSync('nuvem atualizada · '+new Date().toLocaleTimeString().slice(0,5));
-      if(!silencioso) toast('Aplicado também na nuvem');
+      if(!silencioso) toast('Nuvem atualizada!');
       return true;
     }
     const { data, error } = await sb.from('app_state')
       .select('progresso,meus,updated_at').eq('user_id',user.id).maybeSingle();
     if(error) throw error;
-    if(ep !== epocaDados){
-      syncPendente = true;
-      return false;
-    }
+    if(ep !== epocaDados){ syncPendente = true; return false; }
 
     const remoto=data||{};
     const progAntes=JSON.stringify(progresso), meusAntes=JSON.stringify(meus);
 
     progresso = mesclarProgresso(progresso, remoto.progresso||{});
-    meus      = mesclarMeus(meus, remoto.meus||{juris:[],questoes:[]});
-    ['juris','questoes'].forEach(t=>{ if(!Array.isArray(meus[t])) meus[t]=[] });
+    meus      = mesclarMeus(meus, remoto.meus||{juris:[],questoes:[],simulados:[]});
+    ['juris','questoes','simulados'].forEach(t=>{ if(!Array.isArray(meus[t])) meus[t]=[] });
     if(!Array.isArray(meus.excluidos)) meus.excluidos=[];
 
     const mudouLocal = JSON.stringify(progresso)!==progAntes || JSON.stringify(meus)!==meusAntes;
@@ -710,14 +436,13 @@ async function sincronizar(opcoes){
       if(up.error) throw up.error;
     }
 
-    setSync('tudo sincronizado · '+new Date().toLocaleTimeString().slice(0,5));
+    setSync('sincronizado · '+new Date().toLocaleTimeString().slice(0,5));
     if(mudouLocal) atualizarTelaAposSync();
     if(!silencioso) toast('Sincronizado!');
     return true;
   }catch(e){
     console.error('[sync]',e);
     setSync('erro: '+(e.message||'falha'));
-    if(!silencioso) toast('Falha: '+(e.message||'verifique a conexão'));
     return false;
   }finally{
     sincronizando=false;
@@ -768,8 +493,8 @@ function iniciarSync(){
 }
 
 let progresso = store.get(KEY_PROG) || {};
-let meus = store.get(KEY_USER) || {juris:[],questoes:[]};
-['juris','questoes'].forEach(t=>{ if(!Array.isArray(meus[t])) meus[t]=[] });
+let meus = store.get(KEY_USER) || {juris:[],questoes:[],simulados:[]};
+['juris','questoes','simulados'].forEach(t=>{ if(!Array.isArray(meus[t])) meus[t]=[] });
 if(!Array.isArray(meus.excluidos)) meus.excluidos=[];
 const fora=()=>new Set(meus.excluidos||[]);
 
@@ -780,11 +505,11 @@ const somaDias=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOStr
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 const KEY_CONT='semef2026_conteudo_v1';
-let fonteConteudo='embutido no HTML';
+let fonteConteudo='carregando do servidor...';
 
 function aplicarConteudo(d,fonte){
-  if(!d || !Array.isArray(d.juris) || !Array.isArray(d.questoes)) return false;
-  SEED = { juris:d.juris, questoes:d.questoes };
+  if(!d) return false;
+  SEED = { juris:d.juris||[], questoes:d.questoes||[], simulados:d.simulados||[] };
   fonteConteudo = fonte;
   const ocupado = estado.revelado || estado.respondida!==null || estado.aba==='add';
   if(!ocupado && document.getElementById('tela')) render();
@@ -803,7 +528,7 @@ async function carregarConteudo(){
     store.set(KEY_CONT,{dados:d, em:new Date().toISOString()});
   }catch(e){
     console.warn('[conteudo.json]', e.message);
-    if(!cache) fonteConteudo='embutido no HTML (conteudo.json não carregou)';
+    if(!cache) fonteConteudo='conteudo.json pendente / offline';
   }
 }
 
@@ -816,7 +541,12 @@ function base(tipo){
 function prog(id){ return progresso[id] || {caixa:0, prox:'2000-01-01', acertos:0, erros:0, ultimaResp:null} }
 function devida(id){ return prog(id).prox <= hoje() }
 
-let estado={aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false, idx:0, revelado:false, respondida:null, fontSize:store.get(KEY_FONT)||16, riscadas:{}, selecionada:null, errMateria:'TODAS', errTema:'TODOS'};
+let estado={
+  aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false, 
+  idx:0, revelado:false, respondida:null, fontSize:store.get(KEY_FONT)||16, riscadas:{}, selecionada:null, 
+  errMateria:'TODAS', errTema:'TODOS',
+  simuladoId: null, simIdx: 0, simRespostas: {}, simFinalizado: false, simModoRevisao: 'todas'
+};
 
 function respostaVisivel(p){
   if(estado.respondida !== null) return estado.respondida;
@@ -839,9 +569,7 @@ function temasDisponiveis(){
 function fila(tipo){
   let l=base(tipo).filter(i=>estado.materia==='TODAS'||i.materia===estado.materia);
   l=l.filter(i=>estado.tema==='TODOS'||(i.tema||'Sem tema')===estado.tema);
-  if(tipo==='juris' && estado.adiantarJuris){
-    return l;
-  }
+  if(tipo==='juris' && estado.adiantarJuris){ return l; }
   if(estado.soErradas){ l=l.filter(i=>prog(i.id).erros > 0); }
   else if(estado.soDevidas){ l=l.filter(i=>{ const p=prog(i.id); return (p.acertos||0)+(p.erros||0) === 0 }) }
   else if(tipo==='juris'){ l=l.filter(i=>devida(i.id)) }
@@ -883,11 +611,10 @@ function refazerQuestao(id){
   estado.respondida = null;
   estado.selecionada = null;
   if(estado.riscadas[id]) delete estado.riscadas[id];
-  toast('Questão liberada para responder!');
+  toast('Questão liberada!');
   render();
 }
 
-/* ---------- rede de seguranca do progresso ---------- */
 const KEY_BKP='semef2026_backups_prog_v1';
 function lerBackups(){ const b=store.get(KEY_BKP); return Array.isArray(b)?b:[] }
 function snapshotProgresso(rotulo){
@@ -903,7 +630,7 @@ function desfazerUltimaRestauracao(){
   if(!lista.length){ toast('Não há restauração para desfazer'); return }
   const ult=lista[lista.length-1];
   const quando=new Date(ult.em).toLocaleString('pt-BR');
-  if(!confirm(`Desfazer "${ult.rotulo}" e trazer de volta o progresso de ${quando}?\n\nNada do que você respondeu depois é perdido: o app fica com o melhor dos dois.`)) return;
+  if(!confirm(`Desfazer "${ult.rotulo}" e trazer de volta o progresso de ${quando}?`)) return;
   progresso = mesclarProgresso(progresso, ult.progresso||{});
   lista.pop(); store.set(KEY_BKP,lista);
   salvarProg(); marcarApagamento();
@@ -912,7 +639,6 @@ function desfazerUltimaRestauracao(){
   render();
 }
 
-/* ---------- questoes erradas por caderno ---------- */
 function erradasDoCaderno(materia,tema){
   return base('questoes').filter(i =>
     (materia==='TODAS' || (i.materia||'Sem matéria')===materia) &&
@@ -923,7 +649,7 @@ function erradasDoCaderno(materia,tema){
 function restaurarErradas(materia,tema){
   const l=erradasDoCaderno(materia,tema);
   if(!l.length){ toast('Nenhuma questão errada nesse caderno'); return }
-  if(!confirm(`Restaurar ${l.length} questão(ões) errada(s) de ${materia} / ${tema}?\n\nSó o histórico dessas questões volta a zero. Todo o resto do seu progresso continua intacto, aqui e na nuvem.`)) return;
+  if(!confirm(`Restaurar ${l.length} questão(ões) errada(s) de ${materia} / ${tema}?`)) return;
   snapshotProgresso(`erradas · ${materia} / ${tema}`);
   l.forEach(i=>{ delete progresso[i.id]; if(estado.riscadas[i.id]) delete estado.riscadas[i.id] });
   salvarProg(); marcarApagamento();
@@ -935,14 +661,12 @@ function restaurarErradas(materia,tema){
 function restaurarTodasDoFiltro(){
   const l = fila('questoes');
   if(!l.length) return;
-  if(confirm(`Restaurar o histórico das ${l.length} questões deste filtro? Isso apaga também na nuvem.`)){
+  if(confirm(`Restaurar o histórico das ${l.length} questões deste filtro?`)){
     snapshotProgresso('restaurar todas do filtro');
     l.forEach(i => delete progresso[i.id]);
     salvarProg(); marcarApagamento();
-    estado.idx = 0;
-    estado.respondida = null;
-    estado.selecionada = null;
-    toast('Caderno restaurado com sucesso!');
+    estado.idx = 0; estado.respondida = null; estado.selecionada = null;
+    toast('Caderno restaurado!');
     render();
   }
 }
@@ -957,6 +681,12 @@ function placar(){
 }
 
 function filtros(){
+  const fContainer = document.getElementById('filtros-container');
+  if(estado.aba === 'stats' || estado.aba === 'simulados' || estado.aba === 'add' || estado.aba === 'ajustes'){
+    fContainer.style.display = 'none';
+    return;
+  }
+  fContainer.style.display = 'flex';
   const sel=document.getElementById('fMateria');
   const atual=estado.materia;
   sel.innerHTML=materiasDisponiveis().map(m=>`<option ${m===atual?'selected':''}>${esc(m)}</option>`).join('');
@@ -971,19 +701,22 @@ function filtros(){
 function render(){
   filtros(); placar();
   const tela=document.getElementById('tela');
-  tela.innerHTML = ({juris:vJuris,questoes:vQuestao,add:vAdd,ajustes:vAjustes})[estado.aba]();
+  tela.innerHTML = ({
+    juris:vJuris, questoes:vQuestao, simulados:vSimulados, stats:vStats, add:vAdd, ajustes:vAjustes
+  })[estado.aba]();
   document.documentElement.style.setProperty('--font-size-base', estado.fontSize + 'px');
   ligar();
 }
 
 function vazio(msg){ return `<div class="vazio"><b>Nada por aqui</b>${msg}</div>` }
 
+/* ================= ABA: JURISPRUDÊNCIA ================= */
 function vJuris(){
   const l = fila('juris');
   if(!l.length){
     return `
       <div class="vazio">
-        <b>Parabéns! Nenhuma jurisprudência para revisar hoje.</b>
+        <b>Parabéns! Nenhuma jurisprudência pendente para hoje.</b>
         <button class="btn linha cheio" id="btn-adiantar" style="margin-top:14px;">Adiantar Revisão</button>
       </div>`;
   }
@@ -993,7 +726,7 @@ function vJuris(){
 
   return `
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-      <span style="font-size:12px; color:var(--texto-fraco);">${estado.idx+1} de ${l.length}</span>
+      <span style="font-size:12px; color:var(--texto-secondary);">${estado.idx+1} de ${l.length}</span>
       <button class="chip ${estado.adiantarJuris ? 'on' : ''}" id="btn-adiantar-toggle">
         ${estado.adiantarJuris ? 'Modo: Adiantando Todas' : 'Adiantar Revisão'}
       </button>
@@ -1010,15 +743,10 @@ function vJuris(){
 
       ${estado.revelado ? `
         <div class="juris-resposta">
-          <div class="juris-tese-box">
-            ${esc(teseLimpa)}
-          </div>
-          ${it.obs ? `
-            <div class="juris-obs-box">
-              <b>Atenção / Pegadinha da Banca:</b><br>${esc(it.obs)}
-            </div>` : ''}
+          <div class="juris-tese-box">${esc(teseLimpa)}</div>
+          ${it.obs ? `<div class="juris-obs-box"><b>Atenção / Pegadinha da Banca:</b><br>${esc(it.obs)}</div>` : ''}
         </div>` : `
-        <p class="dica">Toque no cartão para revelar a resposta</p>`}
+        <p style="text-align:center; color:var(--texto-secondary); font-size:12px; margin:14px 0 0;">Toque no cartão para revelar a resposta</p>`}
     </div>
 
     ${estado.revelado ? `
@@ -1030,29 +758,22 @@ function vJuris(){
     <button class="btn linha" id="pular" style="margin-top:10px;">Pular cartão</button>`;
 }
 
+/* ================= ABA: QUESTÕES ================= */
 function vQuestao(){
   const l=fila('questoes');
-  if(!l.length) return vazio('Sem questões nesta matéria com os filtros aplicados.');
+  if(!l.length) return vazio('Sem questões com os filtros aplicados.');
   if(estado.idx>=l.length) estado.idx=0;
   
   const q=l[estado.idx], p=prog(q.id);
   const r = respostaVisivel(p);
-  
   const letras='ABCDE';
   const riscadas = estado.riscadas[q.id] || {};
 
-  let totalCaderno = l.length;
-  let resolvidasCaderno = 0;
-  let acertosCaderno = 0;
-  let errosCaderno = 0;
-
+  let totalCaderno = l.length, resolvidasCaderno = 0, acertosCaderno = 0, errosCaderno = 0;
   l.forEach(item => {
     const pr = prog(item.id);
-    const tot = pr.acertos + pr.erros;
-    if (tot > 0) {
-      resolvidasCaderno++;
-      acertosCaderno += pr.acertos;
-      errosCaderno += pr.erros;
+    if ((pr.acertos + pr.erros) > 0) {
+      resolvidasCaderno++; acertosCaderno += pr.acertos; errosCaderno += pr.erros;
     }
   });
   
@@ -1063,9 +784,8 @@ function vQuestao(){
           Questão <b>${estado.idx + 1}</b> de <b>${totalCaderno}</b> 
           <span style="font-size:12px; display:block; margin-top:2px;">(<span class="st-res"><b>${resolvidasCaderno}</b> Resolvidas</span>, <span class="st-ok"><b>${acertosCaderno}</b> Acertos</span> e <span class="st-err"><b>${errosCaderno}</b> Erros</span>)</span>
         </div>
-        <button class="btn-restaurar-todas" id="btn-restaurar-todas" title="${estado.soErradas?'Zerar o histórico só das erradas deste filtro':'Zerar histórico deste caderno'}">${estado.soErradas?'Restaurar Erradas':'Restaurar Todas'}</button>
+        <button class="btn-restaurar-todas" id="btn-restaurar-todas">${estado.soErradas?'Restaurar Erradas':'Restaurar Todas'}</button>
       </div>
-      ${estado.soErradas?`<div class="aviso" style="margin:0 0 10px">Modo <b>só as erradas</b>: as questões voltam em branco para você responder de novo. O histórico continua guardado.</div>`:''}
 
       <div class="enunciado">
         <div class="eyebrow"><b>#${q.id||'--'}</b> ${esc(q.origem||'')} — ${esc(q.materia||'')}</div>
@@ -1094,32 +814,276 @@ function vQuestao(){
       ${r!==null?`
         <div class="gab"><b>${r===q.correta?'✓ Acertou!':'✗ Errou.'} Gabarito: ${letras[q.correta]}</b><br>${esc(q.fundamento||'')}</div>
         <div class="linha-refazer">
-          <button class="btn-refazer-circulo" id="btn-refazer" title="Refazer esta questão">↺</button>
-        </div>
-        <button class="btn-resolver" id="proxima" style="background:#2563eb">Próxima questão</button>`
-       :`<button class="btn-resolver" id="resolver">RESOLVER QUESTÃO</button>`}
+          <button class="btn" id="btn-anterior" style="padding:6px 12px">← Anterior</button>
+          <button class="btn-refazer-circulo" id="btn-refazer" title="Refazer questão">↺</button>
+          <button class="btn" id="proxima" style="padding:6px 12px; background:var(--accent); color:#fff">Próxima →</button>
+        </div>`
+       :`
+        <div style="display:flex; gap:8px; margin-top:12px">
+          <button class="btn" id="btn-anterior" style="width:35%">← Anterior</button>
+          <button class="btn-resolver" id="resolver" style="width:65%; margin-top:0">RESOLVER</button>
+        </div>`}
     </div>`;
 }
 
+/* ================= ABA: SIMULADOS ================= */
+function vSimulados(){
+  const sims = base('simulados');
+  if(!estado.simuladoId){
+    return `
+      <div class="item">
+        <h4>⏱ Simulados (Modo Prova)</h4>
+        <p>Resolva simulados com cálculo de nota ponderada por matéria, avanço direto sem feedback imediato e revisão comentada pós-prova.</p>
+      </div>
+      <label>Selecione um Simulado</label>
+      ${sims.length ? sims.map(s=>`
+        <div class="item" style="cursor:pointer" onclick="iniciarSimulado('${s.id}')">
+          <h4 style="color:var(--accent)">${esc(s.titulo)}</h4>
+          <p>${(s.questoes||[]).length} questões · ${esc(s.descricao||'Simulado completo')}</p>
+        </div>
+      `).join('') : vazio('Nenhum simulado cadastrado. Importe um arquivo JSON na aba Adicionar.')}`;
+  }
+
+  const sim = sims.find(s=>s.id===estado.simuladoId);
+  if(!sim) { estado.simuladoId = null; return vSimulados(); }
+  const questoes = sim.questoes || [];
+
+  if(estado.simFinalizado){
+    let acertos = 0, notaObtida = 0, notaTotal = 0;
+    const listaErradas = [];
+
+    questoes.forEach((q, idx)=>{
+      const peso = q.peso || 1;
+      notaTotal += peso;
+      const resp = estado.simRespostas[idx];
+      if(resp === q.correta){
+        acertos++;
+        notaObtida += peso;
+      } else {
+        listaErradas.push(idx);
+      }
+    });
+
+    const perc = notaTotal > 0 ? ((notaObtida/notaTotal)*100).toFixed(1) : 0;
+    const indicesRevisao = estado.simModoRevisao === 'erradas' ? listaErradas : questoes.map((_,i)=>i);
+    const qAtualIdx = indicesRevisao[estado.simIdx] !== undefined ? indicesRevisao[estado.simIdx] : indicesRevisao[0];
+    const q = questoes[qAtualIdx];
+    const r = estado.simRespostas[qAtualIdx];
+    const letras='ABCDE';
+
+    return `
+      <div class="stat-card" style="margin-bottom:14px; text-align:left">
+        <h3 style="color:${perc>=70?'var(--certo)':'var(--errado)'}">${perc}% de Aproveitamento</h3>
+        <p style="font-size:14px; color:var(--texto-primary); margin-top:4px">Nota: <b>${notaObtida.toFixed(1)} / ${notaTotal.toFixed(1)}</b> (${acertos} de ${questoes.length} questões)</p>
+        <div style="display:flex; gap:6px; margin-top:12px; flex-wrap:wrap">
+          <button class="chip ${estado.simModoRevisao==='todas'?'on':''}" onclick="setModoRevisao('todas')">Rever Todas (${questoes.length})</button>
+          <button class="chip ${estado.simModoRevisao==='erradas'?'on':''}" onclick="setModoRevisao('erradas')">Rever Só as que Errei (${listaErradas.length})</button>
+          <button class="chip" onclick="sairSimulado()">Sair do Simulado</button>
+        </div>
+      </div>
+
+      ${q ? `
+      <div class="questao-container">
+        <div class="enunciado">
+          <div class="eyebrow">Questão <b>${qAtualIdx + 1}</b> de <b>${questoes.length}</b> (Peso ${q.peso||1}) — ${esc(q.materia||'')}</div>
+          <div class="txt">${esc(q.enunciado)}</div>
+        </div>
+        <div class="alts">
+          ${q.alts.map((a,i)=>{
+            let cls='alt';
+            if(i===q.correta) cls+=' certa';
+            else if(i===r) cls+=' errada';
+            return `<div class="${cls}"><span class="letra">${letras[i]}</span><span class="texto-alt">${esc(a)}</span></div>`;
+          }).join('')}
+        </div>
+        <div class="gab">
+          <b>${r===q.correta?'✓ Você Acertou':'✗ Você Errou'} · Gabarito: ${letras[q.correta]}</b><br>${esc(q.fundamento||'Sem comentário.')}
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-top:12px">
+          <button class="btn" style="width:48%" onclick="navegarRevisao(-1)">← Anterior</button>
+          <button class="btn" style="width:48%; background:var(--accent); color:#fff" onclick="navegarRevisao(1)">Próxima →</button>
+        </div>
+      </div>
+      <button class="btn linha" onclick="incorporarAoBanco('${sim.id}')" style="margin-top:12px">📥 Importar questões deste simulado para o treino diário</button>
+      ` : vazio('Nenhuma questão para revisar nesta categoria.')}`;
+  }
+
+  const q = questoes[estado.simIdx];
+  const letras = 'ABCDE';
+  const respAtual = estado.simRespostas[estado.simIdx];
+
+  return `
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px">
+      <h4 style="margin:0; font-size:14px; color:var(--texto-primary)">${esc(sim.titulo)}</h4>
+      <button class="btn err" style="padding:4px 8px; font-size:11px" onclick="finalizarSimulado()">Finalizar Prova</button>
+    </div>
+
+    <div class="sim-grid-nav">
+      ${questoes.map((_, i)=>`
+        <button class="sim-nav-btn ${i===estado.simIdx?'atual':''} ${estado.simRespostas[i]!==undefined?'respondida':''}" onclick="irParaQuestaoSimulado(${i})">${i+1}</button>
+      `).join('')}
+    </div>
+
+    <div class="questao-container">
+      <div class="enunciado">
+        <div class="eyebrow">Questão <b>${estado.simIdx + 1}</b> de <b>${questoes.length}</b> (Peso ${q.peso||1}) — ${esc(q.materia||'')}</div>
+        <div class="txt">${esc(q.enunciado)}</div>
+      </div>
+      <div class="alts">
+        ${q.alts.map((a,i)=>`
+          <button class="alt ${respAtual===i?'selecionada':''}" onclick="responderItemSimulado(${i})">
+            <span class="letra">${letras[i]}</span>
+            <span class="texto-alt">${esc(a)}</span>
+          </button>
+        `).join('')}
+      </div>
+      <div style="display:flex; justify-content:space-between; margin-top:12px">
+        <button class="btn" style="width:48%" onclick="navegarSimulado(-1)">← Anterior</button>
+        <button class="btn" style="width:48%; background:var(--accent); color:#fff" onclick="navegarSimulado(1)">Próxima →</button>
+      </div>
+    </div>`;
+}
+
+function iniciarSimulado(id){
+  estado.simuladoId = id; estado.simIdx = 0; estado.simRespostas = {}; estado.simFinalizado = false;
+  render();
+}
+function responderItemSimulado(altIdx){
+  estado.simRespostas[estado.simIdx] = altIdx;
+  const sim = base('simulados').find(s=>s.id===estado.simuladoId);
+  if(sim && estado.simIdx < sim.questoes.length - 1){
+    estado.simIdx++;
+  }
+  render();
+}
+function navegarSimulado(delta){
+  const sim = base('simulados').find(s=>s.id===estado.simuladoId);
+  if(!sim) return;
+  estado.simIdx = Math.max(0, Math.min(sim.questoes.length - 1, estado.simIdx + delta));
+  render();
+}
+function irParaQuestaoSimulado(idx){
+  estado.simIdx = idx; render();
+}
+function finalizarSimulado(){
+  if(confirm('Deseja realmente entregar e finalizar o simulado?')){
+    estado.simFinalizado = true; estado.simIdx = 0; estado.simModoRevisao = 'todas';
+    render();
+  }
+}
+function setModoRevisao(modo){
+  estado.simModoRevisao = modo; estado.simIdx = 0; render();
+}
+function navegarRevisao(delta){
+  estado.simIdx += delta; render();
+}
+function sairSimulado(){
+  estado.simuladoId = null; render();
+}
+function incorporarAoBanco(simId){
+  const sim = base('simulados').find(s=>s.id===simId);
+  if(!sim || !sim.questoes) return;
+  const jaTem = idsExistentes();
+  let n = 0;
+  sim.questoes.forEach(q=>{
+    const item = Object.assign({}, q);
+    item.id = item.id || 'q-sim-'+Math.random().toString(36).slice(2,8);
+    if(!jaTem.has(item.id)){ meus.questoes.push(item); jaTem.add(item.id); n++; }
+  });
+  salvarMeus(); toast(n + ' questões adicionadas ao treino geral!');
+}
+
+/* ================= ABA: ESTATÍSTICAS ================= */
+function vStats(){
+  const qs = base('questoes');
+  let totalAcertos = 0, totalErros = 0, totalRespondidas = 0;
+  const porMateria = {};
+
+  qs.forEach(q => {
+    const p = prog(q.id);
+    const tot = (p.acertos||0) + (p.erros||0);
+    const m = q.materia || 'Sem matéria';
+    if(!porMateria[m]) porMateria[m] = { acertos:0, erros:0, total:0 };
+    porMateria[m].total++;
+    if(tot > 0){
+      totalRespondidas++;
+      totalAcertos += p.acertos;
+      totalErros += p.erros;
+      porMateria[m].acertos += p.acertos;
+      porMateria[m].erros += p.erros;
+    }
+  });
+
+  const percGeral = (totalAcertos + totalErros) > 0 ? ((totalAcertos / (totalAcertos + totalErros)) * 100).toFixed(1) : 0;
+  const todasJuris = base('juris');
+  const dominadasJuris = todasJuris.filter(j=>prog(j.id).acertos >= 3).length;
+
+  return `
+    <div class="stat-grid">
+      <div class="stat-card">
+        <h3>${percGeral}%</h3>
+        <p>Taxa de Acerto Geral</p>
+      </div>
+      <div class="stat-card">
+        <h3>${totalRespondidas} / ${qs.length}</h3>
+        <p>Questões Feitas</p>
+      </div>
+      <div class="stat-card">
+        <h3>${dominadasJuris} / ${todasJuris.length}</h3>
+        <p>Juris Dominadas</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h4>Desempenho por Matéria</h4>
+      ${Object.entries(porMateria).map(([m, dados])=>{
+        const totResp = dados.acertos + dados.erros;
+        const perc = totResp > 0 ? ((dados.acertos / totResp)*100).toFixed(0) : 0;
+        return `
+          <div style="margin-top:12px">
+            <div style="display:flex; justify-content:space-between; font-size:13px">
+              <span><b>${esc(m)}</b> (${totResp}/${dados.total})</span>
+              <span style="color:${perc>=70?'var(--certo)':'var(--errado)'}"><b>${perc}%</b></span>
+            </div>
+            <div class="prog-bar-container">
+              <div class="prog-bar" style="width:${perc}%; background:${perc>=70?'var(--certo)':'var(--errado)'}"></div>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>`;
+}
+
+/* ================= ABA: ADICIONAR ================= */
 function vAdd(){
   return `
     <div class="filtros" style="margin:0 0 4px">
       <button class="chip on" data-add="juris">Jurisprudência</button>
       <button class="chip" data-add="questoes">Questão</button>
+      <button class="chip" data-add="simulados">Simulado</button>
     </div>
     <div id="form"></div>
     <hr>
-    <label>Importar arquivo de lote (.json)</label>
+    <label>Importar lote ou simulado (.json)</label>
     <input type="file" accept=".json,application/json" id="arq">
-    <label>Ou colar em lote (JSON)</label>
-    <textarea id="lote" placeholder='[{"tipo":"juris","materia":"IPTU","tribunal":"STF","ref":"...","tese":"..."}]'></textarea>
+    <label>Ou colar JSON</label>
+    <textarea id="lote" placeholder='[{"tipo":"questoes","materia":"Tributário","enunciado":"...","alts":["A","B","C","D","E"],"correta":0}]'></textarea>
     <button class="btn linha" id="importarLote">Adicionar lote</button>
-    <div class="aviso">Itens adicionados aqui ficam guardados no aparelho. Para levar para o celular, use a aba <b>Ajustes</b> e baixe o <b>Backup</b> ou o <b>App com Dados</b>.</div>
+    <div class="aviso">Itens adicionados aqui ficam salvos no aparelho e sincronizam com sua nuvem automaticamente.</div>
     <hr>
     <div id="listaMeus"></div>`;
 }
 
 function formAdd(tipo){
+  if(tipo==='simulados'){
+    return `
+      <label>Título do Simulado</label><input data-k="titulo" placeholder="Ex: Simulado SEMEF 01">
+      <label>Descrição</label><input data-k="descricao" placeholder="Ex: 50 questões estilo FCC">
+      <label>JSON das Questões do Simulado</label>
+      <textarea data-k="questoes_json" placeholder='[{"enunciado":"...","alts":["..."],"correta":0,"peso":2,"fundamento":"..."}]'></textarea>
+      <button class="btn linha cheio" id="salvarItem">Criar Simulado</button>
+    `;
+  }
   const campos={
     juris:[['materia','Matéria'],['tribunal','Tribunal'],['ref','Referência (súmula / RE / Tema)'],['tese','Tese','area'],['obs','Observação / pegadinha','area']],
     questoes:[['materia','Matéria'],['origem','Origem (banca, ano, cargo)'],['enunciado','Enunciado','area'],
@@ -1132,10 +1096,10 @@ function formAdd(tipo){
 
 function listaMeus(){
   const el=document.getElementById('listaMeus'); if(!el) return;
-  const tudo=['juris','questoes'].flatMap(t=>meus[t].map(i=>({t,i})));
+  const tudo=['juris','questoes','simulados'].flatMap(t=>(meus[t]||[]).map(i=>({t,i})));
   el.innerHTML = tudo.length
-    ? `<label>Meus itens (${tudo.length})</label>` + tudo.slice(-40).reverse().map(({t,i})=>`
-        <div class="item"><h4>${esc(i.ref||(i.enunciado||'').slice(0,60))}</h4>
+    ? `<label>Meus itens criados (${tudo.length})</label>` + tudo.slice(-40).reverse().map(({t,i})=>`
+        <div class="item"><h4>${esc(i.titulo||i.ref||(i.enunciado||'').slice(0,60))}</h4>
         <p>${t} · ${esc(i.materia||'')} · <a href="#" data-del="${i.id}" data-tipo="${t}" style="color:var(--errado)">apagar</a></p></div>`).join('')
     : '';
 }
@@ -1156,28 +1120,23 @@ function optErrTema(materia){
   if(!itens.some(([t])=>t===estado.errTema)) estado.errTema='TODOS';
   return itens.map(([t,n])=>`<option value="${esc(t)}" ${t===estado.errTema?'selected':''}>${esc(t)} (${n})</option>`).join('');
 }
-function textoDesfazer(){
-  const l=lerBackups();
-  if(!l.length) return 'Desfazer última restauração (nenhuma guardada)';
-  const u=l[l.length-1];
-  return `↩ Desfazer: ${esc(u.rotulo)} · ${esc(new Date(u.em).toLocaleString('pt-BR'))}`;
-}
 
+/* ================= ABA: AJUSTES ================= */
 function vAjustes(){
   const todos=['juris','questoes'].flatMap(t=>base(t));
   const vistos=todos.filter(i=>progresso[i.id]).length;
   return `
     <div class="item"><h4>☁️ Sincronização automática</h4>
-      <p>Entre uma vez com o mesmo e-mail e senha no PC, celular e tablet. Depois disso o app envia e recebe sozinho: ao abrir, ao voltar para a tela, ao reconectar e alguns segundos depois de cada resposta.</p>
-      <p id="syncStatus" style="color:var(--ouro)">${esc(syncMsg)}</p>
+      <p>Sincronize PC, celular e tablet com login único.</p>
+      <p id="syncStatus" style="color:var(--accent); font-weight:600">${esc(syncMsg)}</p>
       <button class="btn linha cheio" id="btSincronizar">🔄 Sincronizar agora</button>
       <button class="btn linha" id="btEntrar">Entrar / trocar conta</button>
       <button class="btn linha err" id="btSair">Sair da conta neste aparelho</button></div>
-    <div class="item"><h4>Situação</h4><p>Conteúdo: <b>${esc(fonteConteudo)}</b><br>${SEED.juris.length+SEED.questoes.length} itens no arquivo · ${meus.juris.length+meus.questoes.length} adicionados por você · ${vistos} itens já estudados</p></div>
+    <div class="item"><h4>Situação</h4><p>Conteúdo: <b>${esc(fonteConteudo)}</b><br>${SEED.juris.length+SEED.questoes.length} itens no arquivo base · ${meus.juris.length+meus.questoes.length} adicionados por você · ${vistos} estudados</p></div>
     
     <label>Portabilidade (PC ↔ Celular)</label>
     <button class="btn linha cheio" id="baixarApp">Baixar APP com meus dados embutidos</button>
-    <div class="aviso">Esta é a melhor forma de levar seus dados para o celular. Ele gera um novo arquivo .html já com tudo que você adicionou dentro dele.</div>
+    <div class="aviso">Gera um arquivo .html atualizado com tudo gravado internamente para abrir offline onde quiser.</div>
     
     <hr>
     <label>Backup de Dados</label>
@@ -1185,7 +1144,7 @@ function vAjustes(){
     
     <label>Restaurar Backup</label>
     <input type="file" accept=".json,application/json" id="arqBackup" style="margin-bottom:8px">
-    <textarea id="restaurar" placeholder="Ou cole aqui o conteúdo do JSON de backup"></textarea>
+    <textarea id="restaurar" placeholder="Ou cole o conteúdo do JSON aqui"></textarea>
     <button class="btn linha" id="btRestaurar">Restaurar backup</button>
     
     <hr>
@@ -1193,25 +1152,15 @@ function vAjustes(){
     <select id="errMateria">${optErrMateria()}</select>
     <select id="errTema">${optErrTema(estado.errMateria)}</select>
     <button class="btn linha err" id="btRestErradas">Restaurar as erradas</button>
-    <div class="aviso">Zera o histórico só das questões com erro no caderno escolhido (ex.: só as erradas de IPTU, ou só as de ITBI). Elas voltam a aparecer em branco, prontas para responder. Nada mais do seu progresso é tocado — nem aqui, nem na nuvem.</div>
 
     <label>Rede de segurança</label>
-    <button class="btn linha" id="btDesfazer">${textoDesfazer()}</button>
-    <div class="aviso">Antes de cada restauração o app guarda uma cópia do progresso (as 8 últimas). Ao desfazer, ele junta a cópia com o que você respondeu depois — nenhum dos dois lados se perde.</div>
+    <button class="btn linha" id="btDesfazer">↩ Desfazer última restauração</button>
 
     <hr>
-    <label>Limpar itens por matéria e tema</label>
-    <select id="limpMateria">${materiasDisponiveis().map(m=>`<option>${esc(m)}</option>`).join('')}</select>
-    <select id="limpTema">${['TODOS',...[...new Set(['juris','questoes'].flatMap(t=>base(t).map(i=>i.tema||'Sem tema')))].sort()].map(m=>`<option>${esc(m)}</option>`).join('')}</select>
-    <button class="btn linha err" id="limpar">Apagar itens do filtro acima</button>
-    <hr>
-    <button class="btn linha err" id="zerar">Zerar progresso (mantém os itens)</button>
-    <div class="aviso">Se o celular "zerar" os dados ao fechar, é porque o navegador bloqueia o armazenamento local para arquivos. Use o botão <b>Baixar APP com meus dados</b> para salvar permanentemente.</div>`;
+    <button class="btn linha err" id="zerar">Zerar todo o progresso</button>`;
 }
 
-/* ---------- eventos ---------- */
-let touchStartX = 0;
-let touchEndX = 0;
+/* ---------- Eventos e Ligação do DOM ---------- */
 let tapTimer = null;
 let lastTapAlt = null;
 
@@ -1223,44 +1172,21 @@ function ligar(){
     const l=fila('juris');
     if(l.length > 0){
       responderJuris(l[estado.idx].id, +b.dataset.dias);
-      toast(`Revisão agendada para +${b.dataset.dias} dia(s)`);
+      toast(`Revisão agendada (+${b.dataset.dias}d)`);
       estado.revelado=false;
-      if(estado.adiantarJuris){
-        estado.idx++;
-      }
+      if(estado.adiantarJuris) estado.idx++;
       render();
     }
   });
 
   const btnAdiantar=document.getElementById('btn-adiantar');
-  if(btnAdiantar) btnAdiantar.onclick=()=>{
-    estado.adiantarJuris = true;
-    estado.idx = 0;
-    render();
-  };
-
+  if(btnAdiantar) btnAdiantar.onclick=()=>{ estado.adiantarJuris=true; estado.idx=0; render(); };
   const btnAdiantarToggle=document.getElementById('btn-adiantar-toggle');
-  if(btnAdiantarToggle) btnAdiantarToggle.onclick=()=>{
-    estado.adiantarJuris = !estado.adiantarJuris;
-    estado.idx = 0;
-    render();
-  };
+  if(btnAdiantarToggle) btnAdiantarToggle.onclick=()=>{ estado.adiantarJuris=!estado.adiantarJuris; estado.idx=0; render(); };
 
   const pular=document.getElementById('pular');
   if(pular) pular.onclick=()=>{ estado.revelado=false; estado.idx++; estado.riscadas={}; render() };
 
-  // NAVEGAÇÃO DE SWIPE EM QUESTÕES
-  const container = document.getElementById('questao-container');
-  if(container){
-    container.addEventListener('touchstart', e=>{ touchStartX=e.changedTouches[0].screenX }, false);
-    container.addEventListener('touchend', e=>{
-      touchEndX=e.changedTouches[0].screenX;
-      if(touchEndX < touchStartX - 80){ estado.idx++; estado.riscadas={}; estado.selecionada=null; estado.respondida=null; render() }
-      else if(touchEndX > touchStartX + 80){ estado.idx--; if(estado.idx<0) estado.idx=0; estado.riscadas={}; estado.selecionada=null; estado.respondida=null; render() }
-    }, false);
-  }
-
-  // LÓGICA DE UM TOQUE (SELECIONAR) E DOIS TOQUES (RISCAR)
   document.querySelectorAll('[data-alt]').forEach(b=>{
     b.onclick = ev => {
       ev.preventDefault();
@@ -1270,19 +1196,16 @@ function ligar(){
 
       if (tapTimer && lastTapAlt === i) {
         clearTimeout(tapTimer);
-        tapTimer = null;
-        lastTapAlt = null;
+        tapTimer = null; lastTapAlt = null;
         if (!estado.riscadas[q.id]) estado.riscadas[q.id] = {};
         estado.riscadas[q.id][i] = !estado.riscadas[q.id][i];
-        if (navigator.vibrate) navigator.vibrate(40);
         render();
       } else {
         clearTimeout(tapTimer);
         lastTapAlt = i;
         tapTimer = setTimeout(() => {
           estado.selecionada = i;
-          tapTimer = null;
-          lastTapAlt = null;
+          tapTimer = null; lastTapAlt = null;
           render();
         }, 250);
       }
@@ -1304,29 +1227,19 @@ function ligar(){
   const prox=document.getElementById('proxima');
   if(prox) prox.onclick=()=>{ estado.respondida=null; estado.idx++; estado.riscadas={}; estado.selecionada=null; render() };
 
+  const ant=document.getElementById('btn-anterior');
+  if(ant) ant.onclick=()=>{ estado.respondida=null; estado.idx=Math.max(0,estado.idx-1); estado.riscadas={}; estado.selecionada=null; render() };
+
   const refazer=document.getElementById('btn-refazer');
-  if(refazer) refazer.onclick=()=>{
-    const l=fila('questoes'), q=l[estado.idx];
-    refazerQuestao(q.id);
-  };
+  if(refazer) refazer.onclick=()=>{ const l=fila('questoes'), q=l[estado.idx]; refazerQuestao(q.id); };
 
   const resTodas=document.getElementById('btn-restaurar-todas');
-  if(resTodas) resTodas.onclick=()=>{
-    restaurarTodasDoFiltro();
-  };
+  if(resTodas) resTodas.onclick=()=>restaurarTodasDoFiltro();
 
   const aumentar=document.getElementById('aumentar-fonte');
   const diminuir=document.getElementById('diminuir-fonte');
-  if(aumentar) aumentar.onclick=()=>{ 
-    estado.fontSize=Math.min(estado.fontSize+2,24); 
-    store.set(KEY_FONT, estado.fontSize);
-    render(); 
-  };
-  if(diminuir) diminuir.onclick=()=>{ 
-    estado.fontSize=Math.max(estado.fontSize-2,12); 
-    store.set(KEY_FONT, estado.fontSize);
-    render(); 
-  };
+  if(aumentar) aumentar.onclick=()=>{ estado.fontSize=Math.min(estado.fontSize+2,24); store.set(KEY_FONT, estado.fontSize); render(); };
+  if(diminuir) diminuir.onclick=()=>{ estado.fontSize=Math.max(estado.fontSize-2,12); store.set(KEY_FONT, estado.fontSize); render(); };
 
   document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{
     document.querySelectorAll('[data-add]').forEach(x=>x.classList.remove('on'));
@@ -1351,18 +1264,23 @@ function ligarForm(){
     f.querySelectorAll('[data-k]').forEach(e=>v[e.dataset.k]=e.value.trim());
     const id=tipo[0]+'-u-'+Date.now().toString(36);
     let item;
-    if(tipo==='questoes'){
+    if(tipo==='simulados'){
+      let questoes = [];
+      try { questoes = JSON.parse(v.questoes_json); } catch(e){ return toast('JSON de questões inválido'); }
+      item = { id, titulo: v.titulo||'Simulado', descricao: v.descricao||'', questoes };
+    } else if(tipo==='questoes'){
       const alts=['a','b','c','d','e'].map(k=>v[k]).filter(Boolean);
       const letra=(v.correta||'').toUpperCase();
-      if(!v.enunciado||alts.length<2||!'ABCDE'.includes(letra)) return toast('Falta enunciado, alternativas ou letra correta');
+      if(!v.enunciado||alts.length<2||!'ABCDE'.includes(letra)) return toast('Falta dados obrigatórios');
       item={id,materia:v.materia||'Sem matéria',origem:v.origem||'sem origem',enunciado:v.enunciado,alts,correta:'ABCDE'.indexOf(letra),fundamento:v.fundamento};
     } else {
       if(!v.ref||!v.tese) return toast('Falta referência ou tese');
       item={id,materia:v.materia||'Sem matéria',tribunal:v.tribunal,ref:v.ref,tese:v.tese,obs:v.obs};
     }
+    if(!meus[tipo]) meus[tipo] = [];
     meus[tipo].push(item); salvarMeus();
     f.querySelectorAll('[data-k]').forEach(e=>e.value='');
-    toast('Adicionado'); listaMeus(); ligarDel(); placar(); filtros();
+    toast('Item adicionado!'); listaMeus(); ligarDel(); placar(); filtros();
   };
   ligarDel();
 }
@@ -1378,7 +1296,7 @@ function ligarDel(){
 
 function idsExistentes(){
   const s=new Set();
-  ['juris','questoes'].forEach(t=>base(t).forEach(i=>s.add(i.id)));
+  ['juris','questoes','simulados'].forEach(t=>base(t).forEach(i=>s.add(i.id)));
   return s;
 }
 
@@ -1387,7 +1305,8 @@ function importarArray(arr){
   const jaTem=idsExistentes();
   let n=0,pulados=0;
   arr.forEach(o=>{
-    const tipo=o.tipo||'juris'; if(!meus[tipo]) return;
+    const tipo=o.tipo||(o.questoes?'simulados':'juris'); 
+    if(!meus[tipo]) meus[tipo] = [];
     const item=Object.assign({},o); delete item.tipo;
     item.id=item.id||tipo[0]+'-u-'+Math.random().toString(36).slice(2,9);
     if(jaTem.has(item.id)){ pulados++; return }
@@ -1405,8 +1324,7 @@ function ligarLote(){
     fr.onload=()=>{
       try{
         const r=importarArray(JSON.parse(fr.result));
-        toast(r.n+' adicionados'+(r.pulados?' · '+r.pulados+' já existiam':''));
-        listaMeus(); ligarDel();
+        toast(r.n+' adicionados'); listaMeus(); ligarDel();
       }catch(err){ toast('Arquivo inválido') }
     };
     fr.readAsText(f);
@@ -1416,8 +1334,7 @@ function ligarLote(){
       const arr=JSON.parse(document.getElementById('lote').value);
       const r=importarArray(arr);
       document.getElementById('lote').value='';
-      toast(r.n+' adicionados'+(r.pulados?' · '+r.pulados+' já existiam':''));
-      listaMeus(); ligarDel();
+      toast(r.n+' adicionados'); listaMeus(); ligarDel();
     }catch(e){ toast('JSON inválido') }
   };
 }
@@ -1429,13 +1346,15 @@ function ligarAjustes(){
   if(be) be.onclick=async()=>{ const u=await entrarNaConta(); if(u) sincronizar({silencioso:false}); };
   const bx=document.getElementById('btSair');
   if(bx) bx.onclick=sairDaConta;
+
   document.getElementById('baixarApp').onclick=()=>{
     const html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
     const x=fora();
     const juntar=(a,b)=>{ const m=new Map(); (a||[]).concat(b||[]).forEach(i=>{ if(!x.has(i.id)) m.set(i.id,i) }); return [...m.values()] };
     const novoSeed = {
       juris: juntar(SEED.juris, meus.juris),
-      questoes: juntar(SEED.questoes, meus.questoes)
+      questoes: juntar(SEED.questoes, meus.questoes),
+      simulados: juntar(SEED.simulados, meus.simulados)
     };
     const dadosStr = 'let SEED = ' + JSON.stringify(novoSeed, null, 2) + ';';
     const regex = /(?:const|let) SEED = \{[\s\S]*?\};/;
@@ -1460,7 +1379,7 @@ function ligarAjustes(){
     fr.onload=()=>{
       try{
         const d=JSON.parse(fr.result);
-        if(d.progresso){ snapshotProgresso('restaurar backup de arquivo'); progresso=d.progresso; salvarProg() }
+        if(d.progresso){ snapshotProgresso('restaurar backup arquivo'); progresso=d.progresso; salvarProg() }
         if(d.meus){ meus=d.meus; salvarMeus() }
         toast('Backup restaurado'); render();
       }catch(err){ toast('Arquivo inválido') }
@@ -1477,7 +1396,7 @@ function ligarAjustes(){
     }catch(e){ toast('JSON inválido') }
   };
   document.getElementById('zerar').onclick=()=>{
-    if(confirm('Zerar todo o progresso? Isso apaga também na nuvem e nos outros aparelhos. Os itens continuam.')){ snapshotProgresso('zerar todo o progresso'); progresso={}; salvarProg(); marcarApagamento(); toast('Progresso zerado'); render() }
+    if(confirm('Zerar todo o progresso?')){ snapshotProgresso('zerar progresso'); progresso={}; salvarProg(); marcarApagamento(); toast('Progresso zerado'); render() }
   };
 
   const em=document.getElementById('errMateria'), et=document.getElementById('errTema');
@@ -1487,19 +1406,6 @@ function ligarAjustes(){
   if(bre) bre.onclick=()=>restaurarErradas(estado.errMateria, estado.errTema);
   const bdf=document.getElementById('btDesfazer');
   if(bdf) bdf.onclick=()=>desfazerUltimaRestauracao();
-  const bl=document.getElementById('limpar');
-  if(bl) bl.onclick=()=>{
-    const m=document.getElementById('limpMateria').value, t=document.getElementById('limpTema').value;
-    const alvo=i=>(m==='TODAS'||i.materia===m)&&(t==='TODOS'||(i.tema||'Sem tema')===t);
-    const ids=['juris','questoes'].flatMap(x=>base(x).filter(alvo).map(i=>i.id));
-    if(!ids.length){ toast('Nada corresponde a esse filtro'); return }
-    if(!confirm('Apagar '+ids.length+' itens de '+m+' / '+t+'? O progresso deles também some.')) return;
-    snapshotProgresso('apagar itens · '+m+' / '+t);
-    ['juris','questoes'].forEach(x=>{ meus[x]=meus[x].filter(i=>!alvo(i)) });
-    meus.excluidos=[...new Set([...(meus.excluidos||[]), ...ids])];
-    ids.forEach(i=>{ delete progresso[i] });
-    salvarMeus(); salvarProg(); marcarApagamento(); estado.tema='TODOS'; toast(ids.length+' itens apagados'); render();
-  };
 }
 
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
@@ -1547,19 +1453,6 @@ document.getElementById('cErradas').onclick=()=>{
 };
 
 render();
-
-(function(){
-  const ANTIGOS=["j-iptu-001", "j-iptu-002", "j-iptu-003", "j-iptu-004", "j-iptu-005", "j-iptu-006", "j-iptu-007", "j-iptu-008", "j-iptu-009"];
-  const x=fora();
-  const faltam=ANTIGOS.filter(id=>!x.has(id));
-  if(!faltam.length) return;
-  faltam.forEach(id=>x.add(id));
-  meus.excluidos=[...x];
-  ['juris','questoes'].forEach(t=>{ meus[t]=(meus[t]||[]).filter(i=>!x.has(i.id)) });
-  ANTIGOS.forEach(id=>{ delete progresso[id] });
-  store.set(KEY_USER,meus); store.set(KEY_PROG,progresso);
-})();
-
 iniciarSync();
 carregarConteudo();
 </script>
