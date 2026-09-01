@@ -289,8 +289,29 @@ let SEED = {
 const KEY_PROG='semef2026_progresso_v1', KEY_USER='semef2026_meusitens_v1', KEY_FONT='semef2026_fontsize_v1';
 const mem={};
 const store={
-  get(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null }catch(e){ return mem[k]??null } },
-  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)) }catch(e){ mem[k]=v } }
+  get(k){
+    // Se a gravação em disco falhou, o valor mais novo está na memória: ele tem prioridade.
+    if(Object.prototype.hasOwnProperty.call(mem,k)) return mem[k];
+    try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null }catch(e){ return null }
+  },
+  set(k,v){
+    let txt;
+    try{ txt=JSON.stringify(v) }catch(e){ return false }
+    try{ localStorage.setItem(k,txt); delete mem[k]; return true }
+    catch(e){
+      // Espaço cheio: o cache do conteudo.json e os backups são descartáveis,
+      // os itens do usuário (simulados/questões) não podem ser perdidos.
+      try{
+        if(k!=='semef2026_conteudo_v1') localStorage.removeItem('semef2026_conteudo_v1');
+        if(k!=='semef2026_backups_prog_v1') localStorage.removeItem('semef2026_backups_prog_v1');
+        localStorage.setItem(k,txt); delete mem[k]; return true;
+      }catch(e2){
+        mem[k]=v;
+        console.warn('[store] sem espaço em disco para',k,e2);
+        return false;
+      }
+    }
+  }
 };
 
 // ===== SINCRONIZAÇÃO NA NUVEM =====
@@ -347,27 +368,36 @@ function mesclarMeus(local, remoto){
   
   const excluidosLocal = Array.isArray(localVal.excluidos) ? localVal.excluidos : [];
   const excluidosRemoto = Array.isArray(remotoVal.excluidos) ? remotoVal.excluidos : [];
-  const x = new Set([...excluidosLocal, ...excluidosRemoto]);
-  
-  const out = { juris: [], questoes: [], simulados: [], excluidos: [...x] };
+  const xLocal = new Set(excluidosLocal);
+  const xTodos = new Set([...excluidosLocal, ...excluidosRemoto]);
+
+  const out = { juris: [], questoes: [], simulados: [], excluidos: [] };
+  const vivos = new Set();
 
   ['juris', 'questoes', 'simulados'].forEach(t => {
     const map = new Map();
     const itensLocal = Array.isArray(localVal[t]) ? localVal[t] : [];
     const itensRemoto = Array.isArray(remotoVal[t]) ? remotoVal[t] : [];
 
-    // Prioriza o que está no aparelho local
+    // Prioriza o que está no aparelho local.
+    // Só uma exclusão feita NESTE aparelho pode remover um item local; uma exclusão
+    // antiga que ficou gravada na nuvem não pode apagar item recém-criado/importado aqui.
     itensLocal.forEach(i => {
-      if (i && i.id && !x.has(i.id)) map.set(i.id, i);
+      if (i && i.id && !xLocal.has(i.id)) map.set(i.id, i);
     });
 
     // Adiciona novidades remotas sem sobrescrever adições locais recentes
     itensRemoto.forEach(i => {
-      if (i && i.id && !x.has(i.id) && !map.has(i.id)) map.set(i.id, i);
+      if (i && i.id && !xTodos.has(i.id) && !map.has(i.id)) map.set(i.id, i);
     });
 
     out[t] = [...map.values()];
+    out[t].forEach(i => vivos.add(i.id));
   });
+
+  // Um id que voltou a existir sai da lista de exclusões, senão a exclusão antiga
+  // é reenviada para a nuvem e apaga o item de novo na próxima sincronização.
+  out.excluidos = [...xTodos].filter(id => !vivos.has(id));
 
   return out;
 }
@@ -845,9 +875,9 @@ function vQuestao(){
           <button class="btn" id="proxima" style="padding:6px 12px; background:var(--accent); color:#fff">Próxima →</button>
         </div>`
        :`
-        <div style="display:flex; gap:8px; margin-top:12px">
-          <button class="btn" id="btn-anterior" style="width:35%">← Anterior</button>
-          <button class="btn-resolver" id="resolver" style="width:65%; margin-top:0">RESOLVER</button>
+        <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px">
+          <button class="btn" id="btn-anterior" style="width:100%">← Anterior</button>
+          <button class="btn-resolver" id="resolver" style="width:100%; margin-top:0">RESOLVER</button>
         </div>`}
     </div>`;
 }
@@ -1347,8 +1377,11 @@ function ligarForm(){
     if(!meus[tipo]) meus[tipo] = [];
     if(Array.isArray(meus.excluidos)) meus.excluidos = meus.excluidos.filter(x => x !== item.id);
     
-    meus[tipo].push(item); 
+    meus[tipo].push(item);
     salvarMeus();
+    // Envia o estado completo agora: o item novo passa a valer na nuvem imediatamente
+    // e não corre o risco de ser desfeito pela sincronização seguinte.
+    marcarApagamento();
     f.querySelectorAll('[data-k]').forEach(e=>e.value='');
     toast('Item adicionado!'); 
     listaMeus(); 
