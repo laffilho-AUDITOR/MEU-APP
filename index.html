@@ -362,14 +362,39 @@ function mesclarProgresso(local,remoto){
   return out;
 }
 
+/* ---- Exclusoes com data/hora --------------------------------------------
+   A lista "excluidos" guarda {id, em}. Cada item criado/importado guarda "_em".
+   Regra: uma exclusao so apaga um item se ela for MAIS NOVA que o item.
+   Assim, apagar num aparelho apaga em todos, e recriar/reimportar depois
+   traz o item de volta em todos - sem um lado desfazer o outro.
+   Entradas antigas (texto puro) e itens sem "_em" valem como tempo 0,
+   mantendo o comportamento que ja existia.                                  */
+function normExcl(lista){
+  const m = new Map();
+  (Array.isArray(lista) ? lista : []).forEach(e => {
+    if (typeof e === 'string'){ if(!m.has(e)) m.set(e, 0) }
+    else if (e && e.id){ m.set(e.id, Math.max(m.get(e.id) || 0, e.em || 0)) }
+  });
+  return m;
+}
+function itemEm(i){ return (i && i._em) || 0 }
+function apagado(mapaExcl, i){
+  const t = mapaExcl.get(i.id);
+  return t !== undefined && t >= itemEm(i);
+}
+function tirarDosExcluidos(id){
+  if(!Array.isArray(meus.excluidos)){ meus.excluidos = []; return }
+  meus.excluidos = meus.excluidos.filter(e => (typeof e === 'string' ? e : (e && e.id)) !== id);
+}
+
 function mesclarMeus(local, remoto){
   const localVal = local || {};
   const remotoVal = remoto || {};
-  
-  const excluidosLocal = Array.isArray(localVal.excluidos) ? localVal.excluidos : [];
-  const excluidosRemoto = Array.isArray(remotoVal.excluidos) ? remotoVal.excluidos : [];
-  const xLocal = new Set(excluidosLocal);
-  const xTodos = new Set([...excluidosLocal, ...excluidosRemoto]);
+
+  const xMap = new Map();
+  [normExcl(localVal.excluidos), normExcl(remotoVal.excluidos)].forEach(m => {
+    m.forEach((em, id) => { xMap.set(id, Math.max(xMap.get(id) || 0, em)) });
+  });
 
   const out = { juris: [], questoes: [], simulados: [], excluidos: [] };
   const vivos = new Set();
@@ -379,25 +404,23 @@ function mesclarMeus(local, remoto){
     const itensLocal = Array.isArray(localVal[t]) ? localVal[t] : [];
     const itensRemoto = Array.isArray(remotoVal[t]) ? remotoVal[t] : [];
 
-    // Prioriza o que está no aparelho local.
-    // Só uma exclusão feita NESTE aparelho pode remover um item local; uma exclusão
-    // antiga que ficou gravada na nuvem não pode apagar item recém-criado/importado aqui.
-    itensLocal.forEach(i => {
-      if (i && i.id && !xLocal.has(i.id)) map.set(i.id, i);
-    });
-
-    // Adiciona novidades remotas sem sobrescrever adições locais recentes
-    itensRemoto.forEach(i => {
-      if (i && i.id && !xTodos.has(i.id) && !map.has(i.id)) map.set(i.id, i);
+    // Local primeiro; da nuvem so entra o que nao existe aqui ou o que e mais novo.
+    [...itensLocal, ...itensRemoto].forEach(i => {
+      if(!i || !i.id) return;
+      if(apagado(xMap, i)) return;
+      const atual = map.get(i.id);
+      if(!atual || itemEm(i) > itemEm(atual)) map.set(i.id, i);
     });
 
     out[t] = [...map.values()];
     out[t].forEach(i => vivos.add(i.id));
   });
 
-  // Um id que voltou a existir sai da lista de exclusões, senão a exclusão antiga
-  // é reenviada para a nuvem e apaga o item de novo na próxima sincronização.
-  out.excluidos = [...xTodos].filter(id => !vivos.has(id));
+  // Exclusao vencida (o item voltou a existir) sai da lista, senao ela e
+  // reenviada para a nuvem e apaga o item de novo na sincronizacao seguinte.
+  out.excluidos = [...xMap.entries()]
+    .filter(([id]) => !vivos.has(id))
+    .map(([id, em]) => ({ id, em }));
 
   return out;
 }
@@ -445,23 +468,16 @@ async function sincronizar(opcoes){
   if(sincronizando){ syncPendente=true; return false }
   if(!navigator.onLine){ setSync('offline — envia ao voltar'); syncPendente=true; return false }
 
-  const user=await usuarioAtual(silencioso);
-  if(!user){ setSync('não conectado — toque em “Entrar”'); return false }
-
-  sincronizando=true; setSync(forcarEnvio ? 'aplicando na nuvem…' : 'sincronizando…');
+  sincronizando=true;
   const ep = epocaDados;
+  const enviarSempre = forcarEnvio;
   try{
-    if(forcarEnvio){
-      const up=await sb.from('app_state').upsert(
-        { user_id:user.id, progresso, meus, updated_at:new Date().toISOString() },
-        { onConflict:'user_id' });
-      if(up.error) throw up.error;
-      forcarEnvio=false;
-      store.set(APAGA_KEY, false);
-      setSync('nuvem atualizada · '+new Date().toLocaleTimeString().slice(0,5));
-      if(!silencioso) toast('Nuvem atualizada!');
-      return true;
-    }
+    const user=await usuarioAtual(silencioso);
+    if(!user){ setSync('não conectado — toque em “Entrar”'); return false }
+    setSync(enviarSempre ? 'enviando alterações…' : 'sincronizando…');
+
+    // Sempre lê a nuvem antes de gravar. Nunca sobrescreve às cegas:
+    // era isso que fazia um aparelho apagar o simulado criado no outro.
     const { data, error } = await sb.from('app_state')
       .select('progresso,meus,updated_at').eq('user_id',user.id).maybeSingle();
     if(error) throw error;
@@ -485,12 +501,13 @@ async function sincronizar(opcoes){
       || JSON.stringify(remoto.progresso||{}) !== JSON.stringify(progresso)
       || JSON.stringify(remoto.meus||{})      !== JSON.stringify(meus);
 
-    if(precisaSubir){
+    if(precisaSubir || enviarSempre){
       const up=await sb.from('app_state').upsert(
         { user_id:user.id, progresso, meus, updated_at:new Date().toISOString() },
         { onConflict:'user_id' });
       if(up.error) throw up.error;
     }
+    if(enviarSempre){ forcarEnvio=false; store.set(APAGA_KEY, false) }
 
     setSync('sincronizado · '+new Date().toLocaleTimeString().slice(0,5));
     if(mudouLocal) atualizarTelaAposSync();
@@ -522,11 +539,9 @@ async function sincronizarNuvem(){
 function marcarApagamento(){
   forcarEnvio = true;
   store.set(APAGA_KEY, true);
-  epocaDados++;
+  epocaDados++;               // invalida qualquer leitura da nuvem que ainda esteja em voo
   clearTimeout(syncTimer);
-  sincronizando = false;
-  syncPendente = false;
-  setSync('apagamento pendente — enviando…');
+  setSync('enviando alterações…');
   if(sb) sincronizar({silencioso:true});
 }
 
@@ -539,10 +554,10 @@ function agendarSync(){
 
 function iniciarSync(){
   if(!sb){ setSync('sincronização desligada'); return }
-  if(forcarEnvio) setSync('apagamento pendente — enviando…');
+  if(forcarEnvio) setSync('alterações pendentes — enviando…');
   sb.auth.onAuthStateChange((_e,session)=>{ syncUser=(session&&session.user)||null });
   sincronizar({silencioso:true});
-  setInterval(()=>{ if(document.visibilityState==='visible') sincronizar({silencioso:true}) },120000);
+  setInterval(()=>{ if(document.visibilityState==='visible') sincronizar({silencioso:true}) },45000);
   document.addEventListener('visibilitychange',()=>sincronizar({silencioso:true}));
   window.addEventListener('online',()=>sincronizar({silencioso:true}));
   window.addEventListener('pagehide',()=>sincronizar({silencioso:true}));
@@ -552,7 +567,7 @@ let progresso = store.get(KEY_PROG) || {};
 let meus = store.get(KEY_USER) || {juris:[],questoes:[],simulados:[]};
 ['juris','questoes','simulados'].forEach(t=>{ if(!Array.isArray(meus[t])) meus[t]=[] });
 if(!Array.isArray(meus.excluidos)) meus.excluidos=[];
-const fora=()=>new Set(meus.excluidos||[]);
+const fora=()=>normExcl(meus.excluidos);
 
 const salvarProg=()=>{ store.set(KEY_PROG,progresso); agendarSync(); };
 const salvarMeus=()=>{ store.set(KEY_USER,meus); agendarSync(); };
@@ -590,8 +605,8 @@ async function carregarConteudo(){
 
 function base(tipo){
   const map=new Map(), x=fora();
-  (SEED[tipo]||[]).forEach(i=>{ if(i && i.id && !x.has(i.id)) map.set(i.id,i) });
-  ((meus && meus[tipo])||[]).forEach(i=>{ if(i && i.id && !x.has(i.id)) map.set(i.id,i) });
+  (SEED[tipo]||[]).forEach(i=>{ if(i && i.id && !apagado(x,i)) map.set(i.id,i) });
+  ((meus && meus[tipo])||[]).forEach(i=>{ if(i && i.id && !apagado(x,i)) map.set(i.id,i) });
   return [...map.values()];
 }
 function prog(id){ return progresso[id] || {caixa:0, prox:'2000-01-01', acertos:0, erros:0, ultimaResp:null} }
@@ -870,15 +885,11 @@ function vQuestao(){
       ${r!==null?`
         <div class="gab"><b>${r===q.correta?'✓ Acertou!':'✗ Errou.'} Gabarito: ${letras[q.correta]}</b><br>${esc(q.fundamento||'')}</div>
         <div class="linha-refazer">
-          <button class="btn" id="btn-anterior" style="padding:6px 12px">← Anterior</button>
           <button class="btn-refazer-circulo" id="btn-refazer" title="Refazer questão">↺</button>
           <button class="btn" id="proxima" style="padding:6px 12px; background:var(--accent); color:#fff">Próxima →</button>
         </div>`
        :`
-        <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px">
-          <button class="btn" id="btn-anterior" style="width:100%">← Anterior</button>
-          <button class="btn-resolver" id="resolver" style="width:100%; margin-top:0">RESOLVER</button>
-        </div>`}
+        <button class="btn-resolver" id="resolver" style="width:100%; margin-top:12px">RESOLVER</button>`}
     </div>`;
 }
 
@@ -1045,7 +1056,8 @@ function incorporarAoBanco(simId){
     const item = Object.assign({}, q);
     item.id = item.id || 'q-sim-'+Math.random().toString(36).slice(2,8);
     if(!jaTem.has(item.id)){ 
-      if(Array.isArray(meus.excluidos)) meus.excluidos = meus.excluidos.filter(x=>x!==item.id);
+      item._em = Date.now();
+      tirarDosExcluidos(item.id);
       meus.questoes.push(item); 
       jaTem.add(item.id); 
       n++; 
@@ -1219,6 +1231,7 @@ function vAjustes(){
 
 /* ---------- Eventos e Ligação do DOM ---------- */
 let touchStartX = 0;
+let touchStartY = 0;
 let touchEndX = 0;
 let tapTimer = null;
 let lastTapAlt = null;
@@ -1249,14 +1262,17 @@ function ligar(){
   // Navegação por Swipe (Deslize)
   const container = document.getElementById('questao-container');
   if(container){
-    container.addEventListener('touchstart', e => { 
-      touchStartX = e.changedTouches[0].screenX; 
+    container.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
     }, { passive: true });
-    
+
     container.addEventListener('touchend', e => {
       touchEndX = e.changedTouches[0].screenX;
       const dist = touchEndX - touchStartX;
-      if(Math.abs(dist) > 70){
+      const distY = e.changedTouches[0].screenY - touchStartY;
+      // Só navega se o gesto for claramente horizontal: rolar a questão com o dedo não pula questão
+      if(Math.abs(dist) > 60 && Math.abs(dist) > Math.abs(distY) * 1.5){
         if(estado.aba === 'questoes'){
           const l = fila('questoes');
           if(dist < 0 && estado.idx < l.length - 1){
@@ -1375,8 +1391,9 @@ function ligarForm(){
     }
     
     if(!meus[tipo]) meus[tipo] = [];
-    if(Array.isArray(meus.excluidos)) meus.excluidos = meus.excluidos.filter(x => x !== item.id);
-    
+    item._em = Date.now();
+    tirarDosExcluidos(item.id);
+
     meus[tipo].push(item);
     salvarMeus();
     // Envia o estado completo agora: o item novo passa a valer na nuvem imediatamente
@@ -1401,8 +1418,8 @@ function ligarDel(){
       meus[tipo] = meus[tipo].filter(i=>i.id !== del);
     }
     
-    if(!Array.isArray(meus.excluidos)) meus.excluidos = [];
-    if(!meus.excluidos.includes(del)) meus.excluidos.push(del);
+    tirarDosExcluidos(del);
+    meus.excluidos.push({ id: del, em: Date.now() });
     
     delete progresso[del];
     salvarMeus();
@@ -1433,8 +1450,8 @@ function importarArray(arr){
     const item = Object.assign({}, o); 
     delete item.tipo;
     item.id = item.id || (tipo[0] + '-u-' + Math.random().toString(36).slice(2,9));
-    
-    if(Array.isArray(meus.excluidos)) meus.excluidos = meus.excluidos.filter(x => x !== item.id);
+    item._em = Date.now();
+    tirarDosExcluidos(item.id);
     
     if(jaTem.has(item.id)){ pulados++; return; }
     meus[tipo].push(item); 
