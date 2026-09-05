@@ -902,14 +902,15 @@ function vQuestao(){
    primeira regra que casar. Matéria que não casar com nenhuma regra vira um bloco
    com o próprio nome dela. */
 const BLOCOS_EDITAL = [
-  {bloco:'Língua Portuguesa',                          chaves:['portugues','lingua portuguesa','interpretacao de texto','redacao oficial']},
-  {bloco:'Exatas (Matemática, RLM e Estatística)',      chaves:['matematica','raciocinio logico','raciocinio-logico','rlm','logica','estatistica','probabilidade']},
-  {bloco:'Legislação Tributária Municipal (Manaus)',   chaves:['legislacao municipal','legislacao tributaria municipal','manaus','iss','issqn','iptu','itbi','codigo tributario municipal','zfm','zona franca']},
-  {bloco:'Direito Tributário',                          chaves:['tributario','ctn','reforma tributaria','processo administrativo fiscal','ibs','cbs']},
-  {bloco:'Contabilidade e Auditoria',                   chaves:['contabilidade','contabil','auditoria','custos','analise de balanco','pericia']},
-  {bloco:'Administração Pública, AFO e Economia',       chaves:['administracao publica','administracao financeira','orcament','afo','economia','financas publicas','licitac']},
-  {bloco:'Tecnologia e Fluência de Dados',              chaves:['fluencia de dados','tecnologia','informatica','banco de dados','sql','lgpd','marco civil','dados']},
-  {bloco:'Demais Disciplinas Jurídicas',                chaves:['direito','constitucional','administrativo','civil','penal','empresarial','processual','trabalho','ambiental','urbanistico']}
+  {bloco:'Língua Portuguesa',                        chaves:['portugues','lingua portuguesa','interpretacao de texto','redacao oficial']},
+  {bloco:'Inglês Instrumental',                      chaves:['ingles']},
+  {bloco:'Exatas (Matemática, RLM e Estatística)',    chaves:['matematica','raciocinio logico','logico-matematico','rlm','logica','estatistica','probabilidade']},
+  {bloco:'Legislação Tributária Municipal (Manaus)', chaves:['legislacao tributaria municipal','legislacao municipal','manaus','issqn','zfm','zona franca','iptu','itbi','iss']},
+  {bloco:'Direito Tributário e Leg. Nacional',       chaves:['tributar','ctn','ibs','cbs','processo administrativo fiscal']},
+  {bloco:'Contabilidade e Auditoria',                 chaves:['contabilidade','contabil','contabeis','demonstracoes','auditoria','custos','analise de balanco','pericia']},
+  {bloco:'Administração Pública, AFO e Economia',     chaves:['administracao publica','administracao financeira','orcament','afo','economia','financas publicas','licitac']},
+  {bloco:'Tecnologia e Fluência de Dados',            chaves:['fluencia de dados','tecnologia','informatica','banco de dados','sql','lgpd','marco civil','governanca','seguranca da informacao','protecao de dados','dados']},
+  {bloco:'Demais Disciplinas Jurídicas',              chaves:['direito','constitucional','administrativo','civil','penal','empresarial','processual','trabalho','ambiental','urbanistico']}
 ];
 const normTxt = s => String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 function blocoDaMateria(m){
@@ -1363,6 +1364,9 @@ function vAjustes(){
     <hr>
     <label>Backup de Dados</label>
     <button class="btn linha" id="exportar">Exportar Backup (.json)</button>
+    <button class="btn linha" id="expBase">⬇ Exportar conteudo.json (base atual)</button>
+    <button class="btn linha cheio" id="expTudo">⬇ Exportar conteudo.json CONSOLIDADO (base + meus)</button>
+    <p style="font-size:11px; color:var(--texto-secondary); margin:6px 0 0">O consolidado junta o arquivo base com tudo que você adicionou, sem duplicar id e já sem os itens excluídos. É o arquivo pronto para subir no GitHub.</p>
     
     <label>Restaurar Backup</label>
     <input type="file" accept=".json,application/json" id="arqBackup" style="margin-bottom:8px">
@@ -1647,6 +1651,25 @@ function ligarAjustes(){
     const blob=new Blob([JSON.stringify({progresso,meus},null,1)],{type:'application/json'});
     const a=document.createElement('a');
     a.href=URL.createObjectURL(blob); a.download='backup_semef_'+hoje()+'.json'; a.click();
+  };
+
+  function baixarJSON(obj, nome){
+    const blob=new Blob([JSON.stringify(obj,null,1)],{type:'application/json'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download=nome; a.click();
+  }
+  const bBase=document.getElementById('expBase');
+  if(bBase) bBase.onclick=()=>{
+    const d={juris:SEED.juris||[], questoes:SEED.questoes||[], simulados:SEED.simulados||[]};
+    baixarJSON(d,'conteudo_base_'+hoje()+'.json');
+    toast(`Base exportada: ${d.juris.length} juris · ${d.questoes.length} questões · ${d.simulados.length} simulados`);
+  };
+  const bTudo=document.getElementById('expTudo');
+  if(bTudo) bTudo.onclick=()=>{
+    // usa a mesma regra da tela: meus vence o SEED no mesmo id, excluídos ficam de fora
+    const d={juris:base('juris'), questoes:base('questoes'), simulados:base('simulados')};
+    baixarJSON(d,'conteudo_'+hoje()+'.json');
+    toast(`Consolidado: ${d.juris.length} juris · ${d.questoes.length} questões · ${d.simulados.length} simulados`);
   };
 
   const arqB=document.getElementById('arqBackup');
