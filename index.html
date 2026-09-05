@@ -207,6 +207,21 @@ main{
 .stat-card{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r);padding:14px;text-align:center}
 .stat-card h3{margin:0;font-size:24px;font-weight:700;color:var(--texto-primary)}
 .stat-card p{margin:4px 0 0;font-size:12px;color:var(--texto-secondary)}
+/* ==== Relatório de desempenho do simulado (por bloco/matéria) ==== */
+.res-tab{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r);overflow:hidden;margin-bottom:14px}
+.res-titulo{padding:10px 12px;font-size:12px;font-weight:700;color:var(--texto-primary);border-bottom:1px solid var(--border-subtle);background:var(--bg-elevated)}
+.res-linha{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--border-subtle)}
+.res-linha:last-child{border-bottom:none}
+.res-bloco{background:var(--bg-elevated)}
+.res-mat{padding-left:26px}
+.res-mat .res-nome{font-weight:500;color:var(--texto-secondary);font-size:12px}
+.res-bloco .res-nome{font-weight:700;font-size:13px}
+.res-nome{flex:1;color:var(--texto-primary);line-height:1.3}
+.res-sub{display:block;font-size:10px;color:var(--texto-secondary);font-weight:400;margin-top:2px}
+.res-nota{font-size:12px;color:var(--texto-secondary);white-space:nowrap;font-variant-numeric:tabular-nums}
+.res-pct{font-size:13px;font-weight:700;min-width:56px;text-align:right;font-variant-numeric:tabular-nums}
+.res-total{background:var(--bg-elevated);border-top:2px solid var(--border-subtle)}
+.res-total .res-nome{font-weight:800;letter-spacing:.4px;font-size:13px}
 .prog-bar-container{background:var(--bg-elevated);border-radius:99px;height:8px;overflow:hidden;margin-top:6px}
 .prog-bar{height:100%;background:var(--accent);transition:width .3s ease}
 
@@ -880,6 +895,31 @@ function vQuestao(){
     </div>`;
 }
 
+/* ================= BLOCOS DO EDITAL (relatório do simulado) =================
+   Agrupamento usado no resultado final do simulado. Para mudar, edite a lista abaixo.
+   A comparação IGNORA acentos e maiúsculas e é por "contém": basta que o nome da
+   matéria da questão contenha uma das palavras-chave. A ordem importa — vence a
+   primeira regra que casar. Matéria que não casar com nenhuma regra vira um bloco
+   com o próprio nome dela. */
+const BLOCOS_EDITAL = [
+  {bloco:'Língua Portuguesa',                          chaves:['portugues','lingua portuguesa','interpretacao de texto','redacao oficial']},
+  {bloco:'Exatas (Matemática, RLM e Estatística)',      chaves:['matematica','raciocinio logico','raciocinio-logico','rlm','logica','estatistica','probabilidade']},
+  {bloco:'Legislação Tributária Municipal (Manaus)',   chaves:['legislacao municipal','legislacao tributaria municipal','manaus','iss','issqn','iptu','itbi','codigo tributario municipal','zfm','zona franca']},
+  {bloco:'Direito Tributário',                          chaves:['tributario','ctn','reforma tributaria','processo administrativo fiscal','ibs','cbs']},
+  {bloco:'Contabilidade e Auditoria',                   chaves:['contabilidade','contabil','auditoria','custos','analise de balanco','pericia']},
+  {bloco:'Administração Pública, AFO e Economia',       chaves:['administracao publica','administracao financeira','orcament','afo','economia','financas publicas','licitac']},
+  {bloco:'Tecnologia e Fluência de Dados',              chaves:['fluencia de dados','tecnologia','informatica','banco de dados','sql','lgpd','marco civil','dados']},
+  {bloco:'Demais Disciplinas Jurídicas',                chaves:['direito','constitucional','administrativo','civil','penal','empresarial','processual','trabalho','ambiental','urbanistico']}
+];
+const normTxt = s => String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function blocoDaMateria(m){
+  const n = normTxt(m);
+  for(const b of BLOCOS_EDITAL){ if(b.chaves.some(c=>n.includes(c))) return b.bloco; }
+  return m || 'Sem matéria';
+}
+const pctOf = (o,t)=> t>0 ? (o/t*100) : 0;
+const corPct = p => p>=70 ? 'var(--certo)' : (p>=50 ? '#d97706' : 'var(--errado)');
+
 /* ================= ABA: SIMULADOS ================= */
 function vSimulados(){
   const sims = base('simulados');
@@ -925,18 +965,57 @@ function vSimulados(){
   if(estado.simFinalizado){
     let acertos = 0, notaObtida = 0, notaTotal = 0;
     const listaErradas = [];
+    const porMateria = {};
 
     questoes.forEach((q, idx)=>{
       const peso = q.peso || 1;
       notaTotal += peso;
+      const mat = q.materia || 'Sem matéria';
+      if(!porMateria[mat]) porMateria[mat] = {materia:mat, bloco:blocoDaMateria(mat), obtida:0, total:0, qtd:0, certas:0};
+      const m = porMateria[mat];
+      m.total += peso; m.qtd++;
       const resp = estado.simRespostas[idx];
       if(resp === q.correta){
         acertos++;
         notaObtida += peso;
+        m.obtida += peso; m.certas++;
       } else {
         listaErradas.push(idx);
       }
     });
+
+    // Agrupa as matérias nos blocos do edital
+    const mapaBlocos = {};
+    Object.values(porMateria).forEach(m=>{
+      if(!mapaBlocos[m.bloco]) mapaBlocos[m.bloco] = {nome:m.bloco, obtida:0, total:0, qtd:0, certas:0, materias:[]};
+      const b = mapaBlocos[m.bloco];
+      b.obtida += m.obtida; b.total += m.total; b.qtd += m.qtd; b.certas += m.certas;
+      b.materias.push(m);
+    });
+    const listaBlocos = Object.values(mapaBlocos).sort((a,b)=> b.total - a.total || a.nome.localeCompare(b.nome));
+    listaBlocos.forEach(b=> b.materias.sort((x,y)=> y.total - x.total || x.materia.localeCompare(y.materia)));
+
+    const linhaRes = (nome, sub, obtida, total, qtd, certas, classe)=>{
+      const p = pctOf(obtida, total);
+      return `<div class="res-linha ${classe}">
+        <span class="res-nome">${esc(nome)}${sub?`<span class="res-sub">${esc(sub)}</span>`:''}</span>
+        <span class="res-nota">${obtida.toFixed(1)} / ${total.toFixed(1)} pts</span>
+        <span class="res-pct" style="color:${corPct(p)}">${p.toFixed(1)}%</span>
+      </div>`;
+    };
+
+    const tabelaDesempenho = `
+      <div class="res-tab">
+        <div class="res-titulo">📊 Nota ponderada por bloco e matéria</div>
+        ${listaBlocos.map(b=>{
+          const soUma = b.materias.length===1 && b.materias[0].materia===b.nome;
+          return linhaRes(b.nome, `${b.certas}/${b.qtd} questões`, b.obtida, b.total, b.qtd, b.certas, 'res-bloco')
+            + (soUma ? '' : b.materias.map(m=>
+                linhaRes(m.materia, `${m.certas}/${m.qtd} questões`, m.obtida, m.total, m.qtd, m.certas, 'res-mat')
+              ).join(''));
+        }).join('')}
+        ${linhaRes('TOTAL DA PROVA', `${acertos}/${questoes.length} questões`, notaObtida, notaTotal, questoes.length, acertos, 'res-total')}
+      </div>`;
 
     const perc = notaTotal > 0 ? ((notaObtida/notaTotal)*100).toFixed(1) : 0;
     const indicesRevisao = estado.simModoRevisao === 'erradas' ? listaErradas : questoes.map((_,i)=>i);
@@ -955,6 +1034,8 @@ function vSimulados(){
           <button class="chip" onclick="sairSimulado()">Sair do Simulado</button>
         </div>
       </div>
+
+      ${tabelaDesempenho}
 
       ${q ? `
       <div class="questao-container" id="questao-container">
