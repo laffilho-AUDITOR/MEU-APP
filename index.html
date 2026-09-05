@@ -276,7 +276,6 @@ nav button.on{color:var(--accent);font-weight:700}
 <div class="toast" id="toast">App pronto!</div>
 
 <script id="script-dados">
-// SEED inicial vazio: dados vêm do conteudo.json e simulados vêm de localStorage/Supabase
 let SEED = {
   "juris": [],
   "questoes": [],
@@ -286,11 +285,10 @@ let SEED = {
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const KEY_PROG='semef2026_progresso_v1', KEY_USER='semef2026_meusitens_v1', KEY_FONT='semef2026_fontsize_v1';
+const KEY_PROG='semef2026_progresso_v1', KEY_USER='semef2026_meusitens_v1', KEY_FONT='semef2026_fontsize_v1', KEY_SIM_SALVO='semef2026_simulado_ativo_v1';
 const mem={};
 const store={
   get(k){
-    // Se a gravação em disco falhou, o valor mais novo está na memória: ele tem prioridade.
     if(Object.prototype.hasOwnProperty.call(mem,k)) return mem[k];
     try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null }catch(e){ return null }
   },
@@ -299,8 +297,6 @@ const store={
     try{ txt=JSON.stringify(v) }catch(e){ return false }
     try{ localStorage.setItem(k,txt); delete mem[k]; return true }
     catch(e){
-      // Espaço cheio: o cache do conteudo.json e os backups são descartáveis,
-      // os itens do usuário (simulados/questões) não podem ser perdidos.
       try{
         if(k!=='semef2026_conteudo_v1') localStorage.removeItem('semef2026_conteudo_v1');
         if(k!=='semef2026_backups_prog_v1') localStorage.removeItem('semef2026_backups_prog_v1');
@@ -362,13 +358,6 @@ function mesclarProgresso(local,remoto){
   return out;
 }
 
-/* ---- Exclusoes com data/hora --------------------------------------------
-   A lista "excluidos" guarda {id, em}. Cada item criado/importado guarda "_em".
-   Regra: uma exclusao so apaga um item se ela for MAIS NOVA que o item.
-   Assim, apagar num aparelho apaga em todos, e recriar/reimportar depois
-   traz o item de volta em todos - sem um lado desfazer o outro.
-   Entradas antigas (texto puro) e itens sem "_em" valem como tempo 0,
-   mantendo o comportamento que ja existia.                                  */
 function normExcl(lista){
   const m = new Map();
   (Array.isArray(lista) ? lista : []).forEach(e => {
@@ -404,7 +393,6 @@ function mesclarMeus(local, remoto){
     const itensLocal = Array.isArray(localVal[t]) ? localVal[t] : [];
     const itensRemoto = Array.isArray(remotoVal[t]) ? remotoVal[t] : [];
 
-    // Local primeiro; da nuvem so entra o que nao existe aqui ou o que e mais novo.
     [...itensLocal, ...itensRemoto].forEach(i => {
       if(!i || !i.id) return;
       if(apagado(xMap, i)) return;
@@ -416,8 +404,6 @@ function mesclarMeus(local, remoto){
     out[t].forEach(i => vivos.add(i.id));
   });
 
-  // Exclusao vencida (o item voltou a existir) sai da lista, senao ela e
-  // reenviada para a nuvem e apaga o item de novo na sincronizacao seguinte.
   out.excluidos = [...xMap.entries()]
     .filter(([id]) => !vivos.has(id))
     .map(([id, em]) => ({ id, em }));
@@ -476,8 +462,6 @@ async function sincronizar(opcoes){
     if(!user){ setSync('não conectado — toque em “Entrar”'); return false }
     setSync(enviarSempre ? 'enviando alterações…' : 'sincronizando…');
 
-    // Sempre lê a nuvem antes de gravar. Nunca sobrescreve às cegas:
-    // era isso que fazia um aparelho apagar o simulado criado no outro.
     const { data, error } = await sb.from('app_state')
       .select('progresso,meus,updated_at').eq('user_id',user.id).maybeSingle();
     if(error) throw error;
@@ -539,7 +523,7 @@ async function sincronizarNuvem(){
 function marcarApagamento(){
   forcarEnvio = true;
   store.set(APAGA_KEY, true);
-  epocaDados++;               // invalida qualquer leitura da nuvem que ainda esteja em voo
+  epocaDados++;
   clearTimeout(syncTimer);
   setSync('enviando alterações…');
   if(sb) sincronizar({silencioso:true});
@@ -611,6 +595,9 @@ function base(tipo){
 }
 function prog(id){ return progresso[id] || {caixa:0, prox:'2000-01-01', acertos:0, erros:0, ultimaResp:null} }
 function devida(id){ return prog(id).prox <= hoje() }
+
+// Carrega simulado em andamento prévio, se houver
+const simSalvo = store.get(KEY_SIM_SALVO) || {};
 
 let estado={
   aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false, 
@@ -896,12 +883,32 @@ function vQuestao(){
 /* ================= ABA: SIMULADOS ================= */
 function vSimulados(){
   const sims = base('simulados');
+  const salvo = store.get(KEY_SIM_SALVO);
+
   if(!estado.simuladoId){
     return `
       <div class="item">
         <h4>⏱ Simulados (Modo Prova)</h4>
         <p>Resolva simulados com cálculo de nota ponderada por matéria, avanço direto sem feedback imediato e revisão comentada pós-prova.</p>
       </div>
+
+      ${salvo && salvo.simuladoId ? `
+        <div class="item" style="border:1px solid var(--accent); background:rgba(59, 130, 246, 0.08)">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <h4 style="color:var(--accent); margin:0">Simulado em Pausa</h4>
+            <span class="chip on" style="font-size:10px; padding:3px 8px">Pausado</span>
+          </div>
+          <p style="margin-top:6px; font-size:13px">
+            <b>${esc(salvo.titulo || 'Simulado')}</b><br>
+            Progresso: ${Object.keys(salvo.simRespostas||{}).length} de ${salvo.totalQuestoes||'--'} respondidas (Questão atual: ${(salvo.simIdx||0)+1})
+          </p>
+          <div style="display:flex; gap:8px; margin-top:10px">
+            <button class="btn cheio" style="flex:1" onclick="retomarSimuladoSalvo()">▶ Continuar de onde parou</button>
+            <button class="btn err" onclick="descartarSimuladoSalvo()">Descartar</button>
+          </div>
+        </div>
+      ` : ''}
+
       <label>Selecione um Simulado</label>
       ${sims.length ? sims.map(s=>`
         <div class="item" style="cursor:pointer" onclick="iniciarSimulado('${s.id}')">
@@ -941,7 +948,7 @@ function vSimulados(){
     return `
       <div class="stat-card" style="margin-bottom:14px; text-align:left">
         <h3 style="color:${perc>=70?'var(--certo)':'var(--errado)'}">${perc}% de Aproveitamento</h3>
-        <p style="font-size:14px; color:var(--texto-primary); margin-top:4px">Nota: <b>${notaObtida.toFixed(1)} / ${notaTotal.toFixed(1)}</b> (${acertos} de ${questoes.length} questões)</p>
+        <p style="font-size:14px; color:var(--texto-primary); margin-top:4px">Nota Ponderada: <b>${notaObtida.toFixed(1)} / ${notaTotal.toFixed(1)}</b> (${acertos} de ${questoes.length} questões certas)</p>
         <div style="display:flex; gap:6px; margin-top:12px; flex-wrap:wrap">
           <button class="chip ${estado.simModoRevisao==='todas'?'on':''}" onclick="setModoRevisao('todas')">Rever Todas (${questoes.length})</button>
           <button class="chip ${estado.simModoRevisao==='erradas'?'on':''}" onclick="setModoRevisao('erradas')">Rever Só as que Errei (${listaErradas.length})</button>
@@ -980,9 +987,12 @@ function vSimulados(){
   const respAtual = estado.simRespostas[estado.simIdx];
 
   return `
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px">
-      <h4 style="margin:0; font-size:14px; color:var(--texto-primary)">${esc(sim.titulo)}</h4>
-      <button class="btn err" style="padding:4px 8px; font-size:11px" onclick="finalizarSimulado()">Finalizar Prova</button>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:8px">
+      <h4 style="margin:0; font-size:13px; color:var(--texto-primary); flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">${esc(sim.titulo)}</h4>
+      <div style="display:flex; gap:6px">
+        <button class="btn meio" style="padding:5px 9px; font-size:11px" onclick="pausarSimulado()">⏸ Pausar/Sair</button>
+        <button class="btn err" style="padding:5px 9px; font-size:11px" onclick="finalizarSimulado()">Finalizar Prova</button>
+      </div>
     </div>
 
     <div class="sim-grid-nav">
@@ -1011,29 +1021,90 @@ function vSimulados(){
     </div>`;
 }
 
-function iniciarSimulado(id){
-  estado.simuladoId = id; estado.simIdx = 0; estado.simRespostas = {}; estado.simFinalizado = false;
+function salvarProgressoSimuladoLocal(){
+  if(!estado.simuladoId || estado.simFinalizado) return;
+  const sim = base('simulados').find(s=>s.id===estado.simuladoId);
+  store.set(KEY_SIM_SALVO, {
+    simuladoId: estado.simuladoId,
+    titulo: sim ? sim.titulo : 'Simulado',
+    totalQuestoes: sim && sim.questoes ? sim.questoes.length : 0,
+    simIdx: estado.simIdx,
+    simRespostas: estado.simRespostas
+  });
+}
+
+function limparSimuladoSalvo(){
+  try { localStorage.removeItem(KEY_SIM_SALVO); } catch(e){}
+  delete mem[KEY_SIM_SALVO];
+}
+
+function pausarSimulado(){
+  salvarProgressoSimuladoLocal();
+  estado.simuladoId = null;
+  toast('Simulado pausado com sucesso! Você pode continuar a qualquer momento.');
   render();
 }
+
+function retomarSimuladoSalvo(){
+  const salvo = store.get(KEY_SIM_SALVO);
+  if(!salvo || !salvo.simuladoId) return;
+  estado.simuladoId = salvo.simuladoId;
+  estado.simIdx = salvo.simIdx || 0;
+  estado.simRespostas = salvo.simRespostas || {};
+  estado.simFinalizado = false;
+  toast('Simulado retomado!');
+  render();
+}
+
+function descartarSimuladoSalvo(){
+  if(confirm('Deseja descartar o simulado pausado e apagar as respostas não entregues?')){
+    limparSimuladoSalvo();
+    toast('Simulado descartado.');
+    render();
+  }
+}
+
+function iniciarSimulado(id){
+  const salvo = store.get(KEY_SIM_SALVO);
+  if(salvo && salvo.simuladoId === id && Object.keys(salvo.simRespostas||{}).length > 0){
+    if(confirm('Você tem um progresso salvo deste simulado. Deseja continuar de onde parou?')){
+      retomarSimuladoSalvo();
+      return;
+    }
+  }
+  estado.simuladoId = id; estado.simIdx = 0; estado.simRespostas = {}; estado.simFinalizado = false;
+  salvarProgressoSimuladoLocal();
+  render();
+}
+
 function responderItemSimulado(altIdx){
   estado.simRespostas[estado.simIdx] = altIdx;
+  salvarProgressoSimuladoLocal();
   const sim = base('simulados').find(s=>s.id===estado.simuladoId);
   if(sim && estado.simIdx < sim.questoes.length - 1){
     estado.simIdx++;
+    salvarProgressoSimuladoLocal();
   }
   render();
 }
+
 function navegarSimulado(delta){
   const sim = base('simulados').find(s=>s.id===estado.simuladoId);
   if(!sim) return;
   estado.simIdx = Math.max(0, Math.min(sim.questoes.length - 1, estado.simIdx + delta));
+  salvarProgressoSimuladoLocal();
   render();
 }
+
 function irParaQuestaoSimulado(idx){
-  estado.simIdx = idx; render();
+  estado.simIdx = idx; 
+  salvarProgressoSimuladoLocal();
+  render();
 }
+
 function finalizarSimulado(){
   if(confirm('Deseja realmente entregar e finalizar o simulado?')){
+    limparSimuladoSalvo();
     estado.simFinalizado = true; estado.simIdx = 0; estado.simModoRevisao = 'todas';
     render();
   }
@@ -1045,6 +1116,7 @@ function navegarRevisao(delta){
   estado.simIdx += delta; render();
 }
 function sairSimulado(){
+  limparSimuladoSalvo();
   estado.simuladoId = null; render();
 }
 function incorporarAoBanco(simId){
@@ -1259,7 +1331,6 @@ function ligar(){
   const pular=document.getElementById('pular');
   if(pular) pular.onclick=()=>{ estado.revelado=false; estado.idx++; estado.riscadas={}; render() };
 
-  // Navegação por Swipe (Deslize)
   const container = document.getElementById('questao-container');
   if(container){
     container.addEventListener('touchstart', e => {
@@ -1271,7 +1342,6 @@ function ligar(){
       touchEndX = e.changedTouches[0].screenX;
       const dist = touchEndX - touchStartX;
       const distY = e.changedTouches[0].screenY - touchStartY;
-      // Só navega se o gesto for claramente horizontal: rolar a questão com o dedo não pula questão
       if(Math.abs(dist) > 60 && Math.abs(dist) > Math.abs(distY) * 1.5){
         if(estado.aba === 'questoes'){
           const l = fila('questoes');
@@ -1293,7 +1363,6 @@ function ligar(){
     }, { passive: true });
   }
 
-  // Toque simples seleciona, Toque duplo risca
   document.querySelectorAll('[data-alt]').forEach(b=>{
     b.onclick = ev => {
       ev.preventDefault();
@@ -1396,8 +1465,6 @@ function ligarForm(){
 
     meus[tipo].push(item);
     salvarMeus();
-    // Envia o estado completo agora: o item novo passa a valer na nuvem imediatamente
-    // e não corre o risco de ser desfeito pela sincronização seguinte.
     marcarApagamento();
     f.querySelectorAll('[data-k]').forEach(e=>e.value='');
     toast('Item adicionado!'); 
@@ -1444,7 +1511,6 @@ function importarArray(arr){
   const jaTem = idsExistentes();
   let n = 0, pulados = 0;
   arr.forEach(o => {
-    // Se o objeto possui a chave "questoes" como array, é um Simulado
     const tipo = o.tipo || (Array.isArray(o.questoes) ? 'simulados' : (o.alts ? 'questoes' : 'juris'));
     if(!meus[tipo]) meus[tipo] = [];
     const item = Object.assign({}, o); 
@@ -1459,8 +1525,6 @@ function importarArray(arr){
     n++;
   });
   salvarMeus();
-  // Importação de novos itens deve prevalecer sobre uma exclusão antiga já gravada na nuvem.
-  // Força o envio do estado completo atual, evitando que a sincronização restaure a exclusão.
   marcarApagamento();
   placar();
   filtros();
