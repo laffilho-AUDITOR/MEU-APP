@@ -220,6 +220,7 @@ main{
 .res-sub{display:block;font-size:10px;color:var(--texto-secondary);font-weight:400;margin-top:2px}
 .res-nota{font-size:12px;color:var(--texto-secondary);white-space:nowrap;font-variant-numeric:tabular-nums}
 .res-pct{font-size:13px;font-weight:700;min-width:56px;text-align:right;font-variant-numeric:tabular-nums}
+.res-delta{font-size:11px;font-weight:700;min-width:52px;text-align:right;font-variant-numeric:tabular-nums}
 .res-total{background:var(--bg-elevated);border-top:2px solid var(--border-subtle)}
 .res-total .res-nome{font-weight:800;letter-spacing:.4px;font-size:13px}
 .prog-bar-container{background:var(--bg-elevated);border-radius:99px;height:8px;overflow:hidden;margin-top:6px}
@@ -400,10 +401,10 @@ function mesclarMeus(local, remoto){
     m.forEach((em, id) => { xMap.set(id, Math.max(xMap.get(id) || 0, em)) });
   });
 
-  const out = { juris: [], questoes: [], simulados: [], excluidos: [] };
+  const out = { juris: [], questoes: [], simulados: [], tentativas: [], excluidos: [] };
   const vivos = new Set();
 
-  ['juris', 'questoes', 'simulados'].forEach(t => {
+  ['juris', 'questoes', 'simulados', 'tentativas'].forEach(t => {
     const map = new Map();
     const itensLocal = Array.isArray(localVal[t]) ? localVal[t] : [];
     const itensRemoto = Array.isArray(remotoVal[t]) ? remotoVal[t] : [];
@@ -486,8 +487,8 @@ async function sincronizar(opcoes){
     const progAntes=JSON.stringify(progresso), meusAntes=JSON.stringify(meus);
 
     progresso = mesclarProgresso(progresso, remoto.progresso||{});
-    meus      = mesclarMeus(meus, remoto.meus||{juris:[],questoes:[],simulados:[],excluidos:[]});
-    ['juris','questoes','simulados'].forEach(t=>{ if(!Array.isArray(meus[t])) meus[t]=[] });
+    meus      = mesclarMeus(meus, remoto.meus||{juris:[],questoes:[],simulados:[],tentativas:[],excluidos:[]});
+    ['juris','questoes','simulados','tentativas'].forEach(t=>{ if(!Array.isArray(meus[t])) meus[t]=[] });
     if(!Array.isArray(meus.excluidos)) meus.excluidos=[];
 
     const mudouLocal = JSON.stringify(progresso)!==progAntes || JSON.stringify(meus)!==meusAntes;
@@ -563,8 +564,8 @@ function iniciarSync(){
 }
 
 let progresso = store.get(KEY_PROG) || {};
-let meus = store.get(KEY_USER) || {juris:[],questoes:[],simulados:[]};
-['juris','questoes','simulados'].forEach(t=>{ if(!Array.isArray(meus[t])) meus[t]=[] });
+let meus = store.get(KEY_USER) || {juris:[],questoes:[],simulados:[],tentativas:[]};
+['juris','questoes','simulados','tentativas'].forEach(t=>{ if(!Array.isArray(meus[t])) meus[t]=[] });
 if(!Array.isArray(meus.excluidos)) meus.excluidos=[];
 const fora=()=>normExcl(meus.excluidos);
 
@@ -618,7 +619,7 @@ let estado={
   aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false, 
   idx:0, revelado:false, respondida:null, fontSize:store.get(KEY_FONT)||16, riscadas:{}, selecionada:null, 
   errMateria:'TODAS', errTema:'TODOS',
-  simuladoId: null, simIdx: 0, simRespostas: {}, simFinalizado: false, simModoRevisao: 'todas'
+  simuladoId: null, simIdx: 0, simRespostas: {}, simFinalizado: false, simModoRevisao: 'todas', tentativaId: null
 };
 
 function respostaVisivel(p){
@@ -919,6 +920,92 @@ function blocoDaMateria(m){
   return m || 'Sem matéria';
 }
 const pctOf = (o,t)=> t>0 ? (o/t*100) : 0;
+
+/* Calcula o resultado de um simulado a partir de um mapa de respostas {indice: alternativa}.
+   Usado tanto ao finalizar a prova quanto ao rever um simulado já respondido. */
+function calcularResultado(sim, respostas){
+  const questoes = (sim && sim.questoes) || [];
+  const r = { acertos:0, obtida:0, total:0, erradas:[], brancos:0, blocos:[], questoes:questoes.length };
+  const porMateria = {};
+  questoes.forEach((q, idx)=>{
+    const peso = q.peso || 1;
+    r.total += peso;
+    const mat = q.materia || 'Sem matéria';
+    if(!porMateria[mat]) porMateria[mat] = {materia:mat, bloco:blocoDaMateria(mat), obtida:0, total:0, qtd:0, certas:0};
+    const m = porMateria[mat];
+    m.total += peso; m.qtd++;
+    const resp = respostas ? respostas[idx] : undefined;
+    if(resp === q.correta){ r.acertos++; r.obtida += peso; m.obtida += peso; m.certas++ }
+    else { r.erradas.push(idx); if(resp===undefined) r.brancos++ }
+  });
+  const mapa = {};
+  Object.values(porMateria).forEach(m=>{
+    if(!mapa[m.bloco]) mapa[m.bloco] = {nome:m.bloco, obtida:0, total:0, qtd:0, certas:0, materias:[]};
+    const b = mapa[m.bloco];
+    b.obtida += m.obtida; b.total += m.total; b.qtd += m.qtd; b.certas += m.certas;
+    b.materias.push(m);
+  });
+  r.blocos = Object.values(mapa).sort((a,b)=> b.total - a.total || a.nome.localeCompare(b.nome));
+  r.blocos.forEach(b=> b.materias.sort((x,y)=> y.total - x.total || x.materia.localeCompare(y.materia)));
+  r.pct = pctOf(r.obtida, r.total);
+  return r;
+}
+
+/* ----- Histórico de simulados respondidos (fica em meus.tentativas, sincroniza junto) ----- */
+function tentativasDoSimulado(simuladoId){
+  return base('tentativas')
+    .filter(t=>t.simuladoId===simuladoId)
+    .sort((a,b)=> String(a.em||'').localeCompare(String(b.em||'')));
+}
+function tentativaAnterior(simuladoId, tentativaId){
+  const l = tentativasDoSimulado(simuladoId);
+  const i = l.findIndex(t=>t.id===tentativaId);
+  return i>0 ? l[i-1] : (tentativaId ? null : (l.length ? l[l.length-1] : null));
+}
+function dataBR(iso){
+  const d = new Date(iso);
+  if(isNaN(d)) return '--';
+  return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+function registrarTentativa(sim){
+  const r = calcularResultado(sim, estado.simRespostas);
+  const t = {
+    id: 't-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,6),
+    simuladoId: sim.id,
+    titulo: sim.titulo || 'Simulado',
+    em: new Date().toISOString(),
+    respostas: Object.assign({}, estado.simRespostas),
+    resumo: { acertos:r.acertos, questoes:r.questoes, obtida:r.obtida, total:r.total, brancos:r.brancos },
+    _em: Date.now()
+  };
+  if(!Array.isArray(meus.tentativas)) meus.tentativas = [];
+  meus.tentativas.push(t);
+  salvarMeus();
+  estado.tentativaId = t.id;
+  return t;
+}
+function reverTentativa(id){
+  const t = base('tentativas').find(x=>x.id===id);
+  if(!t){ toast('Simulado respondido não encontrado'); return }
+  estado.simuladoId = t.simuladoId;
+  estado.simRespostas = t.respostas || {};
+  estado.simFinalizado = true;
+  estado.tentativaId = t.id;
+  estado.simIdx = 0;
+  estado.simModoRevisao = 'erradas';
+  render();
+}
+function excluirTentativa(id){
+  const t = base('tentativas').find(x=>x.id===id);
+  if(!t) return;
+  if(!confirm(`Apagar o resultado de "${t.titulo}" de ${dataBR(t.em)}? As questões e o simulado continuam no app.`)) return;
+  meus.tentativas = (meus.tentativas||[]).filter(x=>x.id!==id);
+  if(!Array.isArray(meus.excluidos)) meus.excluidos = [];
+  meus.excluidos.push({ id, em: Date.now() });
+  salvarMeus();
+  toast('Resultado apagado');
+  render();
+}
 const corPct = p => p>=70 ? 'var(--certo)' : (p>=50 ? '#d97706' : 'var(--errado)');
 
 /* ================= ABA: SIMULADOS ================= */
@@ -956,7 +1043,44 @@ function vSimulados(){
           <h4 style="color:var(--accent)">${esc(s.titulo)}</h4>
           <p>${(s.questoes||[]).length} questões · ${esc(s.descricao||'Simulado completo')}</p>
         </div>
-      `).join('') : vazio('Nenhum simulado cadastrado. Importe um arquivo JSON na aba Adicionar.')}`;
+      `).join('') : vazio('Nenhum simulado cadastrado. Importe um arquivo JSON na aba Adicionar.')}
+
+      ${(()=>{
+        const feitos = base('tentativas').slice().sort((a,b)=> String(b.em||'').localeCompare(String(a.em||'')));
+        if(!feitos.length) return '';
+        return `<label>Simulados respondidos (${feitos.length})</label>` + feitos.map(t=>{
+          const sm = sims.find(x=>x.id===t.simuladoId);
+          const r = sm ? calcularResultado(sm, t.respostas) : null;
+          const obtida = r ? r.obtida : ((t.resumo&&t.resumo.obtida)||0);
+          const total  = r ? r.total  : ((t.resumo&&t.resumo.total)||0);
+          const certas = r ? r.acertos: ((t.resumo&&t.resumo.acertos)||0);
+          const nq     = r ? r.questoes:((t.resumo&&t.resumo.questoes)||0);
+          const p = pctOf(obtida, total);
+          const ant = tentativaAnterior(t.simuladoId, t.id);
+          let delta = '';
+          if(ant && sm){
+            const ra = calcularResultado(sm, ant.respostas);
+            const d = p - pctOf(ra.obtida, ra.total);
+            if(Math.abs(d) >= 0.05) delta = `<span style="font-size:11px; font-weight:700; color:${d>0?'var(--certo)':'var(--errado)'}">${d>0?'▲':'▼'} ${Math.abs(d).toFixed(1)} p.p.</span>`;
+            else delta = '<span style="font-size:11px; color:var(--texto-secondary)">= igual</span>';
+          }
+          return `<div class="item">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px">
+              <div style="flex:1; min-width:0">
+                <h4 style="margin:0">${esc(t.titulo||'Simulado')}</h4>
+                <p style="margin:3px 0 0">${dataBR(t.em)} · ${obtida.toFixed(1)}/${total.toFixed(1)} pts · ${certas}/${nq} acertos${sm?'':' · simulado não está mais no app'}</p>
+              </div>
+              <div style="text-align:right; white-space:nowrap">
+                <b style="font-size:18px; color:${corPct(p)}">${p.toFixed(1)}%</b><br>${delta}
+              </div>
+            </div>
+            <div style="display:flex; gap:8px; margin-top:10px">
+              ${sm ? `<button class="btn meio" style="flex:1" onclick="reverTentativa('${t.id}')">🔍 Rever erros e estatística</button>` : ''}
+              <button class="btn err" onclick="excluirTentativa('${t.id}')">Apagar</button>
+            </div>
+          </div>`;
+        }).join('');
+      })()}`;
   }
 
   const sim = sims.find(s=>s.id===estado.simuladoId);
@@ -964,58 +1088,47 @@ function vSimulados(){
   const questoes = sim.questoes || [];
 
   if(estado.simFinalizado){
-    let acertos = 0, notaObtida = 0, notaTotal = 0;
-    const listaErradas = [];
-    const porMateria = {};
+    const res = calcularResultado(sim, estado.simRespostas);
+    const acertos = res.acertos, notaObtida = res.obtida, notaTotal = res.total;
+    const listaErradas = res.erradas;
+    const listaBlocos = res.blocos;
 
-    questoes.forEach((q, idx)=>{
-      const peso = q.peso || 1;
-      notaTotal += peso;
-      const mat = q.materia || 'Sem matéria';
-      if(!porMateria[mat]) porMateria[mat] = {materia:mat, bloco:blocoDaMateria(mat), obtida:0, total:0, qtd:0, certas:0};
-      const m = porMateria[mat];
-      m.total += peso; m.qtd++;
-      const resp = estado.simRespostas[idx];
-      if(resp === q.correta){
-        acertos++;
-        notaObtida += peso;
-        m.obtida += peso; m.certas++;
-      } else {
-        listaErradas.push(idx);
-      }
-    });
+    // Comparação com o resultado anterior do MESMO simulado, quando existir
+    const anterior = tentativaAnterior(sim.id, estado.tentativaId);
+    const resAnt = anterior ? calcularResultado(sim, anterior.respostas) : null;
+    const pctAntPorBloco = {};
+    if(resAnt) resAnt.blocos.forEach(b=> pctAntPorBloco[b.nome] = pctOf(b.obtida, b.total));
+    const pctAntTotal = resAnt ? pctOf(resAnt.obtida, resAnt.total) : null;
 
-    // Agrupa as matérias nos blocos do edital
-    const mapaBlocos = {};
-    Object.values(porMateria).forEach(m=>{
-      if(!mapaBlocos[m.bloco]) mapaBlocos[m.bloco] = {nome:m.bloco, obtida:0, total:0, qtd:0, certas:0, materias:[]};
-      const b = mapaBlocos[m.bloco];
-      b.obtida += m.obtida; b.total += m.total; b.qtd += m.qtd; b.certas += m.certas;
-      b.materias.push(m);
-    });
-    const listaBlocos = Object.values(mapaBlocos).sort((a,b)=> b.total - a.total || a.nome.localeCompare(b.nome));
-    listaBlocos.forEach(b=> b.materias.sort((x,y)=> y.total - x.total || x.materia.localeCompare(y.materia)));
+    const marcaDelta = (atual, ant)=>{
+      if(ant===null || ant===undefined) return '<span class="res-delta">—</span>';
+      const d = atual - ant;
+      if(Math.abs(d) < 0.05) return '<span class="res-delta" style="color:var(--texto-secondary)">=</span>';
+      const cor = d>0 ? 'var(--certo)' : 'var(--errado)';
+      return `<span class="res-delta" style="color:${cor}">${d>0?'▲':'▼'} ${Math.abs(d).toFixed(1)}</span>`;
+    };
 
-    const linhaRes = (nome, sub, obtida, total, qtd, certas, classe)=>{
+    const linhaRes = (nome, sub, obtida, total, ant, classe)=>{
       const p = pctOf(obtida, total);
       return `<div class="res-linha ${classe}">
         <span class="res-nome">${esc(nome)}${sub?`<span class="res-sub">${esc(sub)}</span>`:''}</span>
         <span class="res-nota">${obtida.toFixed(1)} / ${total.toFixed(1)} pts</span>
         <span class="res-pct" style="color:${corPct(p)}">${p.toFixed(1)}%</span>
+        ${resAnt ? marcaDelta(p, ant) : ''}
       </div>`;
     };
 
     const tabelaDesempenho = `
       <div class="res-tab">
-        <div class="res-titulo">📊 Nota ponderada por bloco e matéria</div>
+        <div class="res-titulo">📊 Nota ponderada por bloco e matéria${resAnt ? ` <span style="font-weight:400; color:var(--texto-secondary)">· comparando com ${dataBR(anterior.em)}</span>` : ''}</div>
         ${listaBlocos.map(b=>{
           const soUma = b.materias.length===1 && b.materias[0].materia===b.nome;
-          return linhaRes(b.nome, `${b.certas}/${b.qtd} questões`, b.obtida, b.total, b.qtd, b.certas, 'res-bloco')
+          return linhaRes(b.nome, `${b.certas}/${b.qtd} questões`, b.obtida, b.total, pctAntPorBloco[b.nome], 'res-bloco')
             + (soUma ? '' : b.materias.map(m=>
-                linhaRes(m.materia, `${m.certas}/${m.qtd} questões`, m.obtida, m.total, m.qtd, m.certas, 'res-mat')
+                linhaRes(m.materia, `${m.certas}/${m.qtd} questões`, m.obtida, m.total, undefined, 'res-mat')
               ).join(''));
         }).join('')}
-        ${linhaRes('TOTAL DA PROVA', `${acertos}/${questoes.length} questões`, notaObtida, notaTotal, questoes.length, acertos, 'res-total')}
+        ${linhaRes('TOTAL DA PROVA', `${acertos}/${questoes.length} questões · ${res.brancos} em branco`, notaObtida, notaTotal, pctAntTotal, 'res-total')}
       </div>`;
 
     const perc = notaTotal > 0 ? ((notaObtida/notaTotal)*100).toFixed(1) : 0;
@@ -1032,8 +1145,9 @@ function vSimulados(){
         <div style="display:flex; gap:6px; margin-top:12px; flex-wrap:wrap">
           <button class="chip ${estado.simModoRevisao==='todas'?'on':''}" onclick="setModoRevisao('todas')">Rever Todas (${questoes.length})</button>
           <button class="chip ${estado.simModoRevisao==='erradas'?'on':''}" onclick="setModoRevisao('erradas')">Rever Só as que Errei (${listaErradas.length})</button>
-          <button class="chip" onclick="sairSimulado()">Sair do Simulado</button>
+          <button class="chip" onclick="sairSimulado()">${estado.tentativaId ? 'Voltar ao histórico' : 'Sair do Simulado'}</button>
         </div>
+        ${estado.tentativaId ? `<p style="font-size:11px; color:var(--texto-secondary); margin:8px 0 0">Revisão do simulado respondido em ${dataBR((base('tentativas').find(x=>x.id===estado.tentativaId)||{}).em)} — resultado guardado no histórico.</p>` : ''}
       </div>
 
       ${tabelaDesempenho}
@@ -1187,6 +1301,8 @@ function irParaQuestaoSimulado(idx){
 function finalizarSimulado(){
   if(confirm('Deseja realmente entregar e finalizar o simulado?')){
     limparSimuladoSalvo();
+    const sim = base('simulados').find(s=>s.id===estado.simuladoId);
+    if(sim) registrarTentativa(sim);   // guarda o resultado no histórico
     estado.simFinalizado = true; estado.simIdx = 0; estado.simModoRevisao = 'todas';
     render();
   }
@@ -1199,7 +1315,12 @@ function navegarRevisao(delta){
 }
 function sairSimulado(){
   limparSimuladoSalvo();
-  estado.simuladoId = null; render();
+  estado.simuladoId = null;
+  estado.tentativaId = null;
+  estado.simFinalizado = false;
+  estado.simRespostas = {};
+  estado.simIdx = 0;
+  render();
 }
 function incorporarAoBanco(simId){
   const sim = base('simulados').find(s=>s.id===simId);
@@ -1587,7 +1708,7 @@ function ligarDel(){
 
 function idsExistentes(){
   const s=new Set();
-  ['juris','questoes','simulados'].forEach(t=>base(t).forEach(i=>s.add(i.id)));
+  ['juris','questoes','simulados','tentativas'].forEach(t=>base(t).forEach(i=>s.add(i.id)));
   return s;
 }
 
