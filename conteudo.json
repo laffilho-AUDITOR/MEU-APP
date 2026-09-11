@@ -407,6 +407,102 @@
    "ref": "SÍNTESE — Quais produtos estão excluídos da isenção de entrada e de IPI na ZFM?",
    "tese": "Armas e munições; fumo; bebidas alcoólicas; automóveis de passageiros; petróleo, combustíveis e lubrificantes derivados; e perfumes/cosméticos (salvo se para consumo interno ou feitos com matéria-prima regional sob PPB).",
    "obs": "Exceção expressa à lista negativa do IPI: quadriciclos e triciclos (e peças) usufruem de isenção de IPI e de regras aduaneiras favorecidas quando cumprido o PPB."
+  },
+  {
+   "id": "j2-zfm-15",
+   "materia": "ZFM",
+   "tribunal": "QUAL É O JULGADO? STF ou STJ?",
+   "ref": "O quadro normativo pré-constitucional de incentivo fiscal à Zona Franca de Manaus foi alçado à estatura constitucional pelo art. 40 do ADCT, adquirindo, por força dessa regra transitória, natureza de imunidade tributária. São inconstitucionais, por isso, os convênios de ICMS que pretenderam revogar ou restringir esses incentivos.",
+   "tese": ">>> ADI 310/AM — STF (Rel. Min. Cármen Lúcia, Plenário, 19/02/2014) <<<   ·   É o julgado que dá ao art. 40 do ADCT natureza de IMUNIDADE, e não de mera isenção.",
+   "obs": "Declarou inconstitucionais os Convênios ICM nº 1, 2 e 6, de 30/05/1990, que retiravam da ZFM benefícios pré-constitucionais. Porque a imunidade decorre do próprio ADCT, ela alcança também o ICMS: é esse o fundamento da desoneração no campo estadual, e não uma renúncia voluntária dos Estados. Isenção se revoga por lei; imunidade, não."
+  },
+  {
+   "id": "j2-zfm-16",
+   "materia": "ZFM",
+   "tribunal": "QUAL É O JULGADO? STF ou STJ?",
+   "ref": "É constitucional excluir as operações com petróleo, lubrificantes e combustíveis líquidos e gasosos derivados de petróleo do regime da Zona Franca de Manaus, porque essas exceções já constavam da legislação pré-constitucional: trata-se de explicitação ou aperfeiçoamento de redação, sem redução do conjunto de incentivos da região.",
+   "tese": ">>> ADI 7239/DF — STF (Rel. Min. Luís Roberto Barroso, Plenário, sessão virtual de março de 2024, 8 x 3) <<<   ·   Validou o art. 8º da Lei nº 14.183/2021, que deu nova redação aos arts. 3º, 4º e 37 do DL nº 288/1967.",
+   "obs": "A exclusão está no art. 37 do DL nº 288/1967 e é ampla: alcança exportação, reexportação, importação e operações no território nacional, inclusive as internas à própria área incentivada. Vencidos Dias Toffoli, Fux e Nunes Marques, para quem a norma esvaziava incentivos. Na LC nº 214/2025 a mesma vedação reaparece no art. 441, com ressalva única para a indústria de refino localizada na ZFM, nas saídas internas para a área, cumprido o processo produtivo básico."
+  },
+  {
+   "id": "j2-issdec-01",
+   "materia": "ISS Decreto",
+   "tribunal": "QUAL É A SÚMULA? STF ou STJ?",
+   "ref": "Estão sujeitos à fiscalização tributária ou previdenciária quaisquer livros comerciais, limitado o exame aos pontos objeto da investigação.",
+   "tese": ">>> SÚMULA 439 DO STF (01/10/1964) <<<   ·   É súmula comum do STF, NÃO é vinculante.",
+   "obs": "É o lastro jurisprudencial do art. 195 do CTN, reproduzido pelo Regulamento do ISSQN de Manaus (Decreto nº 6.844/2026) ao afastar 'quaisquer disposições legais excludentes ou limitativas do direito de examinar livros, arquivos físicos ou digitais, computadores e documentos'. Guarde as DUAS metades: (1) não há sigilo comercial oponível ao Fisco; (2) mas o exame é LIMITADO aos pontos objeto da investigação — a banca corta essa segunda parte para tornar a assertiva errada. Limite que permanece: fatos sobre os quais o informante esteja legalmente obrigado a guardar segredo de ofício, ministério ou profissão (art. 197, parágrafo único, do CTN)."
+  },
+  {
+   "id": "j2-issdec-02",
+   "materia": "ISS Decreto",
+   "tribunal": "QUAL É O JULGADO? STF ou STJ?",
+   "ref": "O Fisco pode requisitar diretamente das instituições financeiras informações bancárias sobre os contribuintes, sem prévia autorização judicial. Não há quebra de sigilo, e sim TRANSFERÊNCIA do dever de sigilo da esfera bancária para a esfera fiscal, que permanece obrigada a preservá-lo.",
+   "tese": ">>> RE 601.314 — TEMA 225 DO STF (repercussão geral, Rel. Min. Edson Fachin, Plenário, 24/02/2016) <<<   ·   Julgado em conjunto com as ADI 2.386, ADI 2.390, ADI 2.397 e ADI 2.859, todas do STF.",
+   "obs": "Confirmou a constitucionalidade dos arts. 5º e 6º da LC nº 105/2001. Fundamentos: capacidade contributiva, requisitos objetivos previstos em lei e translado do sigilo (bancário → fiscal). É o que autoriza a SEMEF a receber das administradoras de cartões e das instituições financeiras os dados de faturamento (cartão, PIX) e cruzá-los com as receitas declaradas, sem ir ao Judiciário. Vencidos Marco Aurélio e Celso de Mello. Cuidado: a dispensa é de autorização JUDICIAL, não de procedimento administrativo formal instaurado."
+  },
+  {
+   "id": "j2-issdec-03",
+   "materia": "ISS Decreto",
+   "tribunal": "QUAL É A SÚMULA? STF ou STJ?",
+   "ref": "Quando não houver declaração do débito, o prazo decadencial quinquenal para o Fisco constituir o crédito tributário conta-se exclusivamente na forma do art. 173, I, do CTN, nos casos em que a legislação atribui ao sujeito passivo o dever de antecipar o pagamento sem prévio exame da autoridade administrativa.",
+   "tese": ">>> SÚMULA 555 DO STJ (1ª Seção, 09/12/2015) <<<   ·   É do STJ, súmula comum.",
+   "obs": "É a regra que sustenta o art. 57 do Regulamento (lançamento de ofício do ISSQN do autônomo que não pediu enquadramento no regime fixo e sequer tem inscrição). Nada declarado e nada pago → o prazo NÃO corre do fato gerador (art. 150, § 4º), e sim do 1º dia do exercício seguinte àquele em que o lançamento poderia ter sido efetuado (art. 173, I). Pegadinha clássica: trocar 'não houve declaração' por 'houve declaração e não houve pagamento' — nesse caso não há decadência a discutir, o crédito já está constituído pela declaração (Súmula 436 do STJ) e o que corre é a prescrição."
+  },
+  {
+   "id": "j2-issdec-04",
+   "materia": "ISS Decreto",
+   "tribunal": "QUAL É A SÚMULA? STF ou STJ?",
+   "ref": "O contribuinte do IPTU é notificado do lançamento pelo envio do carnê ao seu endereço.",
+   "tese": ">>> SÚMULA 397 DO STJ (1ª Seção, 23/09/2009) <<<   ·   É do STJ, súmula comum.",
+   "obs": "Aparece no Decreto nº 6.844/2026 por ANALOGIA: no ISSQN do regime fixo a notificação do lançamento anual se dá por publicação na imprensa e pela remessa da guia ao endereço do contribuinte, considerando-se realizada com o envio, independentemente de prova de entrega. O efeito é a INVERSÃO DO ÔNUS DA PROVA: o Fisco não prova a entrega; o contribuinte é que precisa demonstrar o não recebimento — presunção RELATIVA, e essa prova é expressamente admitida. Os tribunais estendem o mesmo raciocínio a taxas cobradas no mesmo documento de arrecadação: o critério é a natureza do lançamento (de ofício), não o nome do tributo."
+  },
+  {
+   "id": "j2-issdec-05",
+   "materia": "ISS Decreto",
+   "tribunal": "STF",
+   "ref": "SÚMULA 439 DO STF",
+   "tese": "Estão sujeitos à fiscalização tributária ou previdenciária quaisquer livros comerciais, limitado o exame aos pontos objeto da investigação.",
+   "obs": "Sigilo comercial não barra o Fisco; o limite é o objeto da investigação. Base do art. 195 do CTN."
+  },
+  {
+   "id": "j2-issdec-06",
+   "materia": "ISS Decreto",
+   "tribunal": "STF",
+   "ref": "RE 601.314 — TEMA 225 DO STF (com ADI 2.386, 2.390, 2.397 e 2.859)",
+   "tese": "O Fisco pode requisitar dados bancários diretamente das instituições financeiras, sem autorização judicial: é transferência do sigilo bancário para o sigilo fiscal, não quebra. Constitucionalidade dos arts. 5º e 6º da LC nº 105/2001.",
+   "obs": "Rel. Min. Edson Fachin, Plenário, 24/02/2016. Autoriza o cruzamento de cartões/PIX com as receitas declaradas."
+  },
+  {
+   "id": "j2-issdec-07",
+   "materia": "ISS Decreto",
+   "tribunal": "STJ",
+   "ref": "SÚMULA 555 DO STJ",
+   "tese": "Sem declaração do débito, a decadência quinquenal no tributo sujeito a lançamento por homologação conta-se exclusivamente pelo art. 173, I, do CTN.",
+   "obs": "Nada declarado e nada pago → 1º dia do exercício seguinte. Sustenta o lançamento de ofício do art. 57 do Regulamento."
+  },
+  {
+   "id": "j2-issdec-08",
+   "materia": "ISS Decreto",
+   "tribunal": "STJ",
+   "ref": "SÚMULA 397 DO STJ",
+   "tese": "O contribuinte do IPTU é notificado do lançamento pelo envio do carnê ao seu endereço.",
+   "obs": "Presunção relativa: inverte o ônus da prova, cabendo ao contribuinte demonstrar o não recebimento. Aplicada por analogia à guia do ISSQN do regime fixo."
+  },
+  {
+   "id": "j2-issdec-09",
+   "materia": "ISS Decreto",
+   "tribunal": "SÍNTESE — STF x STJ",
+   "ref": "SÍNTESE — Das jurisprudências da Aula 04 (Decreto nº 6.844/2026), quais são do STF e quais são do STJ?",
+   "tese": "STF: Súmula Vinculante 31 (ISS não incide sobre locação de bens móveis); Súmula 439 (fiscalização de quaisquer livros comerciais, limitada ao objeto da investigação); RE 601.314 / Tema 225, com as ADI 2.386, 2.390, 2.397 e 2.859 (dados bancários sem autorização judicial).   |||   STJ: Súmula 555 (decadência pelo art. 173, I, quando nada foi declarado); Súmula 397 (notificação do lançamento pelo envio do carnê/guia ao endereço).",
+   "obs": "Regra prática desta aula: o STF cuida dos LIMITES CONSTITUCIONAIS do poder de fiscalizar (sigilo bancário, sigilo comercial, campo de incidência); o STJ cuida da MECÂNICA DO LANÇAMENTO (contagem da decadência e forma da notificação)."
+  },
+  {
+   "id": "j2-issdec-10",
+   "materia": "ISS Decreto",
+   "tribunal": "SÍNTESE — STF x STJ",
+   "ref": "SÍNTESE — Aula 04: o que é vinculante, o que é súmula comum e o que é repercussão geral?",
+   "tese": "VINCULANTE: apenas a Súmula Vinculante 31 do STF. SÚMULA COMUM: Súmula 439 do STF; Súmulas 555 e 397 do STJ. REPERCUSSÃO GERAL: RE 601.314, Tema 225 do STF. CONTROLE CONCENTRADO: ADI 2.386, 2.390, 2.397 e 2.859, do STF.",
+   "obs": "Súmula vinculante, ADI e repercussão geral só existem no STF. O STJ entra aqui apenas com súmulas comuns. Não há recurso repetitivo do STJ nesta aula."
   }
  ],
  "questoes": [
@@ -7010,6 +7106,771 @@
    "correta": 3,
    "fundamento": "a) ERRADA. O cadastro de estabelecimentos filiais pode ser realizado validamente no sistema municipal por meio da utilização da certificação digital pertencente à matriz da pessoa jurídica, inexistindo qualquer irregularidade na operação de integração cadastral.\nb) ERRADA. A comunicação eletrônica não se considera realizada na data de envio da mensagem ao sistema do portal, uma vez que a inércia do contribuinte exige a observância do prazo de dez dias corridos antes que se consume a ciência automática.\nc) ERRADA. O regulamento municipal divide o credenciamento em etapas sucessivas, considerando-o efetuado com o uso da assinatura eletrônica do responsável legal e efetivado apenas em momento posterior, com a aceitação do Termo de Adesão.\nd) CERTA. A assinatura do responsável efetuou o credenciamento no domingo e a aceitação do termo o efetivou na segunda-feira. Como o décimo dia para consulta tácita da intimação encerrou-se em um feriado municipal (dia não útil), o aperfeiçoamento da comunicação foi prorrogado para o primeiro dia útil subsequente (quarta-feira).\ne) ERRADA. O prazo regulamentar para a adesão obrigatória de novas pessoas jurídicas é de sessenta dias corridos contados da data de registro civil da empresa, limite que foi plenamente respeitado pela contribuinte, elidindo a aplicação de qualquer multa acessória.\nArt. 2.º § 1.º O sujeito passivo deverá obrigatoriamente aderir ao DT-e em até sessenta dias, contados da data de registro da pessoa jurídica.\n§ 2.° Considerar-se-á realizada a comunicação no dia em que o sujeito passivo efetivar a consulta eletrônica ao teor da comunicação.\n§ 3.° Na hipótese do § 2.º, nos casos em que a consulta se dê em dia não útil, a comunicação será considerada como realizada no primeiro dia útil seguinte.\nDecreto nº 5.956/2024\nArt. 8.º O credenciamento será considerado:\nI – efetuado, mediante uso de assinatura eletrônica do responsável legal da empresa perante a SEMEF; e\nII – efetivado, mediante a aceitação, em caráter irrevogável, do \"Termo de Adesão\"\n§ 3.º O cadastro das pessoas jurídicas no domicílio tributário eletrônico será realizado por Cadastro Nacional de Pessoas Jurídicas – CNPJ de filial, órgão, repartição ou equiparados, podendo ser utilizada a certificação digital da Matriz.\nResposta: Letra D",
    "_em": 1788863977927
+  },
+  {
+   "id": "q-zfmref-01",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos às definições e ao rol de bens excluídos do regime favorecido da Zona Franca de Manaus.\nI. O mesmo produto industrializado pode ser bem intermediário em uma operação e não ser em outra, porque a definição exige que o destinatário imediato seja estabelecimento industrial.\nII. Bem final é aquele sobre o qual não se agrega mais valor no processo produtivo e que se destina ao consumo.\nIII. Automóveis de passageiros estão fora do regime favorecido, ao passo que motocicletas não constam do rol de bens excluídos.\nIV. As operações praticadas entre partes relacionadas observam regras próprias de valor de mercado.\nAssinale a alternativa correta:",
+   "alts": [
+    "Apenas I e II estão corretas.",
+    "Apenas II e III estão corretas.",
+    "Apenas I, III e IV estão corretas.",
+    "Apenas II, III e IV estão corretas.",
+    "Todas as afirmativas estão corretas."
+   ],
+   "correta": 4,
+   "fundamento": "I. CERTA. O critério é a qualidade do destinatário imediato, e não a natureza intrínseca do produto. A mesma peça vendida a uma montadora é bem intermediário; vendida a uma loja de autopeças que a revenderá a consumidores, não é.\nII. CERTA. É a definição legal, e o contraponto exato do bem intermediário: nele o ciclo produtivo se encerra.\nIII. CERTA. O rol de exclusão é taxativo e alcança o automóvel de passageiros. Por outro lado, as motocicletas não constam desse rol taxativo, constituindo um dos pilares tradicionais do Polo Industrial de Manaus.\nIV. CERTA. A legislação estabelece que todas as operações entre partes relacionadas observem as regras de valor de mercado, impedindo a manipulação de preços intragrupo para inflar artificialmente bases de créditos presumidos ou reduzir bases tributáveis.\nResposta: Letra E"
+  },
+  {
+   "id": "q-zfmref-02",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "A indústria \"Plásticos Amazônia\", devidamente habilitada na ZFM, importou uma máquina injetora de alta precisão (bem de capital) em janeiro de 2026, com suspensão do pagamento do IBS e da CBS. Em março de 2029 (três anos e dois meses após a importação), a empresa decide vender o equipamento para uma fábrica localizada em São Paulo, em virtude de uma reestruturação produtiva, sem que tenha ocorrido a depreciação integral do bem.\nConsiderando as regras de conversão da suspensão em isenção para bens de capital na ZFM:",
+   "alts": [
+    "A venda pode ser realizada sem o recolhimento dos tributos da importação, pois já decorreu o prazo mínimo de 24 meses de permanência do bem no ativo imobilizado da empresa.",
+    "A operação de saída para São Paulo é tributada, mas a obrigação de recolher os tributos da importação original é dispensada se o valor de revenda for inferior ao valor aduaneiro original.",
+    "A isenção consolidou-se no momento da entrada do bem na fábrica, sendo irrelevante o tempo de permanência, desde que o adquirente em São Paulo seja contribuinte do regime regular.",
+    "O imposto suspenso torna-se devido, mas a empresa poderá aplicar um redutor de 60% sobre o valor principal, proporcional ao tempo de uso da máquina na região incentivada.",
+    "A empresa deverá recolher o IBS e a CBS suspensos na importação, com os devidos acréscimos legais, uma vez que a alienação ocorreu antes de completados 48 meses de permanência do bem no ativo imobilizado."
+   ],
+   "correta": 4,
+   "fundamento": "a) ERRADA. O prazo legal exigido para a conversão da suspensão em isenção por decurso de tempo é de 48 meses (4 anos), e não de 24 meses, sendo indevida a dispensa do pagamento antes desse marco temporal.\nb) ERRADA. A base para a cobrança é o tributo suspenso no momento da importação original; o valor da revenda ou eventual prejuízo comercial na saída não afastam a exigibilidade do crédito tributário decorrente da quebra do regime.\nc) ERRADA. A entrada do bem de capital na ZFM ocorre sob o regime de suspensão, que é uma condição suspensiva; a isenção definitiva só se concretiza após a depreciação integral ou o cumprimento do prazo de permanência no ativo imobilizado.\nd) ERRADA. A legislação determina o recolhimento integral dos tributos suspensos com os devidos acréscimos legais no caso de descumprimento do requisito temporal, não havendo previsão de redução proporcional ao tempo de permanência na região.\ne) CERTA. Como a máquina foi vendida para fora da ZFM após 38 meses (menos de 4 anos), não houve o cumprimento do prazo legal de 48 meses para a consolidação da isenção, o que obriga a empresa a recolher os tributos suspensos na origem acrescidos de juros e multa.\nResposta: Letra E"
+  },
+  {
+   "id": "q-zfmref-03",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Uma grande loja de departamentos situada em Manaus, sujeita ao regime regular do IBS/CBS e devidamente habilitada na Suframa, importa televisores para revenda presencial na Zona Franca de Manaus. A alíquota nominal do IBS aplicável na importação é de 18%. Sobre a mecânica do benefício fiscal aplicável a esta operação de entrada, é correto afirmar que o contribuinte:",
+   "alts": [
+    "Pagará integralmente os 18% no desembaraço aduaneiro e receberá, a título de incentivo, ressarcimento em dinheiro de 50% do valor pago, mediante pedido apresentado no prazo de 12 meses.",
+    "Estará isento do pagamento do imposto na importação, devendo estornar quaisquer créditos relativos à operação, por se tratar de benefício que rompe a cadeia de créditos.",
+    "Terá crédito presumido de 50% da alíquota, deduzido do valor devido na importação, e ainda assim se apropriará do crédito integral do imposto incidente.",
+    "Pagará a alíquota cheia de 18%, mas terá direito a um crédito presumido de 100% para compensar com débitos de outros tributos federais.",
+    "Terá a incidência suspensa no desembaraço, convertendo-se a suspensão em alíquota zero apenas quando a mercadoria for efetivamente vendida a consumidor final estabelecido na área incentivada."
+   ],
+   "correta": 2,
+   "fundamento": "a) ERRADA. O crédito presumido é deduzido do valor devido na importação, ou seja, paga-se menos na hora, não há ressarcimento posterior em dinheiro.\nb) ERRADA. Para o comércio (revenda), o benefício é crédito presumido, não isenção total na entrada.\nc) CERTA. A legislação concede crédito presumido de 50% da alíquota, que deve ser deduzido do valor a pagar na importação (desembolso reduzido). Ao importador do regime regular, é garantida a apropriação do crédito integral (cheio) do tributo incidente.\nd) ERRADA. O desconto é na importação e o crédito presumido é de 50%, não 100%.\ne) ERRADA. Suspensão convertida em isenção é a regra da indústria. O comércio segue a regra do crédito presumido na importação.\nResposta: Letra C"
+  },
+  {
+   "id": "q-zfmref-04",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Uma indústria de bebidas \"Sucos da Amazônia Ltda.\", devidamente habilitada como indústria incentivada na Zona Franca de Manaus (ZFM), adquire xarope de refrigerante (insumo industrializado) de um fornecedor localizado em São Paulo. A operação destina-se à fabricação de bebidas para consumo na região amazônica.\nConsiderando a distinção técnica entre os regimes de entrada previstos na LC nº 214/2025, a tributação de IBS e CBS nesta operação de aquisição interestadual (nacional) será:",
+   "alts": [
+    "Sujeita à suspensão do pagamento do IBS e da CBS, que se converterá em isenção condicionada à efetiva incorporação do insumo ao produto final na ZFM.",
+    "Tributada pela alíquota interestadual de 12%, cabendo à indústria da ZFM o direito a um crédito presumido de ressarcimento para anular o custo tributário.",
+    "Beneficiada com a redução a zero das alíquotas do IBS e da CBS, sendo assegurado ao fornecedor paulista o direito de manter e utilizar os créditos relativos às operações antecedentes.",
+    "Sujeita à incidência do IBS na entrada no Estado do Amazonas, cobrado à razão de 70% da alíquota original, e alíquota zero apenas para a CBS.",
+    "Isenta de tributos federais (CBS), mas tributada integralmente pelo IBS na origem, com posterior devolução via cashback para a indústria adquirente."
+   ],
+   "correta": 2,
+   "fundamento": "a) ERRADA. O regime de suspensão convertida em isenção aplica-se à importação de bens do exterior. Para aquisição de bens nacionais (vindos de SP), o regime correto é a redução a zero das alíquotas.\nb) ERRADA. Não existe mais alíquota interestadual fixa (como 7% ou 12%) no novo modelo para essas operações; a remessa é desonerada (alíquota zero) na origem.\nc) CERTA. Nas operações com bens industrializados de origem nacional destinados à ZFM, aplica-se a redução a zero das alíquotas do IBS e da CBS. A grande inovação da reforma é permitir expressamente que o fornecedor (em SP) mantenha os créditos das etapas anteriores, não precisando estorná-los (o que ocorria no antigo ICMS).\nd) ERRADA. Embora exista a regra de cobrança de IBS na entrada, ela possui uma exceção expressa: não se aplica quando o bem é destinado a indústria incentivada para utilização na ZFM.\ne) ERRADA. A operação é desonerada de ambos os tributos (IBS e CBS) diretamente na origem pela alíquota zero, não havendo que se falar em tributação integral no fornecedor ou devolução por cashback.\nResposta: Letra C"
+  },
+  {
+   "id": "q-zfmref-05",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Supermercados Adrianópolis Ltda., estabelecimento varejista situado em Manaus, habilitado e sujeito ao regime regular, adquiriu de indústria de Contagem (MG) bens materiais industrializados de origem nacional por R$ 1.000.000,00, em operação contemplada na origem pela redução a zero das alíquotas. A alíquota que incidiria na operação, não fosse a redução, é de 20%. Quanto à entrada desses bens no Estado do Amazonas:",
+   "alts": [
+    "nada é devido a esse título, porque a redução a zero concedida na origem se estende à entrada dos bens no Estado do Amazonas.",
+    "são devidos R$ 140.000,00, pelo próprio supermercado, com direito ao crédito do valor pago.",
+    "são devidos R$ 200.000,00, exigidos do remetente mineiro à alíquota cheia, sem direito a crédito para o destinatário.",
+    "são devidos R$ 140.000,00 do imposto sobre bens e serviços e igual valor da contribuição, ambos exigidos na entrada.",
+    "são devidos R$ 60.000,00, correspondentes à redução de 70% sobre a alíquota que incidiria na operação, cabendo o recolhimento ao destinatário."
+   ],
+   "correta": 1,
+   "fundamento": "O IBS incide sobre a entrada, no Estado do Amazonas, de bens materiais industrializados de origem nacional que tenham sido contemplados com alíquota zero na origem. A única exceção a essa cobrança de entrada é\nquando o bem se destina a indústria incentivada, o que não se aplica ao caso, pois o comprador é um estabelecimento comercial varejista (supermercado).\nA cobrança na entrada atinge exclusivamente o IBS (a CBS não é cobrada nesta etapa).\n1. Cálculo da Alíquota de Entrada:\nA alíquota devida na entrada corresponde a 70% da alíquota que incidiria caso não houvesse a desoneração na origem: Alíquota cobrada = 70% × 20% = 14%\n2. Base de Cálculo e Sujeito Passivo:\nA base de cálculo é o valor da operação de origem (R$ 1.000.000,00) e o contribuinte é o próprio destinatário da mercadoria (o supermercado em Manaus): Valor devido = 14% × R$ 1.000.000,00 = R$ 140.000,00\nO montante de R$ 140.000,00 recolhido na entrada permite ao supermercado a apropriação e utilização integral do crédito do imposto em sua apuração.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-06",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Comercial Rio Negro Ltda., habilitada na Suframa e sujeita ao regime regular, realizou no mesmo mês duas aquisições de bens materiais industrializados de origem nacional, ambas contempladas na origem pela redução a zero das alíquotas: R$ 200.000,00 de fornecedor de Vitória (ES) e R$ 200.000,00 de fornecedor de Campinas (SP). Comprovado o ingresso dos dois lotes na área incentivada, o crédito presumido total é de:",
+   "alts": [
+    "R$ 30.000,00, aplicando-se 7,5% às duas aquisições, por serem ambas da região Sudeste.",
+    "R$ 54.000,00, aplicando-se 13,5% às duas aquisições.",
+    "R$ 15.000,00, pois somente a aquisição paulista gera crédito presumido.",
+    "R$ 27.000,00, pois somente a aquisição capixaba gera crédito presumido.",
+    "R$ 42.000,00, aplicando-se 13,5% à aquisição capixaba e 7,5% à paulista."
+   ],
+   "correta": 4,
+   "fundamento": "O crédito presumido de IBS concedido ao adquirente localizado na Zona Franca de Manaus sobre produtos nacionais remetidos com alíquota zero varia de acordo com a origem do bem:\nAquisição de Vitória/ES (Origem Capixaba):\nRegra legal: Embora o Estado do Espírito Santo pertença à Região Sudeste, a legislação o retira expressamente da faixa reduzida e o enquadra no percentual de 13,5%.\nCálculo: 13,5% × R$ 200.000,00 = R$ 27.000,00.\nAquisição de Campinas/SP (Origem Paulista):\nRegra legal: Para bens oriundos das Regiões Sul e Sudeste (excetuado o Espírito Santo), o percentual aplicável é de 7,5%.\nCálculo: 7,5% × R$ 200.000,00 = R$ 15.000,00.\nCrédito Presumido Total do Mês: R$ 27.000,00 + R$ 15.000,00 = R$ 42.000,00.\nResposta: Letra E"
+  },
+  {
+   "id": "q-zfmref-07",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Duas indústrias incentivadas e uma loja de departamentos, todas estabelecidas na Zona Franca de Manaus e sujeitas ao regime regular, praticam operações internas à área. Julgue os itens a seguir.\nI. A venda de bem material intermediário de uma das indústrias incentivadas para a outra, com entrega dentro da Zona Franca de Manaus, tem alíquota zero dos dois tributos, e a indústria vendedora conserva os créditos relativos às suas operações antecedentes.\nII. O crédito presumido assegurado à indústria incentivada que adquire esse bem material intermediário pressupõe que o bem seja incorporado ou consumido na produção de bem final.\nIII. A venda de bem material de origem nacional pela loja de departamentos a consumidor residente em Manaus tem alíquota zero dos dois tributos.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I.",
+    "I e II.",
+    "II e III.",
+    "I e III.",
+    "I, II e III."
+   ],
+   "correta": 1,
+   "fundamento": "I. CERTA. O benefício existe para adensar a cadeia produtiva local, evitando que a indústria finalista prefira o insumo de fora por razão apenas tributária. A manutenção dos créditos anteriores é expressa e é o que diferencia essa técnica do antigo regime de isenção com estorno.\nII. CERTA. O benefício não é dado à compra em si, e sim ao emprego do insumo local na produção. Bem intermediário adquirido para revenda, ou desviado para outra finalidade, não atende ao requisito de destinação e não sustenta o crédito.\nIII. ERRADA. Nas operações internas destinadas a pessoa física ou jurídica situada na área, apenas a contribuição tem a alíquota reduzida a zero. O imposto sobre bens e serviços incide normalmente, ainda que existam mecanismos próprios de crédito presumido que reduzam a carga efetiva.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-08",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Climatiza Manaus S.A., indústria incentivada sujeita ao regime regular, adquiriu de outra indústria incentivada placas eletrônicas produzidas na própria Zona Franca de Manaus por R$ 1.600.000,00, em operação contemplada pela redução a zero das alíquotas, destinando-as à incorporação em condicionadores de ar de sua fabricação. O crédito presumido decorrente dessa aquisição é de:",
+   "alts": [
+    "R$ 0,00, pois a operação anterior não foi tributada e não há imposto destacado a creditar.",
+    "R$ 216.000,00, correspondentes a 13,5% do valor da operação.",
+    "R$ 800.000,00, correspondentes à metade do valor da operação.",
+    "R$ 120.000,00, correspondentes a 7,5% do valor da operação.",
+    "R$ 1.444.000,00, correspondentes a 90,25% do valor da operação."
+   ],
+   "correta": 3,
+   "fundamento": "A legislação concede crédito presumido de IBS à indústria incentivada na Zona Franca de Manaus que adquire bem intermediário produzido na própria ZFM em operação contemplada com alíquota zero, para incorporação na produção de bem final.\nO crédito presumido é calculado mediante a aplicação do percentual de 7,5% sobre o valor da operação desonerada: Crédito Presumido = 7,5% × R$ 1.600.000,00 = R$ 120.000,00\nResposta: Letra D"
+  },
+  {
+   "id": "q-zfmref-09",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "A sociedade empresária Refrigeração Solimões S.A., indústria incentivada estabelecida na Zona Franca de Manaus, com projeto econômico aprovado, fabrica freezers domésticos e destina toda a sua produção a atacadistas situados em Goiânia (GO). No período de apuração, apurou débitos de imposto sobre bens e serviços de R$ 800.000,00 e créditos de R$ 300.000,00, não tendo realizado saída de bem intermediário para outra indústria incentivada da área. O crédito presumido e o valor a recolher no período correspondem, respectivamente, a:",
+   "alts": [
+    "R$ 451.250,00 e R$ 48.750,00.",
+    "R$ 375.000,00 e R$ 125.000,00.",
+    "R$ 440.000,00 e R$ 360.000,00.",
+    "R$ 275.000,00 e R$ 225.000,00.",
+    "R$ 500.000,00 e R$ 0,00."
+   ],
+   "correta": 3,
+   "fundamento": "O produto fabricado é um freezer doméstico, qualificado juridicamente como bem de consumo final, pois não sofrerá novo processo de industrialização e está pronto para uso.\nO crédito presumido de IBS incidente nas saídas da indústria incentivada da ZFM para o território nacional é de 55% sobre o saldo devedor do imposto para a categoria de bens de consumo final.\nSaldo Devedor do IBS: Débitos - Créditos = R$ 800.000,00 - R$ 300.000,00 = R$ 500.000,00\nCrédito Presumido de IBS (55%): 55% × R$ 500.000,00 = R$ 275.000,00\nValor do IBS a Recolher: Saldo Devedor - Crédito Presumido = R$ 500.000,00 - R$ 275.000,00 = R$ 225.000,00\nResposta: Letra D"
+  },
+  {
+   "id": "q-zfmref-10",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Loja de cosméticos estabelecida em Manaus vende a consumidor residente na própria cidade dois produtos: um hidratante fabricado em Minas Gerais e um perfume importado da França. Quanto à contribuição sobre bens e serviços incidente nessas duas vendas internas à área incentivada:",
+   "alts": [
+    "as duas têm alíquota zero, por serem operações internas à área incentivada e destinadas a consumidor nela residente.",
+    "apenas a venda do hidratante tem alíquota zero, porque o benefício exige bem de origem nacional.",
+    "apenas a venda do perfume tem alíquota zero, por se tratar de bem sem similar nacional produzido fora do território brasileiro.",
+    "nenhuma tem alíquota zero, porque o benefício alcança somente serviços prestados fisicamente na área.",
+    "as duas têm alíquota zero, mas com obrigação de estorno dos créditos das entradas."
+   ],
+   "correta": 1,
+   "fundamento": "A Lei Complementar reduz a zero a alíquota da CBS incidente nas operações realizadas por pessoas jurídicas estabelecidas na Zona Franca de Manaus destinadas a pessoas físicas ou jurídicas também localizadas na ZFM, desde que o objeto seja bem material de origem nacional ou serviço prestado fisicamente.\nAnálise dos produtos vendidos:\nHidratante (de Minas Gerais): É bem material de origem nacional vendido dentro da área incentivada para consumidor residente. Preenche todos os requisitos legais e goza da alíquota zero de CBS.\nPerfume (importado da França): É bem de origem estrangeira. Por não cumprir o requisito expresso de origem nacional, não se beneficia da alíquota zero e submete-se à tributação ordinária da CBS.\nVale destacar que, para as operações contempladas (como a do hidratante), a legislação assegura ao comerciante a manutenção integral dos créditos das entradas antecedentes, sem obrigação de estorno.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-11",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos às disposições gerais aplicáveis aos benefícios fiscais da Zona Franca de Manaus.\nI. Os créditos presumidos dos benefícios fiscais da Zona Franca de Manaus só podem ser compensados com o próprio tributo que os originou, vedadas a compensação com outros tributos e a devolução em dinheiro.\nII. O direito de utilizar esses créditos presumidos se extingue em cinco anos, contados do primeiro dia do mês seguinte ao da apropriação.\nIII. As operações realizadas dentro da Zona Franca de Manaus, ou a ela destinadas, que não estejam entre as hipóteses expressamente beneficiadas sujeitam-se à tributação comum.\nIV. A renúncia de arrecadação decorrente dos benefícios fiscais da Zona Franca de Manaus é desconsiderada na fixação das alíquotas de referência, para não onerar os demais contribuintes.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I e II.",
+    "I, II e III.",
+    "II e IV.",
+    "III e IV.",
+    "I, II, III e IV."
+   ],
+   "correta": 1,
+   "fundamento": "I. CERTA. Os créditos presumidos de IBS e de CBS concedidos na Zona Franca de Manaus possuem vinculação estrita com o tributo de origem, sendo utilizáveis apenas para compensação com os valores devidos do próprio tributo. A legislação proíbe expressamente a compensação com outros tributos e o ressarcimento em espécie.\nII. CERTA. A legislação estabelece que o direito de utilização dos créditos presumidos caduca no prazo de 5 anos, contados do primeiro dia do mês subsequente àquele em que ocorreu a sua apropriação.\nIII. CERTA. Trata-se da cláusula geral de encerramento do regime prevista na legislação, dispondo que as operações ocorridas na ZFM ou a ela destinadas que não estejam expressamente contempladas nos regimes especiais sujeitam-se à incidência ordinária do IBS e da CBS.\nIV. ERRADA. Na verdade, a legislação estabelece que a redução da arrecadação decorrente dos incentivos da ZFM deverá ser explicitamente considerada na fixação das alíquotas de referência do IBS e da CBS, de modo a preservar a receita necessária aos entes federativos.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-12",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "FCM - 2026 - IF-AM - Professor EBTT – Adaptada",
+   "enunciado": "A Lei Complementar nº 214, de 16 de janeiro de 2025 (LC 214/25), instituiu o Imposto sobre Bens e Serviços (IBS), a Contribuição Social sobre Bens e Serviços (CBS) e o Imposto Seletivo (IS), alterando a legislação tributária. Ademais, os artigos 439 a 457 regulamentam o tratamento favorecido à Zona Franca de Manaus (ZFM), visando manter o diferencial competitivo assegurado pelo Decreto-Lei nº 288/1967 e pelo Ato das Disposições Constitucionais Transitórias (ADCT). Em observância à garantia constitucional de manutenção do diferencial competitivo da Zona Franca de Manaus (ZFM), descreve corretamente as disposições da LC 214/25 a afirmação indicada em",
+   "alts": [
+    "a manutenção da competitividade da ZFM é operacionalizada pela concessão de créditos presumidos de IBS e de CBS à própria indústria incentivada, relativos à operação que destine ao território nacional bem material por ela produzido.",
+    "o regime favorecido da ZFM previsto na LC 214/25 é irrestrito, aplicando-se inclusive a produtos como automóveis de passageiros, petróleo e produtos de perfumaria, independentemente de projeto aprovado na Suframa.",
+    "a LC 214/25 extingue o caráter extrafiscal do Imposto Seletivo (IS), vedando sua utilização como ferramenta para onerar produtos fabricados fora da ZFM que concorram com a produção incentivada do Polo Industrial de Manaus.",
+    "com a LC 214/25, o IBS e a CBS incidentes sobre as importações realizadas por indústrias da ZFM para consumo ou industrialização na região passaram a ser tributados pela alíquota padrão, sendo vedados novos incentivos fiscais a partir da vigência da lei.",
+    "conforme a LC 214/25, considera-se indústria incentivada qualquer pessoa jurídica situada na Amazônia Legal, sendo facultada a escolha pelo cadastro na Suframa ou o cumprimento de Processo Produtivo Básico para a fruição dos créditos de IBS e CBS."
+   ],
+   "correta": 0,
+   "fundamento": "a) CERTA. O incentivo é concedido diretamente ao estabelecimento produtor qualificado nas saídas de mercadorias de sua fabricação destinadas ao mercado nacional.\nb) ERRADA. O benefício possui vedações expressas para determinados produtos e exige obrigatoriamente habilitação cadastral com projeto técnico aprovado.\nc) ERRADA. O tributo preserva sua função regulatória para desestimular determinados consumos e resguardar a competitividade do parque fabril regional.\nd) ERRADA. As entradas de mercadorias do exterior realizadas por indústrias qualificadas ocorrem com suspensão da cobrança, que se converte em isenção definitiva após a incorporação no processo fabril.\ne) ERRADA. O enquadramento exige o cumprimento cumulativo do registro na autarquia e da aprovação de projeto técnico fundamentado em etapas fabris mínimas.\nArt. 440.Para fins deste Capítulo, considera-se:\nII - indústria incentivada a pessoa jurídica contribuinte do IBS e da CBS e habilitada na forma do inciso II do art. 442 desta Lei Complementar para fruição de benefícios fiscais na industrialização de bens na Zona Franca de Manaus, exceto aqueles de que trata o art. 441 desta Lei Complementar;\nArt. 441. Não estão contemplados pelo regime favorecido da Zona Franca de Manaus:\na) armas e munições;\nb) fumo e seus derivados;\nc) bebidas alcoólicas;\nd) automóveis de passageiros;\ne) petróleo, lubrificantes e combustíveis líquidos e gasosos derivados de petróleo, exceto para a indústria de refino de petróleo localizada na Zona Franca de Manaus, em relação exclusivamente às saídas internas para aquela área incentivada, desde que cumprido o processo produtivo básico, permanecendo a vedação para todas as demais etapas; e\nf) produtos de perfumaria ou de toucador, preparados e preparações cosméticas, salvo quanto a estes (posições 3303 a 3307 da Nomenclatura Comum do Mercosul), se destinados exclusivamente a consumo interno na Zona Franca de Manaus ou se produzidos com utilização de matérias-primas da fauna e da flora regionais, em conformidade com processo produtivo básico.\nArt. 450. São concedidos à indústria incentivada na Zona Franca de Manaus créditos presumidos de IBS e de CBS relativos à operação que destine ao território nacional, inclusive para a própria Zona Franca de Manaus, bem material produzido pela própria indústria incentivada na referida área nos termos do projeto econômico aprovado, exceto em relação às operações previstas no art. 448 desta Lei Complementar. (Redação dada pela Lei Complementar nº 227, de 2026)\nResposta: Letra A"
+  },
+  {
+   "id": "q-zfmref-13",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "A respeito da relação entre os incentivos do regime anterior e os mecanismos criados pela legislação da Reforma Tributária para a Zona Franca de Manaus (ZFM), assinale a alternativa correta.",
+   "alts": [
+    "Os incentivos foram traduzidos em mecanismos funcionais equivalentes dos novos tributos, como suspensão, alíquota zero e crédito presumido, em cumprimento ao comando de manutenção do diferencial competitivo.",
+    "As isenções do regime anterior foram literalmente reproduzidas para os novos tributos, mantendo-se a mesma espécie de benefício fiscal de antes, inclusive quanto à exigência de estorno dos créditos das etapas anteriores.",
+    "A manutenção do diferencial se dá exclusivamente pela conservação do tributo sobre produtos industrializados, extinto para o restante do país, sem que tenham sido criados mecanismos próprios no imposto sobre bens e serviços e na contribuição.",
+    "A tradução dos incentivos alcançou apenas a Zona Franca de Manaus, ficando as áreas de livre comércio sem qualquer regime na nova legislação e sujeitas, desde já, às regras comuns de tributação.",
+    "Os mecanismos da nova legislação dependem de convênio entre os entes federados para produzir efeitos na região incentivada, a exemplo do que se exigia no regime do imposto estadual extinto."
+   ],
+   "correta": 0,
+   "fundamento": "a) CERTA. Reproduz a lógica de substituição funcional: o efeito econômico dos incentivos antigos foi traduzido em suspensão, alíquota zero e crédito presumido, a serviço do dever constitucional de manter o diferencial.\nb) ERRADA. Não houve cópia literal. A espécie de benefício mudou junto com os tributos, preservando-se o efeito, e não a forma.\nc) ERRADA. O tributo sobre produtos industrializados não foi extinto, e sim zerado com exceção para a produção incentivada. E esse é apenas um dos mecanismos, não o único.\nd) ERRADA. As áreas de livre comércio receberam regime favorecido próprio na nova legislação, com prazo equiparado ao do modelo manauara.\ne) ERRADA. Convênio entre entes federados é figura do regime do imposto estadual extinto. Os mecanismos da região foram instituídos por lei complementar nacional, em cumprimento de comando constitucional dirigido às leis instituidoras dos novos tributos, e produzem efeitos sem qualquer deliberação conjunta dos Estados e dos Municípios.\n(ADCT, incluído pela Emenda Constitucional nº 132, de 2023) Art. 92-B. As leis instituidoras dos tributos previstos nos arts. 156-A e 195, V, da Constituição Federal estabelecerão os mecanismos necessários, com ou sem contrapartidas, para manter, em caráter geral, o diferencial competitivo assegurado à Zona Franca de Manaus pelos arts. 40 e 92-A e às áreas de livre comércio existentes em 31 de maio de 2023, nos níveis estabelecidos pela legislação relativa aos tributos extintos a que se referem os arts. 126 a 129, todos deste Ato das Disposições Constitucionais Transitórias.\nArt. 439. Os benefícios relativos à Zona Franca de Manaus estabelecidos neste Capítulo aplicam-se até a data estabelecida pelo art. 92-A do ADCT.\nResposta: Letra A"
+  },
+  {
+   "id": "q-zfmref-14",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Nos termos da Lei Complementar nº 214/2025, a fruição dos benefícios fiscais da Zona Franca de Manaus (ZFM) não decorre automaticamente da localização geográfica do estabelecimento, exigindo cumprimento de requisitos de habilitação. Para que uma pessoa jurídica que desenvolva atividade industrial seja considerada \"indústria incentivada\" e acesse o regime, é necessário, além da inscrição específica no cadastro da Suframa:",
+   "alts": [
+    "A aprovação de projeto técnico-econômico pelo Conselho de Administração da Suframa (CAS), com base nos respectivos processos produtivos básicos, devendo ser ouvidos o Estado do Amazonas e o Município de Manaus no processo.",
+    "A comprovação de que o quadro societário é composto majoritariamente por residentes na Amazônia Ocidental e de que a produção se destina preponderantemente à exportação, apurada ao final de cada exercício.",
+    "A celebração de Termo de Acordo de Regime Especial (TARE) diretamente com a Secretaria de Fazenda do Estado do Amazonas, dispensada a anuência da Suframa para indústrias de pequeno porte.",
+    "A utilização exclusiva de matérias-primas da fauna e da flora regionais em percentual superior a 50% do custo de produção, conforme atestado por laudo técnico independente renovado a cada dois anos.",
+    "A adesão irretratável ao regime de lucro real para fins de imposto sobre a renda e a renúncia a quaisquer incentivos fiscais estaduais vigentes anteriormente à habilitação."
+   ],
+   "correta": 0,
+   "fundamento": "a) CERTA. Para a indústria, a lei exige inscrição específica e aprovação de projeto técnico-econômico pelo CAS, com base no Processo Produtivo Básico (PPB). Além disso, o parágrafo único determina que o Estado do Amazonas e o Município de Manaus devem ser ouvidos no processo de aprovação.\nb) ERRADA. Não há exigência sobre a residência dos sócios ou preponderância de exportação na definição geral.\nc) ERRADA. A competência para habilitação é da Suframa (órgão federal), mediante projeto no CAS, e não via TARE estadual isolado.\nd) ERRADA. O uso de matéria-prima regional é uma regra específica para exceção da lista negativa (ex: cosméticos) ou para ALCs, mas não é requisito universal para toda indústria incentivada da ZFM (que pode montar componentes importados, por exemplo).\ne) ERRADA. A lei permite o benefício inclusive para optantes do Simples Nacional em diversos dispositivos, não exigindo Lucro Real obrigatoriamente para a habilitação básica, nem renúncia prévia genérica.\nArt. 442.Nos termos definidos em regulamento, é condição para habilitação aos incentivos fiscais da Zona Franca de Manaus:\nI - a inscrição específica em cadastro da Superintendência da Zona Franca de Manaus (Suframa), para a pessoa jurídica que desenvolva atividade comercial ou de fornecimento de serviços ou industrial não alcançada pelo disposto no inciso II deste artigo; e (Redação dada pela Lei Complementar nº 227, de 2026)\nII - a inscrição específica e aprovação de projeto técnico-econômico pelo Conselho de Administração da Suframa, com base nos respectivos processos produtivos básicos, para pessoa jurídica que desenvolva atividade industrial incentivada. (Redação dada pela Lei Complementar nº 227, de 2026)\nParágrafo único. No processo de aprovação dos projetos e dos processos produtivos básicos de que trata este artigo, deverão ser ouvidos o Estado do Amazonas e o Município de Manaus.\nResposta: Letra A"
+  },
+  {
+   "id": "q-zfmref-15",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "A legislação exclui do regime favorecido da Zona Franca de Manaus determinados bens, ainda que produzidos por indústria estabelecida na área incentivada. Assinale o produto alcançado por essa exclusão.",
+   "alts": [
+    "Concentrados para a fabricação de refrigerantes, produzidos conforme projeto econômico aprovado.",
+    "Motocicletas de baixa cilindrada, produzidas conforme projeto aprovado.",
+    "Aguardente de cana produzida com matéria-prima da flora regional, em conformidade com o processo produtivo básico.",
+    "Perfume classificado na posição 3303 da Nomenclatura Comum do Mercosul, produzido com essências extraídas da flora regional em conformidade com o processo produtivo básico, destinado ao mercado nacional.",
+    "Televisores e monitores de vídeo montados na área incentivada, com processo produtivo básico cumprido."
+   ],
+   "correta": 2,
+   "fundamento": "a) ERRADA. Concentrados para refrigerantes não figuram no rol de exclusão. São, ao contrário, um dos produtos historicamente mais associados ao polo industrial da região.\nb) ERRADA. A vedação alcança os automóveis de passageiros. O veículo de duas rodas não está no rol, e a montagem de motocicletas é uma das atividades tradicionais do polo.\nc) CERTA. Bebidas alcoólicas integram o rol de bens excluídos, e a ressalva construída sobre matéria-prima da fauna e da flora regionais foi escrita apenas para os produtos de perfumaria e de toucador. Empregar insumo regional na aguardente não a retira da exclusão, e o cumprimento do processo produtivo básico tampouco, porque ele é requisito de habilitação e não causa de exceção.\nd) ERRADA. O produto está no rol de exclusão, mas é alcançado pela ressalva expressa: classificado na janela da nomenclatura a que a ressalva se refere e produzido com matéria-prima da flora regional em conformidade com o processo produtivo básico, permanece no regime favorecido ainda que a venda se destine a fora da área.\ne) ERRADA. Não constam do rol de exclusão. O monitor de vídeo alcança a faixa mais alta do crédito presumido de saída como bem de informática, e o televisor, pela segunda porta da mesma faixa, reservada aos produtos que a legislação amazonense contemplava com crédito estímulo nesse percentual até o fim de 2023.\nArt. 441. Não estão contemplados pelo regime favorecido da Zona Franca de Manaus:\na) armas e munições;\nb) fumo e seus derivados;\nc) bebidas alcoólicas;\nd) automóveis de passageiros;\ne) petróleo, lubrificantes e combustíveis líquidos e gasosos derivados de petróleo, exceto para a indústria de refino de petróleo localizada na Zona Franca de Manaus, em relação exclusivamente às saídas internas para aquela área incentivada, desde que cumprido o processo produtivo básico, permanecendo a vedação para todas as demais etapas; e\nf) produtos de perfumaria ou de toucador, preparados e preparações cosméticas, salvo quanto a estes (posições 3303 a 3307 da Nomenclatura Comum do Mercosul), se destinados exclusivamente a consumo interno na Zona Franca de Manaus ou se produzidos com utilização de matérias-primas da fauna e da flora regionais, em conformidade com processo produtivo básico.\nResposta: Letra C"
+  },
+  {
+   "id": "q-zfmref-16",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "A sociedade empresária \"Cheiros da Selva Ltda.\", indústria incentivada localizada na Zona Franca de Manaus (ZFM), produz duas linhas distintas de perfumaria, ambas classificadas nas posições 3303 a 3307 da Nomenclatura Comum do Mercosul:\n- Linha \"Essência da Mata\": Produzida com utilização preponderante de óleos de copaíba e andiroba (matérias-primas da fauna e flora regionais), em conformidade com o processo produtivo básico (PPB).\n- Linha \"Gold Synthetic\": Produzida exclusivamente com essências sintéticas importadas, sem qualquer insumo regional, também com PPB aprovado.\nAmbas as linhas foram vendidas para uma grande rede de varejo situada no Estado do Rio de Janeiro. Considerando as disposições da LC nº 214/2025 sobre os bens excluídos do regime favorecido (Lista Negativa) e suas exceções, a tributação pelo IBS e pela CBS nessas operações de saída será:",
+   "alts": [
+    "Ambas as linhas sofrerão tributação normal de IBS e CBS, sem direito a créditos presumidos, pois \"produtos de perfumaria ou de toucador\" constam expressamente na lista de bens não contemplados pelo regime da ZFM, independentemente da matéria-prima utilizada.",
+    "A linha \"Essência da Mata\" mantém os benefícios, porque o insumo regional afasta a vedação; a linha \"Gold Synthetic\", sem insumo regional, só os teria se a venda fosse para consumo interno na área.",
+    "A linha \"Gold Synthetic\" terá alíquota zero na saída, porque o processo produtivo básico aprovado pela autarquia regional é condição suficiente para afastar a lista de bens excluídos, enquanto a linha \"Essência da Mata\" se sujeita a tributação reduzida em 50% do valor da operação.",
+    "Ambas as linhas farão jus ao crédito presumido de saída, uma vez que a vedação a produtos de perfumaria alcança apenas a importação de produtos acabados, e não a industrialização local incentivada, seja qual for a matéria-prima empregada.",
+    "A linha \"Essência da Mata\" é isenta dos dois tributos, mas sujeita à incidência do imposto seletivo em razão do impacto ambiental da extração dos insumos; a linha \"Gold Synthetic\", por não usar insumo regional, é tributada integralmente."
+   ],
+   "correta": 1,
+   "fundamento": "a) ERRADA. A vedação constante na \"Lista Negativa\" para o setor de perfumaria não é absoluta, comportando exceções legais que permitem a manutenção dos benefícios fiscais dependendo do destino ou da composição do produto.\nb) CERTA. A legislação adota o incentivo à bioeconomia: produtos de perfumaria fabricados com insumos da fauna e flora regionais escapam da lista negativa e podem ser vendidos para qualquer lugar do país com benefícios. Já os produtos sintéticos (sem insumo regional) só mantêm o benefício se forem consumidos dentro da própria ZFM; ao serem vendidos para o Rio de Janeiro, perdem o incentivo e são tributados normalmente.\nA linha produzida com matéria-prima da fauna e da flora regionais é alcançada pela ressalva e permanece no regime favorecido, ainda que destinada a adquirente situado fora da área incentivada. Conserva, por isso, o crédito presumido de saída próprio da indústria incentivada.\nA linha produzida apenas com essências sintéticas não preenche o requisito de matéria-prima regional. Para ela, a ressalva só se aperfeiçoa na outra hipótese, a do consumo interno na área incentivada. Destinada ao mercado nacional, retorna ao rol de bens excluídos e perde os benefícios.\nc) ERRADA. A aprovação do projeto e do Processo Produtivo Básico (PPB) é um requisito necessário, mas não suficiente. Se o produto não contiver matéria-prima regional e for vendido para fora da ZFM, ele cai na regra de exclusão, perdendo o benefício mesmo com PPB aprovado.\nd) ERRADA. A exclusão de determinados bens do regime favorecido (Lista Negativa) abrange o regime como um todo, aplicando-se tanto aos incentivos de entrada quanto aos créditos presumidos de saída da indústria.\ne) ERRADA. Perfumes e cosméticos não estão elencados no rol de produtos sujeitos à incidência do Imposto Seletivo na regulamentação atual, cuja finalidade é desestimular o consumo de bens prejudiciais à saúde ou ao meio ambiente, como fumo e álcool.\nArt. 441. Não estão contemplados pelo regime favorecido da Zona Franca de Manaus:\na) armas e munições;\nb) fumo e seus derivados;\nc) bebidas alcoólicas;\nd) automóveis de passageiros;\ne) petróleo, lubrificantes e combustíveis líquidos e gasosos derivados de petróleo, exceto para a indústria de refino de petróleo localizada na Zona Franca de Manaus, em relação exclusivamente às saídas internas para aquela área incentivada, desde que cumprido o processo produtivo básico, permanecendo a vedação para todas as demais etapas; e\nf) produtos de perfumaria ou de toucador, preparados e preparações cosméticas, salvo quanto a estes (posições 3303 a 3307 da Nomenclatura Comum do Mercosul), se destinados exclusivamente a consumo interno na Zona Franca de Manaus ou se produzidos com utilização de matérias-primas da fauna e da flora regionais, em conformidade com processo produtivo básico.\nArt. 450. São concedidos à indústria incentivada na Zona Franca de Manaus créditos presumidos de IBS e de CBS relativos à operação que destine ao território nacional, inclusive para a própria Zona Franca de Manaus, bem material produzido pela própria indústria incentivada na referida área nos termos do projeto econômico aprovado, exceto em relação às operações previstas no art. 448 desta Lei Complementar. (Redação dada pela Lei Complementar nº 227, de 2026)\n§ 1º O crédito presumido de IBS de que trata o caput será calculado mediante a aplicação dos seguintes percentuais sobre o saldo devedor do IBS no período de apuração:\nI - 55% (cinquenta e cinco por cento) para bens de consumo final;\nII - 75% (setenta e cinco por cento) para bens de capital;\nIII - 90,25% (noventa inteiros e vinte e cinco centésimos por cento) para bens intermediários; e\nIV - 100% (cem por cento) para bens de informática e para os produtos que a legislação do Estado do Amazonas, até 31 de dezembro de 2023, estabeleceu crédito estímulo de ICMS neste percentual.\n§ 2º O crédito presumido de CBS de que trata o caput será calculado mediante aplicação dos seguintes percentuais sobre o valor da operação registrado em documento fiscal idôneo:\nI - 6% (seis por cento) na venda de produtos, nos termos do art. 454 desta Lei Complementar; ou\nII - 2% (dois por cento) nos demais casos.\n§ 3º O disposto no caput não se aplica a operações:\nI - não sujeitas à incidência ou contempladas por hipóteses de isenção, alíquota zero, suspensão ou diferimento do IBS e da CBS; e\nII - com bens não contemplados pelo regime favorecido da Zona Franca de Manaus, previstos no art. 441 desta Lei Complementar.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-17",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos às definições e ao rol de bens excluídos do regime favorecido da Zona Franca de Manaus.\nI. O mesmo produto industrializado pode ser bem intermediário em uma operação e não ser em outra, porque a definição exige que o destinatário imediato seja estabelecimento industrial.\nII. Bem final é aquele sobre o qual não se agrega mais valor no processo produtivo e que se destina ao consumo.\nIII. Automóveis de passageiros estão fora do regime favorecido, ao passo que motocicletas não constam do rol de bens excluídos.\nIV. As operações praticadas entre partes relacionadas observam regras próprias de valor de mercado.\nAssinale a alternativa correta:",
+   "alts": [
+    "Apenas I e II estão corretas.",
+    "Apenas II e III estão corretas.",
+    "Apenas I, III e IV estão corretas.",
+    "Apenas II, III e IV estão corretas.",
+    "Todas as afirmativas estão corretas."
+   ],
+   "correta": 4,
+   "fundamento": "I. CERTA. O critério é a qualidade do destinatário imediato, e não a natureza intrínseca do produto. A mesma peça vendida a uma montadora é bem intermediário; vendida a uma loja de autopeças que a revenderá a consumidores, não é.\nII. CERTA. É a definição legal, e o contraponto exato do bem intermediário: nele o ciclo produtivo se encerra.\nIII. CERTA. O rol de exclusão é taxativo e alcança o automóvel de passageiros. Por outro lado, as motocicletas não constam desse rol taxativo, constituindo um dos pilares tradicionais do Polo Industrial de Manaus.\nIV. CERTA. A legislação estabelece que todas as operações entre partes relacionadas observem as regras de valor de mercado, impedindo a manipulação de preços intragrupo para inflar artificialmente bases de créditos presumidos ou reduzir bases tributáveis.\nArt. 440.Para fins deste Capítulo, considera-se:\nIII - bem intermediário:\na) o produto industrializado destinado à incorporação ou ao consumo em processo de industrialização de outros bens, desde que o destinatário imediato seja estabelecimento industrial;\nb) o produto destinado à embalagem pelos estabelecimentos industriais;\nIV - bem final, aquele sobre o qual não se agrega mais valor no processo produtivo e que é destinado ao consumo.\nParágrafo único. Para fins deste Capítulo, em todas as operações entre partes relacionadas observar-se-á o disposto no § 4º do art. 12 desta Lei Complementar.\nArt. 441. Não estão contemplados pelo regime favorecido da Zona Franca de Manaus:\nd) automóveis de passageiros;\nResposta: Letra E"
+  },
+  {
+   "id": "q-zfmref-18",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Refinaria Manaus Ltda., indústria de refino de petróleo localizada na Zona Franca de Manaus, cumpre o processo produtivo básico e realiza duas saídas de óleo diesel de sua produção: a primeira para distribuidora estabelecida em Manaus, com entrega dentro da área; a segunda para distribuidora estabelecida em Porto Velho (RO). Quanto ao regime favorecido:",
+   "alts": [
+    "as duas saídas são contempladas, porque a exceção alcança toda a produção da refinaria instalada na área.",
+    "nenhuma é contemplada, porque os combustíveis derivados de petróleo integram, sem exceção, o rol de bens excluídos.",
+    "as duas são contempladas, desde que o adquirente seja indústria incentivada habilitada e empregue o combustível em seu processo produtivo.",
+    "apenas a saída para Porto Velho é contemplada, por caracterizar abastecimento da região amazônica.",
+    "apenas a saída para a distribuidora de Manaus é contemplada, porque a exceção alcança exclusivamente as saídas internas para a área incentivada."
+   ],
+   "correta": 4,
+   "fundamento": "a) ERRADA. A exceção não é irrestrita para toda a produção da refinaria, mas restrita estritamente às saídas internas.\nb) ERRADA. A regra geral veda combustíveis, mas a lei traz a exceção expressa para a refinaria local abastecendo a própria área.\nc) ERRADA. O requisito legal para a exceção é estritamente territorial (entrega interna na ZFM), e não condicionado a que o comprador seja uma indústria incentivada.\nd) ERRADA. Porto Velho (RO) situa-se fora do polígono demarcado da ZFM, de modo que a remessa perde o incentivo.\ne) CERTA. A legislação estabelece que o petróleo, lubrificantes e combustíveis líquidos/gasosos derivados integram a \"lista negativa\" de bens excluídos da ZFM, salvo para a indústria de refino de petróleo localizada na ZFM, em relação exclusivamente às saídas internas para aquela área incentivada, desde que cumprido o Processo Produtivo Básico (PPB). Como a primeira saída ocorre com entrega dentro de Manaus (área incentivada) e cumpre o PPB, ela é beneficiada; a saída para Porto Velho (RO) é externa à ZFM e permanece sob a vedação geral.\nArt. 441. Não estão contemplados pelo regime favorecido da Zona Franca de Manaus:\ne) petróleo, lubrificantes e combustíveis líquidos e gasosos derivados de petróleo, exceto para a indústria de refino de petróleo localizada na Zona Franca de Manaus, em relação exclusivamente às saídas internas para aquela área incentivada, desde que cumprido o processo produtivo básico, permanecendo a vedação para todas as demais etapas; e\nResposta: Letra E"
+  },
+  {
+   "id": "q-zfmref-19",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "A sociedade empresária \"Manaus Tech Ltda.\", indústria incentivada localizada na ZFM, realizou a importação de uma máquina de corte a laser (bem de capital) para integrar seu ativo imobilizado, usufruindo da suspensão do IBS e da CBS no desembaraço aduaneiro. Passados 30 (trinta) meses da data da importação, a empresa decide revender a máquina para uma fábrica localizada em São Paulo, em razão de atualização tecnológica. Diante desse cenário, conforme a LC nº 214/2025:",
+   "alts": [
+    "A suspensão converteu-se em isenção automaticamente após 24 meses, logo, a venda para São Paulo não gera obrigação de recolher os tributos da importação original.",
+    "A empresa deverá recolher os tributos suspensos (IBS e CBS) com os acréscimos legais cabíveis, permitida a apropriação de crédito em relação aos valores efetivamente pagos (exceto acréscimos), pois o bem não cumpriu o prazo mínimo de permanência de 48 meses.",
+    "A operação de venda para fora da ZFM é permitida sem ônus, desde que a máquina tenha sofrido depreciação contábil de pelo menos 50% do seu valor original.",
+    "O recolhimento dos tributos suspensos é dispensado, pois a saída do bem ocorre para outra indústria nacional, mantendo-se a cadeia produtiva no país.",
+    "A empresa deve pagar apenas uma multa isolada de 10% sobre o valor da operação, mantendo-se a suspensão dos tributos originais."
+   ],
+   "correta": 1,
+   "fundamento": "a) ERRADA. O prazo para conversão da suspensão em isenção para bens de ativo imobilizado é de 48 meses (ou depreciação integral, se ocorrer antes).\nb) CERTA. Como o bem foi remetido para fora da ZFM antes da conversão em isenção (que ocorreria após 48 meses ou depreciação integral), o importador deve recolher os tributos suspensos com juros e multa. É permitido creditar-se do principal pago, mas não dos encargos.\nc) ERRADA. A depreciação deve ser integral para converter em isenção antes dos 48 meses.\nd) ERRADA. A remessa para fora da ZFM antes do prazo é hipótese de revogação do benefício, independentemente do destino.\ne) ERRADA. A consequência é a cobrança do tributo suspenso com acréscimos legais.\nArt. 443.Fica suspensa a incidência do IBS e da CBS na importação de bem material realizada por indústria incentivada para utilização na Zona Franca de Manaus.\n§ 2º A suspensão de que trata o caput CONVERTE-SE EM ISENÇÃO:\nII - após a depreciação integral do bem ou a permanência por 48 (quarenta e oito) meses no ativo imobilizado do estabelecimento adquirente, o que ocorrer primeiro.\n§ 3º Caso os bens importados com a suspensão de que trata o caput sejam remetidos para fora da Zona Franca de Manaus antes da conversão em isenção de que trata o § 2º deste artigo, o importador deverá recolher os tributos suspensos com os acréscimos legais cabíveis, na forma dos § 2º do art. 29 desta Lei Complementar, permitida a apropriação e a utilização de créditos na forma dos arts. 47 a 56 desta Lei Complementar em relação aos valores efetivamente pagos, exceto em relação aos acréscimos legais.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-20",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "A sociedade empresária \"Eletrônicos do Futuro S.A.\" submeteu ao Conselho de Administração da Suframa (CAS) um projeto técnico-econômico para a industrialização de tablets na Zona Franca de Manaus (ZFM). Após a aprovação do projeto e cumprimento do Processo Produtivo Básico (PPB), a empresa iniciou suas operações. Contudo, em uma auditoria posterior, constatou-se que a empresa passou a revender, no mercado local da própria área incentivada, equipamentos importados com suspensão, sem submetê-los a qualquer industrialização, desviando-se do projeto original.\nDiante desse cenário e das disposições sobre a habilitação e manutenção dos benefícios na ZFM:",
+   "alts": [
+    "A habilitação da empresa será cancelada automaticamente pela autarquia regional, exigindo-se o estorno de todos os créditos presumidos utilizados nos últimos cinco anos, com aplicação de multa isolada de 150% sobre o total.",
+    "O desvio de finalidade implica apenas sanções administrativas junto à Suframa, não afetando a regularidade fiscal perante o Comitê Gestor do IBS, dada a autonomia entre as instâncias reguladoras.",
+    "A manutenção dos benefícios fiscais independe da estrita observância do projeto técnico-econômico, desde que a empresa mantenha sua sede na área demarcada da ZFM e pague a Taxa de Fiscalização da Suframa.",
+    "A suspensão não se converte em isenção quanto aos equipamentos revendidos sem industrialização, porque a conversão pressupõe que os bens importados sejam consumidos ou incorporados ao processo produtivo do importador na área incentivada.",
+    "A empresa poderá manter os benefícios fiscais sobre a revenda dos importados, desde que comprove que a margem de lucro na operação comercial é superior à margem obtida na atividade industrial prevista no projeto aprovado."
+   ],
+   "correta": 3,
+   "fundamento": "a) ERRADA. A legislação determina a cobrança dos tributos que deixaram de ser pagos em razão do desvio de finalidade específico, não estipulando, como regra geral imediata, o estorno retroativo de todos os créditos dos últimos cinco anos ou multa automática nesse patamar para todo o período.\nb) ERRADA. O descumprimento dos requisitos para a fruição do regime favorecido acarreta consequências tributárias diretas, notadamente a cobrança do IBS e da CBS que foram dispensados condicionalmente, não se limitando à esfera administrativa da Suframa.\nc) ERRADA. A simples localização geográfica na ZFM e o pagamento de taxas administrativas não geram direito automático aos benefícios, sendo imprescindível a aprovação e a execução fiel do projeto técnico-econômico e do PPB.\nd) CERTA. A conversão da suspensão em isenção não é automática nem decorre da simples permanência do bem na região. Ela se dá por uma de duas vias: o consumo ou a incorporação do bem ao processo produtivo do próprio importador, ou, tratando-se de bem de capital, a depreciação integral ou o decurso do prazo de permanência no ativo imobilizado. Equipamentos importados e revendidos no estado em que entraram não percorrem nenhuma das duas: não são consumidos na produção nem vão para o ativo imobilizado. A condição não se implementa, e o benefício, que era condicional, deixa de se confirmar.\ne) ERRADA. Os benefícios de industrialização são vinculados à efetiva transformação do produto conforme o PPB; métricas financeiras ou margens de lucro comercial não servem como critério substitutivo para validar o incentivo fiscal.\nArt. 440.Para fins deste Capítulo, considera-se:\nI - Zona Franca de Manaus a área definida e demarcada pela legislação específica;\nII - indústria incentivada a pessoa jurídica contribuinte do IBS e da CBS e habilitada na forma do inciso II do art. 442 desta Lei Complementar para fruição de benefícios fiscais na industrialização de bens na Zona Franca de Manaus, exceto aqueles de que trata o art. 441 desta Lei Complementar; (Redação dada pela Lei Complementar nº 227, de 2026)\nIII - bem intermediário:\na) o produto industrializado destinado à incorporação ou ao consumo em processo de industrialização de outros bens, desde que o destinatário imediato seja estabelecimento industrial;\nb) o produto destinado à embalagem pelos estabelecimentos industriais;\nArt. 443.Fica suspensa a incidência do IBS e da CBS na importação de bem material realizada por indústria incentivada para utilização na Zona Franca de Manaus.\n§ 3º Caso os bens importados com a suspensão de que trata o caput sejam remetidos para fora da Zona Franca de Manaus antes da conversão em isenção de que trata o § 2º deste artigo, o importador deverá recolher os tributos suspensos com os acréscimos legais cabíveis, na forma dos § 2º do art. 29 desta Lei Complementar, permitida a apropriação e a utilização de créditos na forma dos arts. 47 a 56 desta Lei Complementar em relação aos valores efetivamente pagos, exceto em relação aos acréscimos legais.\nResposta: Letra D"
+  },
+  {
+   "id": "q-zfmref-21",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "A indústria \"Plásticos Amazônia\", devidamente habilitada na ZFM, importou uma máquina injetora de alta precisão (bem de capital) em janeiro de 2026, com suspensão do pagamento do IBS e da CBS. Em março de 2029 (três anos e dois meses após a importação), a empresa decide vender o equipamento para uma fábrica localizada em São Paulo, em virtude de uma reestruturação produtiva, sem que tenha ocorrido a depreciação integral do bem.\nConsiderando as regras de conversão da suspensão em isenção para bens de capital na ZFM:",
+   "alts": [
+    "A venda pode ser realizada sem o recolhimento dos tributos da importação, pois já decorreu o prazo mínimo de 24 meses de permanência do bem no ativo imobilizado da empresa.",
+    "A operação de saída para São Paulo é tributada, mas a obrigação de recolher os tributos da importação original é dispensada se o valor de revenda for inferior ao valor aduaneiro original.",
+    "A isenção consolidou-se no momento da entrada do bem na fábrica, sendo irrelevante o tempo de permanência, desde que o adquirente em São Paulo seja contribuinte do regime regular.",
+    "O imposto suspenso torna-se devido, mas a empresa poderá aplicar um redutor de 60% sobre o valor principal, proporcional ao tempo de uso da máquina na região incentivada.",
+    "A empresa deverá recolher o IBS e a CBS suspensos na importação, com os devidos acréscimos legais, uma vez que a alienação ocorreu antes de completados 48 meses de permanência do bem no ativo imobilizado."
+   ],
+   "correta": 4,
+   "fundamento": "a) ERRADA. O prazo legal exigido para a conversão da suspensão em isenção por decurso de tempo é de 48 meses (4 anos), e não de 24 meses, sendo indevida a dispensa do pagamento antes desse marco temporal.\nb) ERRADA. A base para a cobrança é o tributo suspenso no momento da importação original; o valor da revenda ou eventual prejuízo comercial na saída não afastam a exigibilidade do crédito tributário decorrente da quebra do regime.\nc) ERRADA. A entrada do bem de capital na ZFM ocorre sob o regime de suspensão, que é uma condição suspensiva; a isenção definitiva só se concretiza após a depreciação integral ou o cumprimento do prazo de permanência no ativo imobilizado.\nd) ERRADA. A legislação determina o recolhimento integral dos tributos suspensos com os devidos acréscimos legais no caso de descumprimento do requisito temporal, não havendo previsão de redução proporcional ao tempo de permanência na região.\ne) CERTA. Como a máquina foi vendida para fora da ZFM após 38 meses (menos de 4 anos), não houve o cumprimento do prazo legal de 48 meses para a consolidação da isenção, o que obriga a empresa a recolher os tributos suspensos na origem acrescidos de juros e multa.\nArt. 443.Fica suspensa a incidência do IBS e da CBS na importação de bem material realizada por indústria incentivada para utilização na Zona Franca de Manaus.\n§ 1º Não se aplica a suspensão de que trata o caput às importações de:\nI - bens não contemplados pelo regime favorecido da Zona Franca de Manaus previstos no art. 441 desta Lei Complementar; e\nII - bens de uso e consumo pessoal de que trata o art. 57 desta Lei Complementar, salvo se demonstrado que são necessários ao desenvolvimento da atividade do contribuinte vinculada ao projeto técnico-econômico aprovado.\n§ 2º A suspensão de que trata o caput CONVERTE-SE EM ISENÇÃO:\nI - quando os bens importados forem consumidos ou incorporados em processo produtivo do importador na Zona Franca de Manaus;\nII - após a depreciação integral do bem ou a permanência por 48 (quarenta e oito) meses no ativo imobilizado do estabelecimento adquirente, o que ocorrer primeiro.\nResposta: Letra E"
+  },
+  {
+   "id": "q-zfmref-22",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Uma grande loja de departamentos situada em Manaus, sujeita ao regime regular do IBS/CBS e devidamente habilitada na Suframa, importa televisores para revenda presencial na Zona Franca de Manaus. A alíquota nominal do IBS aplicável na importação é de 18%. Sobre a mecânica do benefício fiscal aplicável a esta operação de entrada, é correto afirmar que o contribuinte:",
+   "alts": [
+    "Pagará integralmente os 18% no desembaraço aduaneiro e receberá, a título de incentivo, ressarcimento em dinheiro de 50% do valor pago, mediante pedido apresentado no prazo de 12 meses.",
+    "Estará isento do pagamento do imposto na importação, devendo estornar quaisquer créditos relativos à operação, por se tratar de benefício que rompe a cadeia de créditos.",
+    "Terá crédito presumido de 50% da alíquota, deduzido do valor devido na importação, e ainda assim se apropriará do crédito integral do imposto incidente.",
+    "Pagará a alíquota cheia de 18%, mas terá direito a um crédito presumido de 100% para compensar com débitos de outros tributos federais.",
+    "Terá a incidência suspensa no desembaraço, convertendo-se a suspensão em alíquota zero apenas quando a mercadoria for efetivamente vendida a consumidor final estabelecido na área incentivada."
+   ],
+   "correta": 2,
+   "fundamento": "a) ERRADA. O crédito presumido é deduzido do valor devido na importação, ou seja, paga-se menos na hora, não há ressarcimento posterior em dinheiro.\nb) ERRADA. Para o comércio (revenda), o benefício é crédito presumido, não isenção total na entrada.\nc) CERTA. A legislação concede crédito presumido de 50% da alíquota, que deve ser deduzido do valor a pagar na importação (desembolso reduzido). Ao importador do regime regular, é garantida a apropriação do crédito integral (cheio) do tributo incidente.\nd) ERRADA. O desconto é na importação e o crédito presumido é de 50%, não 100%.\ne) ERRADA. Suspensão convertida em isenção é a regra da indústria. O comércio segue a regra do crédito presumido na importação.\nArt. 444. Fica concedido ao contribuinte habilitado na forma do art. 442 e sujeito ao regime regular ou ao Simples Nacional crédito presumido de IBS relativo à importação de bem material para revenda presencial na Zona Franca de Manaus.\n§ 1º O crédito presumido de que trata o caput será calculado mediante aplicação de percentual correspondente 50% (cinquenta por cento) da alíquota do IBS aplicável na importação.\n§ 2º O crédito presumido de que trata este artigo deverá ser deduzido do valor do IBS devido na importação.\n§ 3º Ao importador dos bens de que trata o caput sujeito ao regime regular do IBS, é garantida a apropriação e a utilização dos créditos integrais de IBS pelo valor do tributo incidente na importação, observadas as regras previstas nos arts. 47 a 56 desta Lei Complementar.\nResposta: Letra C"
+  },
+  {
+   "id": "q-zfmref-23",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Distribuidora Ponta Pelada Ltda., estabelecimento comercial situado em Manaus, habilitada na Suframa e sujeita ao regime regular, realiza duas entradas no mesmo mês: importa do exterior, para revenda presencial na área incentivada, um lote de compressores com base de cálculo de R$ 500.000,00 e alíquota de 20% do IBS na importação; e adquire de fabricante de Joinville (SC) outro lote de compressores, de origem nacional, por R$ 400.000,00, em operação contemplada na origem pela redução a zero das alíquotas. Comprovados os ingressos, os créditos presumidos dessas duas entradas são, respectivamente, de:",
+   "alts": [
+    "R$ 50.000,00 e R$ 30.000,00.",
+    "R$ 100.000,00 e R$ 30.000,00.",
+    "R$ 50.000,00 e R$ 54.000,00.",
+    "R$ 250.000,00 e R$ 30.000,00.",
+    "R$ 50.000,00 e R$ 0,00."
+   ],
+   "correta": 0,
+   "fundamento": "Na importação, o crédito corresponde à metade da alíquota aplicável e é deduzido do valor devido no desembaraço. Na compra nacional, Santa Catarina integra a região Sul, e o percentual menor incide sobre o valor da operação desonerada.\n1. Primeira Entrada (Importação do exterior para revenda presencial)\nA legislação concede crédito presumido correspondente a 50% da alíquota do imposto aplicável na importação.\nCálculo:\nBase de cálculo: R$ 500.000,00\nAlíquota aplicável: 20%\nImposto devido sem o benefício: 20% × R$ 500.000,00 = R$ 100.000,00\nCrédito Presumido (50% da alíquota / metade do imposto): 10% × R$ 500.000,00 = R$ 50.000,00. (Valor deduzido diretamente no desembaraço aduaneiro.)\n2. Segunda Entrada (Aquisição interestadual de Joinville/SC)\nA legislação fixa o crédito presumido em 7,5% sobre o valor da operação para bens industrializados de origem nacional provenientes das Regiões Sul e Sudeste (exceto do Estado do Espírito Santo).\nCálculo:\nBase de cálculo (valor da operação desonerada): R$ 400.000,00\nOrigem: Santa Catarina (Região Sul)\nCrédito Presumido (7,5%): 7,5% × R$ 400.000,00 = R$ 30.000,00.\nArt. 444. Fica concedido ao contribuinte habilitado na forma do art. 442 e sujeito ao regime regular ou ao Simples Nacional crédito presumido de IBS relativo à importação de bem material para revenda presencial na Zona Franca de Manaus.\n§ 1º O crédito presumido de que trata o caput será calculado mediante aplicação de percentual correspondente 50% (cinquenta por cento) da alíquota do IBS aplicável na importação.\n§ 2º O crédito presumido de que trata este artigo deverá ser deduzido do valor do IBS devido na importação.\nArt. 447. Fica concedido ao contribuinte sujeito ao regime regular do IBS e habilitado nos termos do art. 442 desta Lei Complementar crédito presumido de IBS relativo à aquisição de bem material industrializado de origem nacional contemplado pela redução a zero da alíquota do IBS nos termos do art. 445 desta Lei Complementar.\n§ 1º O crédito presumido de que trata o caput será calculado mediante aplicação dos seguintes percentuais sobre o valor da operação contemplada pela redução a zero da alíquota do IBS nos termos do art. 445 desta Lei Complementar:\nI - 7,5% (sete inteiros e cinco décimos por cento), no caso de bens provenientes das regiões Sul e Sudeste, exceto do Estado do Espírito Santo; e\nResposta: Letra A"
+  },
+  {
+   "id": "q-zfmref-24",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Uma indústria de bebidas \"Sucos da Amazônia Ltda.\", devidamente habilitada como indústria incentivada na Zona Franca de Manaus (ZFM), adquire xarope de refrigerante (insumo industrializado) de um fornecedor localizado em São Paulo. A operação destina-se à fabricação de bebidas para consumo na região amazônica.\nConsiderando a distinção técnica entre os regimes de entrada previstos na LC nº 214/2025, a tributação de IBS e CBS nesta operação de aquisição interestadual (nacional) será:",
+   "alts": [
+    "Sujeita à suspensão do pagamento do IBS e da CBS, que se converterá em isenção condicionada à efetiva incorporação do insumo ao produto final na ZFM.",
+    "Tributada pela alíquota interestadual de 12%, cabendo à indústria da ZFM o direito a um crédito presumido de ressarcimento para anular o custo tributário.",
+    "Beneficiada com a redução a zero das alíquotas do IBS e da CBS, sendo assegurado ao fornecedor paulista o direito de manter e utilizar os créditos relativos às operações antecedentes.",
+    "Sujeita à incidência do IBS na entrada no Estado do Amazonas, cobrado à razão de 70% da alíquota original, e alíquota zero apenas para a CBS.",
+    "Isenta de tributos federais (CBS), mas tributada integralmente pelo IBS na origem, com posterior devolução via cashback para a indústria adquirente."
+   ],
+   "correta": 2,
+   "fundamento": "a) ERRADA. O regime de suspensão convertida em isenção aplica-se à importação de bens do exterior. Para aquisição de bens nacionais (vindos de SP), o regime correto é a redução a zero das alíquotas.\nb) ERRADA. Não existe mais alíquota interestadual fixa (como 7% ou 12%) no novo modelo para essas operações; a remessa é desonerada (alíquota zero) na origem.\nc) CERTA. Nas operações com bens industrializados de origem nacional destinados à ZFM, aplica-se a redução a zero das alíquotas do IBS e da CBS. A grande inovação da reforma é permitir expressamente que o fornecedor (em SP) mantenha os créditos das etapas anteriores, não precisando estorná-los (o que ocorria no antigo ICMS).\nd) ERRADA. Embora exista a regra de cobrança de IBS na entrada, ela possui uma exceção expressa: não se aplica quando o bem é destinado a indústria incentivada para utilização na ZFM.\ne) ERRADA. A operação é desonerada de ambos os tributos (IBS e CBS) diretamente na origem pela alíquota zero, não havendo que se falar em tributação integral no fornecedor ou devolução por cashback.\nArt. 445. Ficam reduzidas a zero as alíquotas do IBS e da CBS incidentes sobre operação originada fora da Zona Franca de Manaus que destine bem material industrializado de origem nacional a contribuinte estabelecido na Zona Franca de Manaus que seja:\n§ 2º O contribuinte sujeito ao regime regular do IBS e da CBS que realiza as operações de que trata o caput poderá apropriar e utilizar os créditos relativos às operações antecedentes, observado o disposto nos arts. 47 a 56 desta Lei Complementar.\nArt. 446. O IBS incidirá sobre a entrada, no estado do Amazonas, de bens materiais que tenham sido contemplados com a redução a zero de alíquotas nos termos do art. 445 desta Lei Complementar, exceto se destinados a indústria incentivada para utilização na Zona Franca de Manaus.\nResposta: Letra C"
+  },
+  {
+   "id": "q-zfmref-25",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Rede varejista estabelecida em Manaus, habilitada e sujeita ao regime regular, adquire bens industrializados de origem nacional de fornecedor situado no Paraná, também sujeito ao regime regular. Sobre o tratamento tributário dessa cadeia, julgue os itens a seguir.\nI. A remessa dos bens pelo fornecedor paranaense à rede varejista de Manaus é contemplada pela redução a zero das alíquotas dos dois tributos, e o fornecedor conserva os créditos relativos às suas operações antecedentes.\nII. A entrada desses bens no Estado do Amazonas atrai a cobrança de parcela do imposto sobre bens e serviços, devida pela própria rede varejista destinatária, e o valor por ela pago nessa entrada gera crédito.\nIII. A comprovação do ingresso dos bens no estabelecimento da rede varejista em Manaus é dispensada pelo fato de a adquirente estar habilitada e sujeita ao regime regular.\nIV. Caso a destinatária dos bens fosse indústria incentivada que os empregasse em sua produção na área incentivada, a cobrança do imposto na entrada no Estado do Amazonas não se aplicaria.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I e II.",
+    "II e III.",
+    "I, II e IV.",
+    "III e IV.",
+    "I, II, III e IV."
+   ],
+   "correta": 2,
+   "fundamento": "I. CERTA. A desoneração na origem é justamente o mecanismo que faz a mercadoria chegar à área incentivada sem carga tributária, e a legislação foi expressa ao assegurar ao remetente a manutenção dos créditos das operações anteriores, rompendo com a lógica do antigo regime estadual, que exigia o estorno.\nII. CERTA. A cobrança na entrada é a contrapartida da desoneração na origem: como o remetente nada recolheu, assegura-se receita ao destino. O sujeito passivo é o destinatário, a base é o valor da operação de origem e o montante pago é imediatamente creditável.\nIII. ERRADA. A habilitação abre a porta do benefício, mas não substitui a prova de que a mercadoria de fato entrou na área. A legislação manda instituir controles específicos de verificação da entrada e, sem essa comprovação nos prazos do regulamento, exige o recolhimento do que deixou de ser pago, com acréscimos, e o estorno do crédito presumido.\nIV. CERTA. A indústria incentivada que utiliza o bem na área é expressamente excepcionada da cobrança na entrada, para que o insumo chegue desonerado ao parque industrial.\nArt. 445. Ficam reduzidas a zero as alíquotas do IBS e da CBS incidentes sobre operação originada fora da Zona Franca de Manaus que destine bem material industrializado de origem nacional a contribuinte estabelecido na Zona Franca de Manaus que seja:\n§ 2º O contribuinte sujeito ao regime regular do IBS e da CBS que realiza as operações de que trata o caput poderá apropriar e utilizar os créditos relativos às operações antecedentes, observado o disposto nos arts. 47 a 56 desta Lei Complementar.\nArt. 446. O IBS incidirá sobre a entrada, no estado do Amazonas, de bens materiais que tenham sido contemplados com a redução a zero de alíquotas nos termos do art. 445 desta Lei Complementar, exceto se destinados a indústria incentivada para utilização na Zona Franca de Manaus.\nIII - o IBS será cobrado mediante aplicação de alíquota correspondente a 70% (setenta por cento) da alíquota que incidiria na respectiva operação caso não houvesse a redução a zero estabelecida pelo art. 445 desta Lei Complementar.\n§ 2º O valor do IBS pago na forma do inciso III do § 1º permitirá ao contribuinte a apropriação e a utilização do crédito do imposto, na forma dos arts. 47 a 56 desta Lei Complementar.\nArt. 447. Fica concedido ao contribuinte sujeito ao regime regular do IBS e habilitado nos termos do art. 442 desta Lei Complementar crédito presumido de IBS relativo à aquisição de bem material industrializado de origem nacional contemplado pela redução a zero da alíquota do IBS nos termos do art. 445 desta Lei Complementar.\n§ 2º O crédito presumido deverá ser estornado caso:\nI - não se comprove o ingresso do bem no estabelecimento de destino na Zona Franca de Manaus nos prazos estabelecidos em regulamento, exigindo-se os acréscimos legais cabíveis nos termos do§ 2º do art. 29 desta Lei Complementar;\nII - o bem seja revendido para fora da ZFM ou transferido para fora da ZFM, não se exigindo acréscimos legais caso o estorno seja efetuado tempestivamente.\nResposta: Letra C"
+  },
+  {
+   "id": "q-zfmref-26",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Supermercados Adrianópolis Ltda., estabelecimento varejista situado em Manaus, habilitado e sujeito ao regime regular, adquiriu de indústria de Contagem (MG) bens materiais industrializados de origem nacional por R$ 1.000.000,00, em operação contemplada na origem pela redução a zero das alíquotas. A alíquota que incidiria na operação, não fosse a redução, é de 20%. Quanto à entrada desses bens no Estado do Amazonas:",
+   "alts": [
+    "nada é devido a esse título, porque a redução a zero concedida na origem se estende à entrada dos bens no Estado do Amazonas.",
+    "são devidos R$ 140.000,00, pelo próprio supermercado, com direito ao crédito do valor pago.",
+    "são devidos R$ 200.000,00, exigidos do remetente mineiro à alíquota cheia, sem direito a crédito para o destinatário.",
+    "são devidos R$ 140.000,00 do imposto sobre bens e serviços e igual valor da contribuição, ambos exigidos na entrada.",
+    "são devidos R$ 60.000,00, correspondentes à redução de 70% sobre a alíquota que incidiria na operação, cabendo o recolhimento ao destinatário."
+   ],
+   "correta": 1,
+   "fundamento": "O IBS incide sobre a entrada, no Estado do Amazonas, de bens materiais industrializados de origem nacional que tenham sido contemplados com alíquota zero na origem. A única exceção a essa cobrança de entrada é quando o bem se destina a indústria incentivada, o que não se aplica ao caso, pois o comprador é um estabelecimento comercial varejista (supermercado).\nA cobrança na entrada atinge exclusivamente o IBS (a CBS não é cobrada nesta etapa).\nCálculo da Alíquota de Entrada:\nA alíquota devida na entrada corresponde a 70% da alíquota que incidiria caso não houvesse a desoneração na origem: Alíquota cobrada = 70% × 20% = 14%\nBase de Cálculo e Sujeito Passivo:\nA base de cálculo é o valor da operação de origem (R$ 1.000.000,00) e o contribuinte é o próprio destinatário da mercadoria (o supermercado em Manaus): Valor devido = 14% × R$ 1.000.000,00 = R$ 140.000,00\nO montante de R$ 140.000,00 recolhido na entrada permite ao supermercado a apropriação e utilização integral do crédito do imposto em sua apuração.\nArt. 446. O IBS incidirá sobre a entrada, no estado do Amazonas, de bens materiais que tenham sido contemplados com a redução a zero de alíquotas nos termos do art. 445 desta Lei Complementar, exceto se destinados a indústria incentivada para utilização na Zona Franca de Manaus.\nI - o contribuinte do IBS será o destinatário da operação de que trata o caput do art. 445 desta Lei Complementar;\nII - a base de cálculo do imposto será o valor da operação de que trata o caput do art. 445 desta Lei Complementar;\nIII - o IBS será cobrado mediante aplicação de alíquota correspondente a 70% (setenta por cento) da alíquota que incidiria na respectiva operação caso não houvesse a redução a zero estabelecida pelo art. 445 desta Lei Complementar.\n§ 2º O valor do IBS pago na forma do inciso III do § 1º permitirá ao contribuinte a apropriação e a utilização do crédito do imposto, na forma dos arts. 47 a 56 desta Lei Complementar.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-27",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos à incidência do imposto sobre bens e serviços na entrada, no Estado do Amazonas, de bens materiais remetidos de fora da Zona Franca de Manaus com alíquota reduzida a zero na origem.\nI. A cobrança do imposto na entrada no Estado do Amazonas não alcança os bens remetidos com alíquota zero na origem que sejam destinados a indústria incentivada para utilização na área incentivada.\nII. O sujeito passivo do imposto devido nessa entrada é o remetente que praticou a operação desonerada na origem.\nIII. O valor do imposto pago nessa entrada é creditável pelo destinatário, e esse crédito não se confunde com o crédito presumido assegurado a quem adquire bem material industrializado de origem nacional contemplado pela redução a zero.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I.",
+    "I e II.",
+    "I e III.",
+    "II e III.",
+    "I, II e III."
+   ],
+   "correta": 2,
+   "fundamento": "O comando cobra a mecânica da cobrança na entrada: de quem se exige, o que ela alcança e o que o valor pago gera para quem pagou.\nI. CERTA. A exceção reúne dois filtros que caminham juntos: a qualidade do destinatário e a destinação do bem à área. O atacadista e o prestador de serviços habilitados, ainda que sujeitos ao regime regular, não se enquadram e sofrem a cobrança.\nII. ERRADA. A legislação atribui a condição de contribuinte ao destinatário da operação, e não a quem remeteu o bem. É a inversão que a banca pode explorar nesse dispositivo, porque contraria a intuição de quem associa o tributo à saída.\nIII. CERTA. São dois créditos de naturezas distintas na mesma cadeia. O primeiro é crédito do imposto efetivamente recolhido na entrada; o segundo é benefício calculado por percentual sobre o valor da operação. Um não exclui o outro.\nArt. 446. O IBS incidirá sobre a entrada, no estado do Amazonas, de bens materiais que tenham sido contemplados com a redução a zero de alíquotas nos termos do art. 445 desta Lei Complementar, exceto se destinados a indústria incentivada para utilização na Zona Franca de Manaus.\n§ 1º Na hipótese de que trata o caput:\nI - o contribuinte do IBS será o destinatário da operação de que trata o caput do art. 445 desta Lei Complementar;\n§ 2º O valor do IBS pago na forma do inciso III do § 1º permitirá ao contribuinte a apropriação e a utilização do crédito do imposto, na forma dos arts. 47 a 56 desta Lei Complementar.\nResposta: Letra C"
+  },
+  {
+   "id": "q-zfmref-28",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos ao alcance e ao cálculo do imposto sobre bens e serviços devido na entrada de bens no Estado do Amazonas.\nI. A cobrança do imposto na entrada no Estado do Amazonas pressupõe que a operação de origem tenha sido contemplada pela redução a zero das alíquotas, o que restringe seu alcance ao bem material industrializado de origem nacional.\nII. O bem material importado do exterior por estabelecimento comercial da Zona Franca de Manaus, para revenda presencial na área, sujeita-se à mesma cobrança na entrada no Estado do Amazonas.\nIII. O imposto devido nessa entrada é calculado pela aplicação integral da alíquota que incidiria na operação caso não houvesse a redução a zero.\nIV. A base de cálculo do imposto devido nessa entrada é o valor da operação praticada pelo remetente, e não o da revenda que o destinatário venha a realizar na área incentivada.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I e II.",
+    "II e III.",
+    "I, II e III.",
+    "III e IV.",
+    "I e IV."
+   ],
+   "correta": 4,
+   "fundamento": "A questão cobra o alcance objetivo da cobrança na entrada e os dois eixos do seu cálculo.\nI. CERTA. A cobrança na entrada é a contrapartida exata da desoneração concedida na remessa. Sem operação desonerada na origem, não há o que recompor no destino.\nII. ERRADA. A entrada vinda do exterior segue disciplina própria, a do crédito presumido deduzido do valor devido no desembaraço. A cobrança de que trata este bloco alcança apenas o bem nacional remetido de outra unidade da Federação.\nIII. ERRADA. A legislação manda aplicar percentual reduzido dessa alíquota, e não a alíquota cheia. A cobrança recompõe parte da carga dispensada, não a totalidade.\nIV. CERTA. A revenda posterior é operação autônoma e segue as regras comuns. Adotá-la como base é o distrator numérico clássico da questão de cálculo.\nArt. 446. O IBS incidirá sobre a entrada, no estado do Amazonas, de bens materiais que tenham sido contemplados com a redução a zero de alíquotas nos termos do art. 445 desta Lei Complementar, exceto se destinados a indústria incentivada para utilização na Zona Franca de Manaus.\nII - a base de cálculo do imposto será o valor da operação de que trata o caput do art. 445 desta Lei Complementar;\nIII - o IBS será cobrado mediante aplicação de alíquota correspondente a 70% (setenta por cento) da alíquota que incidiria na respectiva operação caso não houvesse a redução a zero estabelecida pelo art. 445 desta Lei Complementar.\nResposta: Letra E"
+  },
+  {
+   "id": "q-zfmref-29",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Comercial Rio Negro Ltda., habilitada na Suframa e sujeita ao regime regular, realizou no mesmo mês duas aquisições de bens materiais industrializados de origem nacional, ambas contempladas na origem pela redução a zero das alíquotas: R$ 200.000,00 de fornecedor de Vitória (ES) e R$ 200.000,00 de fornecedor de Campinas (SP). Comprovado o ingresso dos dois lotes na área incentivada, o crédito presumido total é de:",
+   "alts": [
+    "R$ 30.000,00, aplicando-se 7,5% às duas aquisições, por serem ambas da região Sudeste.",
+    "R$ 54.000,00, aplicando-se 13,5% às duas aquisições.",
+    "R$ 15.000,00, pois somente a aquisição paulista gera crédito presumido.",
+    "R$ 27.000,00, pois somente a aquisição capixaba gera crédito presumido.",
+    "R$ 42.000,00, aplicando-se 13,5% à aquisição capixaba e 7,5% à paulista."
+   ],
+   "correta": 4,
+   "fundamento": "O crédito presumido de IBS concedido ao adquirente localizado na Zona Franca de Manaus sobre produtos nacionais remetidos com alíquota zero varia de acordo com a origem do bem:\nAquisição de Vitória/ES (Origem Capixaba):\nRegra legal: Embora o Estado do Espírito Santo pertença à Região Sudeste, a legislação o retira expressamente da faixa reduzida e o enquadra no percentual de 13,5%.\nCálculo: 13,5% × R$ 200.000,00 = R$ 27.000,00.\nAquisição de Campinas/SP (Origem Paulista):\nRegra legal: Para bens oriundos das Regiões Sul e Sudeste (excetuado o Espírito Santo), o percentual aplicável é de 7,5%.\nCálculo: 7,5% × R$ 200.000,00 = R$ 15.000,00.\n2. Crédito Presumido Total do Mês:\nR$ 27.000,00 + R$ 15.000,00 = R$ 42.000,00.\nArt. 447. Fica concedido ao contribuinte sujeito ao regime regular do IBS e habilitado nos termos do art. 442 desta Lei Complementar crédito presumido de IBS relativo à aquisição de bem material industrializado de origem nacional contemplado pela redução a zero da alíquota do IBS nos termos do art. 445 desta Lei Complementar.\n§ 1º O crédito presumido de que trata o caput será calculado mediante aplicação dos seguintes percentuais sobre o valor da operação contemplada pela redução a zero da alíquota do IBS nos termos do art. 445 desta Lei Complementar:\nI - 7,5% (sete inteiros e cinco décimos por cento), no caso de bens provenientes das regiões Sul e Sudeste, exceto do Estado do Espírito Santo; e\nII - 13,5% (treze inteiros e cinco décimos por cento), no caso de bens provenientes das regiões Norte, Nordeste e Centro-Oeste e do Estado do Espírito Santo.\nResposta: Letra E"
+  },
+  {
+   "id": "q-zfmref-30",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Comercial Aurora do Norte Ltda., habilitada e sujeita ao regime regular, adquiriu de fornecedor mineiro, com alíquota zero na origem, lote de eletrodomésticos por R$ 600.000,00, comprovou o ingresso dos bens em seu estabelecimento na área incentivada e apropriou o crédito presumido. Dois meses depois, revendeu parte do lote a cliente estabelecido em Porto Velho (RO) e promoveu o estorno no próprio período de apuração da revenda. Nesse caso, a empresa:",
+   "alts": [
+    "mantém integralmente o crédito, pois a exigência de permanência do bem na área incentivada alcança somente a indústria incentivada, e não o estabelecimento comercial habilitado.",
+    "deve estornar o crédito e recolher, além do valor estornado, os acréscimos legais contados desde a apropriação.",
+    "deve estornar o crédito da parcela revendida, sem acréscimos legais, por ser tempestivo o estorno.",
+    "perde a habilitação na Suframa e fica impedida de nova apropriação de créditos presumidos pelo prazo de cinco anos, contados da revenda irregular.",
+    "somente estaria obrigada ao estorno caso não tivesse comprovado o ingresso originário dos bens no estabelecimento de destino."
+   ],
+   "correta": 2,
+   "fundamento": "a) ERRADA. A exigência de destinação do bem à área incentivada alcança qualquer contribuinte beneficiado pelo crédito presumido de aquisição, abrangendo tanto indústrias quanto estabelecimentos comerciais.\nb) ERRADA. A exigência de acréscimos legais limita-se aos casos de ausência de comprovação do ingresso físico da mercadoria, sendo dispensada no estorno por revenda externa realizado de forma tempestiva.\nc) CERTA. A remessa para fora da área incentivada de bem adquirido com incentivo exige o estorno do crédito presumido da parcela revendida, sem a incidência de acréscimos legais quando a anulação é efetuada tempestivamente no próprio período de apuração.\nd) ERRADA. A consequência aplicável para a saída da mercadoria da área é exclusivamente o estorno proporcional do benefício apropriado, sem previsão de cassação da habilitação ou de impedimento temporal.\ne) ERRADA. A comprovação do ingresso inicial e a permanência da mercadoria na região constituem obrigações autônomas, de modo que a comprovação do ingresso não isenta o contribuinte de estornar o crédito em caso de posterior revenda externa.\nArt. 447. Fica concedido ao contribuinte sujeito ao regime regular do IBS e habilitado nos termos do art. 442 desta Lei Complementar crédito presumido de IBS relativo à aquisição de bem material industrializado de origem nacional contemplado pela redução a zero da alíquota do IBS nos termos do art. 445 desta Lei Complementar.\n§ 2º O crédito presumido deverá ser estornado caso:\nI - não se comprove o ingresso do bem no estabelecimento de destino na Zona Franca de Manaus nos prazos estabelecidos em regulamento, exigindo-se os acréscimos legais cabíveis nos termos do§ 2º do art. 29 desta Lei Complementar;\nII - o bem seja revendido para fora da ZFM ou transferido para fora da ZFM, não se exigindo acréscimos legais caso o estorno seja efetuado tempestivamente.\nResposta: Letra C"
+  },
+  {
+   "id": "q-zfmref-31",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos ao regime das aquisições de bem material industrializado de origem nacional por contribuinte estabelecido na Zona Franca de Manaus.\nI. A redução a zero das alíquotas na operação de origem alcança tanto o destinatário estabelecido na Zona Franca de Manaus sujeito ao regime regular quanto o optante pelo Simples Nacional, desde que ambos estejam habilitados.\nII. O crédito presumido na aquisição de bem material industrializado de origem nacional foi assegurado apenas ao destinatário habilitado e sujeito ao regime regular.\nIII. O percentual do crédito presumido na aquisição de bem material industrializado de origem nacional é definido pelo regime de tributação do adquirente.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I.",
+    "I e II.",
+    "II e III.",
+    "I e III.",
+    "I, II e III."
+   ],
+   "correta": 1,
+   "fundamento": "I. CERTA. A legislação relacionou os dois regimes de forma alternativa no requisito subjetivo da desoneração, exigindo em ambos os casos a habilitação na autarquia regional.\nII. CERTA. O optante pelo Simples Nacional recebe a mercadoria desonerada, mas não titulariza o crédito presumido pela aquisição.\nIII. ERRADA. O percentual segue a região de procedência do bem, e não o regime de tributação de quem compra. A legislação separa a faixa das regiões Sul e Sudeste da faixa das demais regiões, deslocando o Espírito Santo para a segunda.\nArt. 445. Ficam reduzidas a zero as alíquotas do IBS e da CBS incidentes sobre operação originada fora da Zona Franca de Manaus que destine bem material industrializado de origem nacional a contribuinte estabelecido na Zona Franca de Manaus que seja:\nI - habilitado nos termos do art. 442 desta Lei Complementar; e\nII - sujeito ao regime regular do IBS e da CBS ou optante pelo regime do Simples Nacional de que trata o art. 12 da Lei Complementar nº 123, de 14 de dezembro de 2006.\nArt. 447. Fica concedido ao contribuinte sujeito ao regime regular do IBS e habilitado nos termos do art. 442 desta Lei Complementar crédito presumido de IBS relativo à aquisição de bem material industrializado de origem nacional contemplado pela redução a zero da alíquota do IBS nos termos do art. 445 desta Lei Complementar.\nI - 7,5% (sete inteiros e cinco décimos por cento), no caso de bens provenientes das regiões Sul e Sudeste, exceto do Estado do Espírito Santo; e\nII - 13,5% (treze inteiros e cinco décimos por cento), no caso de bens provenientes das regiões Norte, Nordeste e Centro-Oeste e do Estado do Espírito Santo.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-32",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Duas indústrias incentivadas e uma loja de departamentos, todas estabelecidas na Zona Franca de Manaus e sujeitas ao regime regular, praticam operações internas à área. Julgue os itens a seguir.\nI. A venda de bem material intermediário de uma das indústrias incentivadas para a outra, com entrega dentro da Zona Franca de Manaus, tem alíquota zero dos dois tributos, e a indústria vendedora conserva os créditos relativos às suas operações antecedentes.\nII. O crédito presumido assegurado à indústria incentivada que adquire esse bem material intermediário pressupõe que o bem seja incorporado ou consumido na produção de bem final.\nIII. A venda de bem material de origem nacional pela loja de departamentos a consumidor residente em Manaus tem alíquota zero dos dois tributos.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I.",
+    "I e II.",
+    "II e III.",
+    "I e III.",
+    "I, II e III."
+   ],
+   "correta": 1,
+   "fundamento": "I. CERTA. O benefício existe para adensar a cadeia produtiva local, evitando que a indústria finalista prefira o insumo de fora por razão apenas tributária. A manutenção dos créditos anteriores é expressa e é o que diferencia essa técnica do antigo regime de isenção com estorno.\nII. CERTA. O benefício não é dado à compra em si, e sim ao emprego do insumo local na produção. Bem intermediário adquirido para revenda, ou desviado para outra finalidade, não atende ao requisito de destinação e não sustenta o crédito.\nIII. ERRADA. Nas operações internas destinadas a pessoa física ou jurídica situada na área, apenas a contribuição tem a alíquota reduzida a zero. O imposto sobre bens e serviços incide normalmente, ainda que existam mecanismos próprios de crédito presumido que reduzam a carga efetiva.\nArt. 448.Ficam reduzidas a zero as alíquotas do IBS e da CBS incidentes sobre operação realizada por indústria incentivada que destine bem material intermediário para outra indústria incentivada na Zona Franca de Manaus, desde que a entrega ou disponibilização dos bens ocorra dentro da referida área.\n§ 2º Ficam assegurados ao contribuinte sujeito ao regime regular do IBS e da CBS que realiza as operações de que trata o caput a apropriação e a utilização dos créditos relativos às operações antecedentes, nos termos dos arts. 47 a 56 desta Lei Complementar.\nArt. 449. Fica concedido à indústria incentivada na Zona Franca de Manaus, sujeita ao regime regular do IBS e da CBS, crédito presumido de IBS relativo à aquisição de bem intermediário produzido na referida área, desde que o bem esteja contemplado pela redução a zero de alíquota estabelecida pelo art. 448 desta Lei Complementar e seja utilizado para incorporação ou consumo na produção de bens finais.\n§ 1º O crédito presumido de que trata o caput será calculado mediante aplicação do percentual de 7,5% (sete inteiros e cinco décimos por cento) sobre o valor da operação contemplada pela redução a zero da alíquota do IBS estabelecida pelo art. 448 desta Lei Complementar.\nArt. 451. Ficam reduzidas a zero as alíquotas da CBS incidentes sobre as operações realizadas por pessoas jurídicas estabelecidas na Zona Franca de Manaus com bem material de origem nacional ou com serviços prestados fisicamente, quando destinadas a pessoa física ou jurídica localizadas dentro da referida área.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-33",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos à redução a zero das alíquotas nas operações com bem material intermediário entre indústrias incentivadas da Zona Franca de Manaus.\nI. Além da qualidade de indústria incentivada do remetente e do destinatário, a redução a zero nas operações com bem material intermediário exige que a entrega ou a disponibilização dos bens ocorra dentro da Zona Franca de Manaus.\nII. A indústria incentivada remetente deve estornar os créditos relativos às suas operações antecedentes, por realizar saída contemplada pela redução a zero.\nIII. Quando o bem material intermediário é submetido a industrialização por encomenda, a redução a zero alcança o valor agregado nesse processo de industrialização.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I.",
+    "I e II.",
+    "II e III.",
+    "I e III.",
+    "I, II e III."
+   ],
+   "correta": 3,
+   "fundamento": "O comando cobra os requisitos da desoneração na cadeia industrial interna e o tratamento dos créditos anteriores.\nI. CERTA. O requisito é de entrega, não de domicílio. Duas indústrias incentivadas da região que ajustam a entrega em filial situada em outro Estado perdem o benefício, ainda que ambas permaneçam incentivadas.\nII. ERRADA. A legislação assegura expressamente a apropriação e a utilização desses créditos. É justamente o que separa a técnica atual do antigo regime de isenção com estorno do imposto estadual extinto.\nIII. CERTA. A lógica é evitar que o benefício recaia sobre insumo que o próprio encomendante já possuía. O que se desonera é a parcela agregada pelo executor da encomenda.\nArt. 448.Ficam reduzidas a zero as alíquotas do IBS e da CBS incidentes sobre operação realizada por indústria incentivada que destine bem material intermediário para outra indústria incentivada na Zona Franca de Manaus, desde que a entrega ou disponibilização dos bens ocorra dentro da referida área.\n§ 2º Ficam assegurados ao contribuinte sujeito ao regime regular do IBS e da CBS que realiza as operações de que trata o caput a apropriação e a utilização dos créditos relativos às operações antecedentes, nos termos dos arts. 47 a 56 desta Lei Complementar.\n§ 3º O disposto no caput se aplica também à operação com bem material intermediário submetido a industrialização por encomenda, em relação ao valor adicionado na industrialização.\nResposta: Letra D"
+  },
+  {
+   "id": "q-zfmref-34",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos aos limites da redução a zero das alíquotas nas operações com bem material intermediário entre indústrias incentivadas da Zona Franca de Manaus.\nI. Cumprido o processo produtivo básico, o bem excluído do regime favorecido da Zona Franca de Manaus volta a ser alcançado pela redução a zero na operação interna entre indústrias incentivadas.\nII. A redução a zero nas operações com bem material intermediário não alcança as operações com os bens que a legislação excluiu do regime favorecido da região.\nIII. Essa vedação alcança igualmente os bens de uso e consumo pessoal, salvo se demonstrado que são necessários ao desenvolvimento da atividade vinculada ao projeto aprovado.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "II e III.",
+    "I e II.",
+    "I e III.",
+    "II.",
+    "I, II e III."
+   ],
+   "correta": 0,
+   "fundamento": "A questão cobra o efeito transversal do rol de bens excluídos sobre a desoneração da cadeia industrial interna.\nI. ERRADA. O cumprimento do Processo Produtivo Básico (PPB) é um requisito de habilitação para a indústria incentivada, mas não afasta a vedação geral aplicável aos produtos da \"lista negativa\". Os bens excluídos do regime favorecido (como armas, munições, fumo, bebidas alcoólicas e automóveis de passageiros) permanecem fora do benefício, não voltando a ser desonerados na operação com bens intermediários pelo simples cumprimento do PPB.\nII. CERTA. A redução a zero das alíquotas do IBS e da CBS nas saídas internas de bens intermediários entre indústrias incentivadas não se aplica aos bens que a legislação excluiu do regime favorecido da região.\nIII. CERTA. A vedação estende-se igualmente aos bens de uso e consumo pessoal pela mesma remissão que vale para a importação. O próprio dispositivo estabelece a exceção: a desoneração será admitida se for demonstrado que o bem é necessário ao desenvolvimento da atividade do contribuinte vinculada ao projeto técnico-econômico aprovado.\nArt. 443.Fica suspensa a incidência do IBS e da CBS na importação de bem material realizada por indústria incentivada para utilização na Zona Franca de Manaus.\n§ 1º Não se aplica a suspensão de que trata o caput às importações de:\nI - bens não contemplados pelo regime favorecido da Zona Franca de Manaus previstos no art. 441 desta Lei Complementar; e\nII - bens de uso e consumo pessoal de que trata o art. 57 desta Lei Complementar, salvo se demonstrado que são necessários ao desenvolvimento da atividade do contribuinte vinculada ao projeto técnico-econômico aprovado.\nArt. 448.Ficam reduzidas a zero as alíquotas do IBS e da CBS incidentes sobre operação realizada por indústria incentivada que destine bem material intermediário para outra indústria incentivada na Zona Franca de Manaus, desde que a entrega ou disponibilização dos bens ocorra dentro da referida área.\n§ 1º O disposto no caput não se aplica a operações com bens de que trata o § 1º do art. 443 desta Lei Complementar.\nResposta: Letra A"
+  },
+  {
+   "id": "q-zfmref-35",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Mecânica Aleixo Ltda., indústria incentivada, remeteu a Usinagem Cachoeirinha Ltda., também indústria incentivada, peças brutas de sua propriedade avaliadas em R$ 600.000,00, para industrialização por encomenda executada dentro da Zona Franca de Manaus. Concluído o serviço, os bens retornaram ao encomendante com documento fiscal de R$ 750.000,00, sendo R$ 150.000,00 o valor adicionado no processo. Ambas estão no regime regular. Nesse cenário:",
+   "alts": [
+    "não há benefício algum, porque a industrialização por encomenda não integra o regime favorecido da área.",
+    "a redução a zero alcança os R$ 750.000,00 do retorno, e o crédito presumido do encomendante é de R$ 56.250,00.",
+    "a redução a zero alcança apenas os R$ 600.000,00 das peças remetidas pelo encomendante, e o crédito presumido correspondente é de R$ 45.000,00.",
+    "o crédito presumido do encomendante é de R$ 20.250,00, correspondentes a 13,5% do valor adicionado no processo de industrialização.",
+    "a redução a zero e o crédito presumido alcançam apenas o valor adicionado, de modo que o crédito do encomendante é de R$ 11.250,00."
+   ],
+   "correta": 4,
+   "fundamento": "Nas operações de industrialização por encomenda realizadas entre indústrias incentivadas na Zona Franca de Manaus, a redução a zero das alíquotas do IBS e da CBS aplica-se estritamente ao valor adicionado no processo industrial (mão de obra e novos insumos incorporados), correspondente a R$ 150.000,00. O valor das peças enviadas originalmente pelo encomendante (R$ 600.000,00) fica excluído do benefício por já ser de sua propriedade.\n1.\nCálculo do Crédito Presumido:\nNo retorno dos bens ao encomendante, o crédito presumido de IBS de 7,5% aplica-se tão somente ao valor agregado no processo de industrialização por encomenda: Crédito Presumido de IBS = 7,5% × R$ 150.000,00 = R$ 11.250,00.\na) ERRADA. A industrialização por encomenda entre indústrias incentivadas integra o regime favorecido, aplicando-se os benefícios exclusivamente ao valor adicionado no processo.\nb) ERRADA. A apuração sobre o valor total do retorno é incorreta, pois aplicaria o incentivo sobre insumos que já pertenciam ao próprio encomendante.\nc) ERRADA. O valor das peças remetidas originalmente pelo encomendante compõe a parcela que fica excluída do cálculo dos incentivos no retorno da operação.\nd) ERRADA. O percentual de 13,5% destina-se às aquisições de mercadorias nacionais originadas em determinadas regiões do país, não se aplicando ao crédito sobre bens intermediários locais.\ne) CERTA. O incentivo e o crédito presumido de 7,5% recaem estritamente sobre o valor adicionado de R$ 150.000,00, perfazendo o crédito de R$ 11.250,00.\nArt. 448.Ficam reduzidas a zero as alíquotas do IBS e da CBS incidentes sobre operação realizada por indústria incentivada que destine bem material intermediário para outra indústria incentivada na Zona Franca de Manaus, desde que a entrega ou disponibilização dos bens ocorra dentro da referida área.\n§ 3º O disposto no caput se aplica também à operação com bem material intermediário submetido a industrialização por encomenda, em relação ao valor adicionado na industrialização.\nArt. 449. Fica concedido à indústria incentivada na Zona Franca de Manaus, sujeita ao regime regular do IBS e da CBS, crédito presumido de IBS relativo à aquisição de bem intermediário produzido na referida área, desde que o bem esteja contemplado pela redução a zero de alíquota estabelecida pelo art. 448 desta Lei Complementar e seja utilizado para incorporação ou consumo na produção de bens finais.\n§ 1º O crédito presumido de que trata o caput será calculado mediante aplicação do percentual de 7,5% (sete inteiros e cinco décimos por cento) sobre o valor da operação contemplada pela redução a zero da alíquota do IBS estabelecida pelo art. 448 desta Lei Complementar.\n§ 2º No momento do retorno ao encomendante, de bens submetidos a industrialização por encomenda, o crédito presumido de que trata o caput se aplica, tão somente, ao valor agregado neste processo de industrialização.\nResposta: Letra E"
+  },
+  {
+   "id": "q-zfmref-36",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Climatiza Manaus S.A., indústria incentivada sujeita ao regime regular, adquiriu de outra indústria incentivada placas eletrônicas produzidas na própria Zona Franca de Manaus por R$ 1.600.000,00, em operação contemplada pela redução a zero das alíquotas, destinando-as à incorporação em condicionadores de ar de sua fabricação. O crédito presumido decorrente dessa aquisição é de:",
+   "alts": [
+    "R$ 0,00, pois a operação anterior não foi tributada e não há imposto destacado a creditar.",
+    "R$ 216.000,00, correspondentes a 13,5% do valor da operação.",
+    "R$ 800.000,00, correspondentes à metade do valor da operação.",
+    "R$ 120.000,00, correspondentes a 7,5% do valor da operação.",
+    "R$ 1.444.000,00, correspondentes a 90,25% do valor da operação."
+   ],
+   "correta": 3,
+   "fundamento": "A legislação concede crédito presumido de IBS à indústria incentivada na Zona Franca de Manaus que adquire bem intermediário produzido na própria ZFM em operação contemplada com alíquota zero, para incorporação na produção de bem final.\nO crédito presumido é calculado mediante a aplicação do percentual de 7,5% sobre o valor da operação desonerada: Crédito Presumido = 7,5% × R$ 1.600.000,00 = R$ 120.000,00\nArt. 449. Fica concedido à indústria incentivada na Zona Franca de Manaus, sujeita ao regime regular do IBS e da CBS, crédito presumido de IBS relativo à aquisição de bem intermediário produzido na referida área, desde que o bem esteja contemplado pela redução a zero de alíquota estabelecida pelo art. 448 desta Lei Complementar e seja utilizado para incorporação ou consumo na produção de bens finais.\n§ 1º O crédito presumido de que trata o caput será calculado mediante aplicação do percentual de 7,5% (sete inteiros e cinco décimos por cento) sobre o valor da operação contemplada pela redução a zero da alíquota do IBS estabelecida pelo art. 448 desta Lei Complementar.\nResposta: Letra D"
+  },
+  {
+   "id": "q-zfmref-37",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos ao crédito presumido decorrente da aquisição de bem intermediário produzido na Zona Franca de Manaus.\nI. Na operação com bem intermediário produzido na Zona Franca de Manaus, a indústria incentivada remetente faz jus, sobre essa mesma operação, ao crédito presumido previsto para as saídas destinadas ao território nacional.\nII. O crédito presumido decorrente da aquisição de bem intermediário produzido na Zona Franca de Manaus é titularizado pela indústria incentivada adquirente, e não pela indústria que produziu e remeteu o bem.\nIII. O crédito presumido decorrente da aquisição de bem intermediário produzido na Zona Franca de Manaus é calculado pelo mesmo percentual aplicável à aquisição de bem material industrializado de origem nacional procedente das regiões Sul e Sudeste, exceto do Estado do Espírito Santo.\nIV. O estabelecimento atacadista habilitado e sujeito ao regime regular que adquire bem intermediário produzido na Zona Franca de Manaus também faz jus a esse crédito presumido.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I e II.",
+    "I e IV.",
+    "II e III.",
+    "II, III e IV.",
+    "III e IV."
+   ],
+   "correta": 2,
+   "fundamento": "I. ERRADA. A legislação excepciona expressamente essas operações do crédito presumido de saída, para impedir a sobreposição de dois benefícios sobre o mesmo fato.\nII. CERTA. Como a saída já é desonerada, o estímulo econômico é deslocado para quem compra o insumo local, de modo a adensar a cadeia produtiva da região.\nIII. CERTA. Os dois créditos correm por dispositivos diferentes, mas a legislação fixou para ambos o mesmo percentual, incidente sobre o valor da operação contemplada pela redução a zero.\nIV. ERRADA. O benefício foi reservado à indústria incentivada que emprega o insumo na produção. Estabelecimento comercial, ainda que habilitado e no regime regular, está fora.\nArt. 449. Fica concedido à indústria incentivada na Zona Franca de Manaus, sujeita ao regime regular do IBS e da CBS, crédito presumido de IBS relativo à aquisição de bem intermediário produzido na referida área, desde que o bem esteja contemplado pela redução a zero de alíquota estabelecida pelo art. 448 desta Lei Complementar e seja utilizado para incorporação ou consumo na produção de bens finais.\n§ 1º O crédito presumido de que trata o caput será calculado mediante aplicação do percentual de 7,5% (sete inteiros e cinco décimos por cento) sobre o valor da operação contemplada pela redução a zero da alíquota do IBS estabelecida pelo art. 448 desta Lei Complementar.\nArt. 450. São concedidos à indústria incentivada na Zona Franca de Manaus créditos presumidos de IBS e de CBS relativos à operação que destine ao território nacional, inclusive para a própria Zona Franca de Manaus, bem material produzido pela própria indústria incentivada na referida área nos termos do projeto econômico aprovado, exceto em relação às operações previstas no art. 448 desta Lei Complementar. (Redação dada pela Lei Complementar nº 227, de 2026)\nResposta: Letra C"
+  },
+  {
+   "id": "q-zfmref-38",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "A indústria \"Motores do Norte S.A.\", instalada na ZFM, vende motores (bens intermediários) produzidos localmente conforme projeto aprovado, destinando-os a uma montadora no Estado de São Paulo. Apurado o saldo devedor do IBS no período, a empresa pretende calcular o crédito presumido de IBS a que tem direito sobre essa operação de saída. Segundo a LC nº 214/2025, o percentual aplicável sobre o saldo devedor do IBS para bens intermediários é de:",
+   "alts": [
+    "55% (cinquenta e cinco por cento).",
+    "75% (setenta e cinco por cento).",
+    "100% (cem por cento).",
+    "90,25% (noventa inteiros e vinte e cinco centésimos por cento).",
+    "7,5% (sete inteiros e cinco décimos por cento)."
+   ],
+   "correta": 3,
+   "fundamento": "O motor produzido pela indústria incentivada e destinado à incorporação em outro bem por estabelecimento industrial adquirente é bem intermediário. Para essa categoria, a legislação fixa crédito presumido de IBS de 90,25%, aplicado sobre o saldo devedor do imposto apurado no período.\nArt. 450. São concedidos à indústria incentivada na Zona Franca de Manaus créditos presumidos de IBS e de CBS relativos à operação que destine ao território nacional, inclusive para a própria Zona Franca de Manaus, bem material produzido pela própria indústria incentivada na referida área nos termos do projeto econômico aprovado, exceto em relação às operações previstas no art. 448 desta Lei Complementar. (Redação dada pela Lei Complementar nº 227, de 2026)\n§ 1º O crédito presumido de IBS de que trata o caput será calculado mediante a aplicação dos seguintes percentuais sobre o saldo devedor do IBS no período de apuração:\nI - 55% (cinquenta e cinco por cento) para bens de consumo final;\nII - 75% (setenta e cinco por cento) para bens de capital;\nIII - 90,25% (noventa inteiros e vinte e cinco centésimos por cento) para bens intermediários; e\nIV - 100% (cem por cento) para bens de informática e para os produtos que a legislação do Estado do Amazonas, até 31 de dezembro de 2023, estabeleceu crédito estímulo de ICMS neste percentual.\n§ 2º O crédito presumido de CBS de que trata o caput será calculado mediante aplicação dos seguintes percentuais sobre o valor da operação registrado em documento fiscal idôneo:\nI - 6% (seis por cento) na venda de produtos, nos termos do art. 454 desta Lei Complementar; ou\nII - 2% (dois por cento) nos demais casos.\nResposta: Letra D"
+  },
+  {
+   "id": "q-zfmref-39",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "A sociedade empresária Refrigeração Solimões S.A., indústria incentivada estabelecida na Zona Franca de Manaus, com projeto econômico aprovado, fabrica freezers domésticos e destina toda a sua produção a atacadistas situados em Goiânia (GO). No período de apuração, apurou débitos de imposto sobre bens e serviços de R$ 800.000,00 e créditos de R$ 300.000,00, não tendo realizado saída de bem intermediário para outra indústria incentivada da área. O crédito presumido e o valor a recolher no período correspondem, respectivamente, a:",
+   "alts": [
+    "R$ 451.250,00 e R$ 48.750,00.",
+    "R$ 375.000,00 e R$ 125.000,00.",
+    "R$ 440.000,00 e R$ 360.000,00.",
+    "R$ 275.000,00 e R$ 225.000,00.",
+    "R$ 500.000,00 e R$ 0,00."
+   ],
+   "correta": 3,
+   "fundamento": "O produto fabricado é um freezer doméstico, qualificado juridicamente como bem de consumo final, pois não sofrerá novo processo de industrialização e está pronto para uso.\nO crédito presumido de IBS incidente nas saídas da indústria incentivada da ZFM para o território nacional é de 55% sobre o saldo devedor do imposto para a categoria de bens de consumo final.\nSaldo Devedor do IBS: Débitos - Créditos = R$ 800.000,00 - R$ 300.000,00 = R$ 500.000,00\nCrédito Presumido de IBS (55%): 55% × R$ 500.000,00 = R$ 275.000,00\nValor do IBS a Recolher: Saldo Devedor - Crédito Presumido = R$ 500.000,00 - R$ 275.000,00 = R$ 225.000,00\nArt. 450. São concedidos à indústria incentivada na Zona Franca de Manaus créditos presumidos de IBS e de CBS relativos à operação que destine ao território nacional, inclusive para a própria Zona Franca de Manaus, bem material produzido pela própria indústria incentivada na referida área nos termos do projeto econômico aprovado, exceto em relação às operações previstas no art. 448 desta Lei Complementar. (Redação dada pela Lei Complementar nº 227, de 2026)\n§ 1º O crédito presumido de IBS de que trata o caput será calculado mediante a aplicação dos seguintes percentuais sobre o saldo devedor do IBS no período de apuração:\nI - 55% (cinquenta e cinco por cento) para bens de consumo final;\nII - 75% (setenta e cinco por cento) para bens de capital;\nIII - 90,25% (noventa inteiros e vinte e cinco centésimos por cento) para bens intermediários; e\nIV - 100% (cem por cento) para bens de informática e para os produtos que a legislação do Estado do Amazonas, até 31 de dezembro de 2023, estabeleceu crédito estímulo de ICMS neste percentual.\nResposta: Letra D"
+  },
+  {
+   "id": "q-zfmref-40",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Bicicletas Tarumã Ltda., indústria incentivada na Zona Franca de Manaus, vendeu, no mês, R$ 2.000.000,00 em bicicletas a distribuidores de todo o país, com documentos fiscais idôneos. O produto não está entre os alcançados pela regra de redução a zero das alíquotas do imposto federal sobre produtos industrializados. No mesmo período, apurou saldo devedor de R$ 90.000,00 na contribuição sobre bens e serviços. O crédito presumido dessa contribuição é de:",
+   "alts": [
+    "R$ 40.000,00, correspondentes a 2% do valor das operações registradas em documento fiscal idôneo.",
+    "R$ 120.000,00, correspondentes a 6% do valor das operações registradas em documento fiscal idôneo.",
+    "R$ 1.800,00, correspondentes a 2% do saldo devedor do período.",
+    "R$ 5.400,00, correspondentes a 6% do saldo devedor do período.",
+    "R$ 81.225,00, correspondentes a 90,25% do saldo devedor do período."
+   ],
+   "correta": 0,
+   "fundamento": "A questão cobra, ao mesmo tempo, o percentual e a base do crédito presumido da contribuição, que não são os mesmos do imposto sobre bens e serviços.\nDiferentemente do IBS (cujo crédito presumido incide sobre o saldo devedor do período), o crédito presumido de CBS concedido à indústria incentivada da Zona Franca de Manaus é calculado sobre o valor da operação registrado em documento fiscal idôneo (R$ 2.000.000,00).\nAlíquota aplicável da CBS:\nA alíquota de 6% aplica-se exclusivamente aos produtos contemplados pela regra de redução a zero do IPI.\nComo o enunciado estabelece que a bicicleta não está entre os produtos alcançados por essa regra, aplica-se a alíquota residual de 2% para os demais casos.\nCálculo: Crédito Presumido de CBS = 2% × R$ 2.000.000,00 = R$ 40.000,00\nArt. 450. São concedidos à indústria incentivada na Zona Franca de Manaus créditos presumidos de IBS e de CBS relativos à operação que destine ao território nacional, inclusive para a própria Zona Franca de Manaus, bem material produzido pela própria indústria incentivada na referida área nos termos do projeto econômico aprovado, exceto em relação às operações previstas no art. 448 desta Lei Complementar. (Redação dada pela Lei Complementar nº 227, de 2026)\n§ 2º O crédito presumido de CBS de que trata o caput será calculado mediante aplicação dos seguintes percentuais sobre o valor da operação registrado em documento fiscal idôneo:\nI - 6% (seis por cento) na venda de produtos, nos termos do art. 454 desta Lei Complementar; ou\nII - 2% (dois por cento) nos demais casos.\nResposta: Letra A"
+  },
+  {
+   "id": "q-zfmref-41",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Datacom Amazônia S.A., indústria incentivada da Zona Franca de Manaus, fabrica notebooks segundo projeto econômico aprovado e os destina a distribuidores de São Paulo, Recife e Porto Alegre. No período, registrou operações de R$ 15.000.000,00 em documentos fiscais idôneos e apurou saldo devedor de R$ 1.200.000,00 no imposto sobre bens e serviços. O crédito presumido do período corresponde a:",
+   "alts": [
+    "R$ 1.083.000,00, restando R$ 117.000,00 a recolher, por se tratar de bem intermediário.",
+    "R$ 660.000,00, porque o notebook, destinado ao consumo, segue a faixa dos bens de consumo final.",
+    "R$ 1.200.000,00, nada restando a recolher a esse título, por se tratar de bem de informática.",
+    "R$ 900.000,00, porque a faixa mais alta depende de o produto ter sido contemplado com crédito estímulo pela legislação estadual até o fim de 2023.",
+    "R$ 15.000.000,00, porque a faixa mais alta incide sobre o valor das operações registradas em documento fiscal idôneo."
+   ],
+   "correta": 2,
+   "fundamento": "O notebook fabricado pela indústria incentivada qualifica-se juridicamente na categoria de bem de informática.\nPara as operações que destinem a produção da indústria incentivada ao território nacional, a legislação fixa o percentual de 100% de crédito presumido incidente sobre o saldo devedor do IBS no período de apuração para a categoria de bens de informática.\nCálculo do Benefício:\nBase de Cálculo (Saldo Devedor de IBS): R$ 1.200.000,00.\nCrédito Presumido de IBS (100%): 100% × R$ 1.200.000,00 = R$ 1.200.000,00.\nValor do IBS a Recolher: R$ 1.200.000,00 - R$ 1.200.000,00 = R$ 0,00, zerando a obrigação do período quanto a esse imposto.\nArt. 450. São concedidos à indústria incentivada na Zona Franca de Manaus créditos presumidos de IBS e de CBS relativos à operação que destine ao território nacional, inclusive para a própria Zona Franca de Manaus, bem material produzido pela própria indústria incentivada na referida área nos termos do projeto econômico aprovado, exceto em relação às operações previstas no art. 448 desta Lei Complementar. (Redação dada pela Lei Complementar nº 227, de 2026)\n§ 1º O crédito presumido de IBS de que trata o caput será calculado mediante a aplicação dos seguintes percentuais sobre o saldo devedor do IBS no período de apuração:\nI - 55% (cinquenta e cinco por cento) para bens de consumo final;\nII - 75% (setenta e cinco por cento) para bens de capital;\nIII - 90,25% (noventa inteiros e vinte e cinco centésimos por cento) para bens intermediários; e\nIV - 100% (cem por cento) para bens de informática e para os produtos que a legislação do Estado do Amazonas, até 31 de dezembro de 2023, estabeleceu crédito estímulo de ICMS neste percentual.\nResposta: Letra C"
+  },
+  {
+   "id": "q-zfmref-42",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Indústria incentivada da Zona Franca de Manaus apura o crédito presumido relativo às saídas de bens por ela produzidos e destinados ao território nacional. Julgue os itens a seguir.\nI. A saída de bem intermediário para outra indústria incentivada, com entrega dentro da área, está excluída desse regime de crédito presumido.\nII. Operações contempladas por isenção, alíquota zero, suspensão ou diferimento não geram esse crédito presumido.\nIII. Nas vendas à União com alíquota reduzida, o benefício se perde, por ausência de saldo devedor a ser neutralizado.\nIV. O saldo devedor sobre o qual incidem os percentuais de incentivo é apurado sem computar o próprio crédito presumido.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I e III.",
+    "II e IV.",
+    "III e IV.",
+    "I, II e IV.",
+    "I, II, III e IV."
+   ],
+   "correta": 3,
+   "fundamento": "I. CERTA. Essa saída já é contemplada pela redução a zero das alíquotas, e a compensação econômica dela vem por outra via: o crédito presumido assegurado à indústria que adquire o bem intermediário produzido na área. A exclusão evita a sobreposição de dois benefícios sobre a mesma operação.\nII. CERTA. O crédito presumido serve a neutralizar carga efetivamente apurada. Onde não há tributação a neutralizar, não há o que reduzir.\nIII. ERRADA. É o oposto. A legislação preserva o benefício nessas vendas e manda apurar o saldo devedor como se a redução não existisse, exclusivamente para calcular o crédito presumido. Sem essa regra, a desoneração da venda esvaziaria o incentivo regional.\nIV. CERTA. A técnica impede a circularidade, isto é, que o benefício componha a base de cálculo dele mesmo. Definido o saldo, deduz-se o crédito presumido e, só então, as demais deduções da apuração.\nArt. 450. São concedidos à indústria incentivada na Zona Franca de Manaus créditos presumidos de IBS e de CBS relativos à operação que destine ao território nacional, inclusive para a própria Zona Franca de Manaus, bem material produzido pela própria indústria incentivada na referida área nos termos do projeto econômico aprovado, exceto em relação às operações previstas no art. 448 desta Lei Complementar. (Redação dada pela Lei Complementar nº 227, de 2026)\n§ 3º O disposto no caput não se aplica a operações:\n§ 5º No caso de vendas para a União em que as alíquotas do IBS estejam sujeitas à redução de que trata a alínea \"a\" do inciso I do § 1º do art. 473, poderá ser apropriado o crédito presumido de IBS de que trata o § 1º deste artigo, considerando-se, exclusivamente para fins do cálculo do referido crédito presumido, a apuração de saldo devedor de IBS com base nas alíquotas que seriam aplicáveis à operação caso não houvesse a redução a zero.\n§ 6º A aplicação do crédito presumido de IBS de que trata o § 1º deste artigo observará o seguinte: (Incluído pela Lei Complementar nº 227, de 2026)\nResposta: Letra D"
+  },
+  {
+   "id": "q-zfmref-43",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Loja de cosméticos estabelecida em Manaus vende a consumidor residente na própria cidade dois produtos: um hidratante fabricado em Minas Gerais e um perfume importado da França. Quanto à contribuição sobre bens e serviços incidente nessas duas vendas internas à área incentivada:",
+   "alts": [
+    "as duas têm alíquota zero, por serem operações internas à área incentivada e destinadas a consumidor nela residente.",
+    "apenas a venda do hidratante tem alíquota zero, porque o benefício exige bem de origem nacional.",
+    "apenas a venda do perfume tem alíquota zero, por se tratar de bem sem similar nacional produzido fora do território brasileiro.",
+    "nenhuma tem alíquota zero, porque o benefício alcança somente serviços prestados fisicamente na área.",
+    "as duas têm alíquota zero, mas com obrigação de estorno dos créditos das entradas."
+   ],
+   "correta": 1,
+   "fundamento": "A Lei Complementar reduz a zero a alíquota da CBS incidente nas operações realizadas por pessoas jurídicas estabelecidas na Zona Franca de Manaus destinadas a pessoas físicas ou jurídicas também localizadas na ZFM, desde que o objeto seja bem material de origem nacional ou serviço prestado fisicamente.\nAnálise dos produtos vendidos:\nHidratante (de Minas Gerais): É bem material de origem nacional vendido dentro da área incentivada para consumidor residente. Preenche todos os requisitos legais e goza da alíquota zero de CBS.\nPerfume (importado da França): É bem de origem estrangeira. Por não cumprir o requisito expresso de origem nacional, não se beneficia da alíquota zero e submete-se à tributação ordinária da CBS.\nVale destacar que, para as operações contempladas (como a do hidratante), a legislação assegura ao comerciante a manutenção integral dos créditos das entradas antecedentes, sem obrigação de estorno.\nArt. 451. Ficam reduzidas a zero as alíquotas da CBS incidentes sobre as operações realizadas por pessoas jurídicas estabelecidas na Zona Franca de Manaus com bem material de origem nacional ou com serviços prestados fisicamente, quando destinadas a pessoa física ou jurídica localizadas dentro da referida área.\nParágrafo único. O contribuinte que realizar as operações de que trata o caput poderá apropriar e utilizar os créditos relativos às operações antecedentes, observado o disposto nos arts. 47 a 56 desta Lei Complementar.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-44",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos à redução a zero de alíquotas nas operações internas realizadas por pessoas jurídicas estabelecidas na Zona Franca de Manaus.\nI. O serviço prestado remotamente a destinatário situado fora da área é alcançado, por estar a prestadora estabelecida na região.\nII. O benefício alcança o serviço prestado fisicamente na área incentivada a destinatário nela localizado.\nIII. Nessas operações internas, a redução a zero alcança tanto o imposto sobre bens e serviços quanto a contribuição.\nIV. O destinatário pode ser pessoa física ou pessoa jurídica, desde que localizada dentro da área incentivada.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I e II.",
+    "I e III.",
+    "II, III e IV.",
+    "III e IV.",
+    "II e IV."
+   ],
+   "correta": 4,
+   "fundamento": "I. ERRADA. Falham dois requisitos ao mesmo tempo: o serviço não é prestado fisicamente na área e o destinatário não está nela localizado. O estabelecimento da prestadora, isolado, não sustenta o benefício.\nII. CERTA. A extensão aos serviços é um dos avanços do regime. A exigência de prestação física funciona como critério de vínculo territorial, no lugar do critério de origem que a legislação usa para os bens.\nIII. ERRADA. O benefício das operações internas foi construído apenas para a contribuição. O imposto sobre bens e serviços continua incidindo, e a carga efetiva é reduzida por outra via, a dos créditos presumidos.\nIV. CERTA. A legislação não distingue a natureza do destinatário. O que importa é a localização dele na área, o que faz do dispositivo um benefício voltado ao consumo local.\nArt. 451. Ficam reduzidas a zero as alíquotas da CBS incidentes sobre as operações realizadas por pessoas jurídicas estabelecidas na Zona Franca de Manaus com bem material de origem nacional ou com serviços prestados fisicamente, quando destinadas a pessoa física ou jurídica localizadas dentro da referida área.\nResposta: Letra E"
+  },
+  {
+   "id": "q-zfmref-45",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos aos requisitos e aos efeitos da redução a zero de alíquotas nas operações internas da Zona Franca de Manaus destinadas a pessoa física ou jurídica localizada na área.\nI. A fruição da redução a zero nas operações internas da Zona Franca de Manaus depende de aprovação de projeto técnico-econômico pelo Conselho de Administração da Suframa.\nII. O contribuinte que realiza essas operações internas pode apropriar e utilizar os créditos relativos às suas operações antecedentes.\nIII. A redução a zero das alíquotas, tal como adotada nessas operações internas, afasta o estorno de créditos que caracterizava o regime de isenção do imposto estadual extinto.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I e II.",
+    "II e III.",
+    "I e III.",
+    "III.",
+    "I, II e III."
+   ],
+   "correta": 1,
+   "fundamento": "I. ERRADA. A aprovação de projeto técnico-econômico é exigência dirigida a quem pretende a condição de indústria incentivada, e não requisito dessa desoneração. O benefício das operações internas alcança a pessoa jurídica estabelecida na área que venda bem material de origem nacional ou preste serviço fisicamente a destinatário nela localizado, exerça ela atividade industrial ou não.\nII. CERTA. Tanto na alíquota zero de IBS e CBS entre indústrias incentivadas quanto na alíquota zero de CBS nas operações internas com bens de origem nacional ou serviços prestados fisicamente, a legislação assegura expressamente ao contribuinte vendedor o direito de manter, apropriar e utilizar integralmente os créditos do imposto e da contribuição relativos às suas operações antecedentes.\nIII. CERTA. No regime do imposto estadual extinto (ICMS), as saídas isentas exigiam, em regra geral, o estorno dos créditos acumulados na aquisição de insumos. Ao traduzir o benefício para a sistemática do IBS/CBS sob a técnica da alíquota zero com manutenção de créditos, a legislação afastou a necessidade de estorno, garantindo a não cumulatividade plena e impedindo a cumulatividade de custos ao longo da cadeia produtiva local.\nArt. 451. Ficam reduzidas a zero as alíquotas da CBS incidentes sobre as operações realizadas por pessoas jurídicas estabelecidas na Zona Franca de Manaus com bem material de origem nacional ou com serviços prestados fisicamente, quando destinadas a pessoa física ou jurídica localizadas dentro da referida área.\nParágrafo único. O contribuinte que realizar as operações de que trata o caput poderá apropriar e utilizar os créditos relativos às operações antecedentes, observado o disposto nos arts. 47 a 56 desta Lei Complementar.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-46",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "A LC nº 214/2025 autoriza o Estado do Amazonas a instituir uma contribuição de contrapartida exigível das indústrias incentivadas, destinada ao financiamento do ensino superior e fomento econômico. Sobre essa contribuição, é correto afirmar:",
+   "alts": [
+    "Ela será cobrada imediatamente a partir de 2026, com percentual de 1,5% sobre o valor adicionado nas operações praticadas pelas indústrias incentivadas da região.",
+    "Sua base de cálculo é o lucro líquido apurado pela indústria incentivada, e a cobrança substitui, na região, os tributos federais que incidem sobre a renda e sobre o lucro.",
+    "O percentual é de 1,5% sobre o faturamento, a cobrança começa em 2033 e, nesse primeiro ano, a empresa paga 10% do valor devido, cabendo o restante à recomposição.",
+    "Trata-se de contribuição de adesão voluntária, cujo pagamento garante à indústria incentivada a extensão dos benefícios fiscais da região por mais dez anos após o termo final do regime.",
+    "A contribuição incide apenas sobre as indústrias que fabricam bens da \"lista negativa\" (como bebidas e fumo), servindo como penalidade extrafiscal."
+   ],
+   "correta": 2,
+   "fundamento": "A contribuição de contrapartida autorizada ao Estado do Amazonas para financiar o ensino superior, o fomento a micro, pequenas e médias empresas e a interiorização do desenvolvimento possui as seguintes diretrizes:\nAlíquota e base de cálculo: a alíquota é de 1,5%, calculada sobre o faturamento das indústrias incentivadas (diferentemente do imposto comum, não incide sobre o valor adicionado ou lucro líquido).\nTermo inicial de cobrança: a cobrança tem início apenas em 2033, coincidindo com o término da transição constitucional e a extinção definitiva do ICMS.\nMecanismo de recomposição em 2033: no ano de 2033, a empresa paga diretamente apenas 10% do valor da contrapartida apurada, enquanto os 90% restantes são cobertos pela recomposição do sistema do IBS.\na) ERRADA. A cobrança tem início apenas em 2033 e sua base de cálculo é o faturamento bruto, não o valor adicionado.\nb) ERRADA. A incidência recai sobre a receita bruta das indústrias incentivadas e não substitui os tributos incidentes sobre a renda ou o lucro.\nc) CERTA. A cobrança aplica a alíquota de 1,5% sobre o faturamento com início em 2033, ano no qual a empresa recolhe apenas 10% do montante devido, sendo o saldo remanescente coberto pela recomposição.\nd) ERRADA. A exigência possui caráter compulsório e não possui o condão de prorrogar a vigência do regime favorecido.\ne) ERRADA. A incidência alcança as indústrias que gozam dos incentivos regionais, estando excluídos os fabricantes de bens não contemplados pelo regime.\nArt. 457.O Estado do Amazonas poderá instituir contribuição de contrapartida semelhante àquelas existentes em 31 de dezembro de 2023, desde que destinadas ao financiamento do ensino superior, ao fomento da micro, pequena e média empresa e da interiorização do desenvolvimento, conforme previsão do caput do art. 92-B do ADCT da Constituição Federal, devendo observar que:\nI - o percentual da contrapartida prevista no caput será de 1,5% (um ponto e meio percentual), calculado sobre o faturamento das indústrias incentivadas;\nII - a contrapartida a que se refere o caput será cobrada a partir do ano de 2033, quando do fim da transição prevista nos arts. 124 a 133 do Ato das Disposições Constitucionais Transitórias;\nIII - no ano de 2033, a cobrança da contrapartida prevista no caput será equivalente a 10% (dez por cento) do percentual previsto no Inciso I, ficando o complemento de 90% (noventa por cento) a cargo da recomposição prevista no art. 131, § 1º, II do Ato das Disposições Constitucionais Transitórias;\nIV - de 2034 a 2073, o percentual da cobrança da contrapartida prevista no caput será acrescido à razão de 1/45 (um quarenta e cinco avos) por ano ao percentual aplicado no ano de 2033, ficando o complemento à cargo da recomposição prevista no art. 131, § 1º, III do Ato das Disposições Constitucionais Transitórias.\nResposta: Letra C"
+  },
+  {
+   "id": "q-zfmref-47",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Uma grande rede de supermercados situada na Zona Franca de Manaus (comércio varejista) apurou, ao final do mês de apuração, um saldo de R$ 500.000,00 acumulado a título de créditos presumidos de IBS, decorrentes de suas aquisições incentivadas. A empresa não possui débitos de IBS suficientes para absorver esse montante no curto prazo.\nDiante das regras de utilização desses créditos , a empresa:",
+   "alts": [
+    "Poderá solicitar o ressarcimento em dinheiro ao Comitê Gestor do IBS, desde que comprove a impossibilidade de compensar o saldo com débitos próprios nos doze meses seguintes à apuração.",
+    "Poderá utilizar o saldo acumulado para compensar débitos próprios de Contribuição sobre Bens e Serviços (CBS) ou de Imposto de Renda Pessoa Jurídica (IRPJ).",
+    "Terá o direito de transferir os créditos a terceiros, estabelecidos ou não na área incentivada, mediante notificação à autarquia regional e homologação tácita depois de decorridos 30 dias.",
+    "Deverá manter os créditos em sua escrita fiscal para compensação com débitos futuros do próprio imposto, extinguindo-se o direito ao crédito após 5 anos, contados do primeiro dia do mês subsequente ao da apropriação.",
+    "Deverá estornar imediatamente o saldo excedente no mês seguinte ao da apuração, sendo vedado o transporte de saldo credor de créditos presumidos para períodos subsequentes."
+   ],
+   "correta": 3,
+   "fundamento": "a) ERRADA. O ressarcimento em dinheiro é expressamente vedado para esses créditos presumidos, ficando o saldo acumulado restrito ao abatimento de débitos próprios do mesmo imposto.\nb) ERRADA. A compensação do benefício é vinculada estritamente ao tributo de origem, sendo vedado seu aproveitamento para quitar obrigações de outras exações ou tributos incidentes sobre a renda.\nc) ERRADA. A legislação não autoriza a transferência de saldos de créditos presumidos a terceiros como mecanismo de monetização do incentivo.\nd) CERTA. O saldo credor pode ser transportado na escrita fiscal para abater débitos futuros do próprio imposto, caducando o direito após cinco anos, contados do primeiro dia do mês subsequente ao da apropriação.\ne) ERRADA. O transporte do saldo credor para apurações subsequentes é permitido, devendo ser utilizado dentro do prazo de validade quinquenal.\nArt. 452. Os créditos presumidos de IBS e de CBS estabelecidos pelos arts. 444, 447, 449 e 450 desta Lei Complementar somente poderão ser utilizados para compensação, respectivamente, com o valor do IBS e da CBS devidos pelo contribuinte, VEDADA a compensação com outros tributos e o ressarcimento em dinheiro.\nParágrafo único. O direito à utilização dos créditos presumidos de que trata o caput extingue-se após 5 (cinco) anos, contados do primeiro dia do mês subsequente àquele em que ocorrer sua apropriação.\nResposta: Letra D"
+  },
+  {
+   "id": "q-zfmref-48",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Visando atrair inovação tecnológica, a LC nº 214/2025 prevê tratamento diferenciado para \"bens sem similar nacional\" cuja produção venha a ser instalada na Zona Franca de Manaus. Caso uma empresa obtenha a aprovação para fabricar óculos de realidade aumentada (produto inédito no Brasil) e o governo fixe uma alíquota de IPI de 15% para proteger essa produção, essa alíquota:",
+   "alts": [
+    "Poderá ser reduzida a qualquer momento por ato do Poder Executivo, respeitando apenas a noventena constitucional.",
+    "Não poderá ser reduzida ou ter sua proteção diminuída antes de decorridos 60 meses (5 anos) da sua fixação, para garantir a segurança jurídica do investimento.",
+    "Deverá ser revisada anualmente pelo Comitê Gestor do IBS, podendo ser ajustada conforme a variação da inflação medida pelo IPCA.",
+    "Aplica-se apenas às vendas destinadas à Região Norte, sendo aplicada alíquota zero para as vendas destinadas às demais regiões do país.",
+    "Será automaticamente extinta em 2027, quando o IPI for substituído integralmente pelo Imposto Seletivo, sem regras de transição para a ZFM."
+   ],
+   "correta": 1,
+   "fundamento": "a) ERRADA. A alteração da taxa de proteção exige o cumprimento de prazo mínimo de estabilidade temporal, vedada a redução discricionária a qualquer tempo.\nb) CERTA. A margem de proteção tributária fica resguardada pelo prazo mínimo de sessenta meses, garantindo a estabilidade e a previsibilidade necessárias ao investimento.\nc) ERRADA. A competência para alterar as alíquotas dessa exação pertence ao Poder Executivo federal, inexistindo revisão anual pelo órgão gestor ou reajuste por índice inflacionário.\nd) ERRADA. A tributação de proteção possui abrangência nacional para onerar mercadorias concorrentes em todo o país, preservando o diferencial competitivo da região.\ne) ERRADA. O IPI é mantido como instrumento de preservação da competitividade regional, não havendo extinção automática na transição do sistema tributário.\nArt. 454.A partir de 1º de janeiro de 2027, as alíquotas do IPI ficam reduzidas a zero para produtos sujeitos a alíquota inferior a 6,5% (seis inteiros e cinco décimos por cento) prevista na Tabela de Incidência do Imposto sobre Produtos Industrializados - Tipi vigente em 31 de dezembro de 2023 e que tenham:\nI - sido industrializados na Zona Franca de Manaus no ano de 2024; ou\nII - projeto técnico-econômico aprovado pelo Conselho de Administração da Suframa (CAS) entre 1º de janeiro de 2022 e a data de publicação desta Lei.\nArt. 455.Em relação a bens sem similar nacional cuja produção venha a ser instalada na Zona Franca de Manaus:\nI - o crédito presumido de CBS de que trata o art. 450 desta Lei Complementar será calculado mediante aplicação do percentual estabelecido pelo inciso I (6%)do § 2º do referido artigo; ou\nII - a alíquota do IPI será de, no mínimo, 6,5% (seis inteiros e cinco décimos por cento), podendo o chefe do Poder Executivo da União majorá-la ou restabelecê-la, atendidas as seguintes condições:\na) a majoração da alíquota será de, no máximo, trinta pontos percentuais;\nb) a alíquota resultante do restabelecimento não poderá ser inferior à prevista no inciso II do caput deste artigo;\nc) a redução ou restabelecimento não poderá ser efetivada antes de decorridos 60 (sessenta) meses da fixação ou majoração da alíquota do IPI;\nd) a redução deverá ser feita de forma gradual, limitada a, no máximo, cinco pontos percentuais por ano.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-49",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos ao tratamento do imposto federal sobre produtos industrializados no regime da Zona Franca de Manaus.\nI. A partir de 2027, ficam reduzidas a zero as alíquotas do imposto sobre produtos industrializados incidentes sobre os produtos que, na tabela vigente ao fim de 2023, já eram inferiores a 6,5%, desde que industrializados na Zona Franca de Manaus em 2024 ou com projeto aprovado na janela definida em lei.\nII. Os bens de tecnologia da informação e comunicação estão fora dessa redução a zero do imposto sobre produtos industrializados.\nIII. Para bem sem similar nacional cuja produção se instale na Zona Franca de Manaus, a alíquota desse imposto pode ser majorada em até trinta pontos percentuais, e a redução posterior fica limitada a cinco pontos por ano.\nIV. Essas condições de majoração e de redução alcançam exclusivamente os bens sem similar nacional.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I, II e III.",
+    "I e IV.",
+    "II e III.",
+    "III e IV.",
+    "I, II, III e IV."
+   ],
+   "correta": 0,
+   "fundamento": "I. CERTA. A partir de 1º de janeiro de 2027, as alíquotas do IPI ficam reduzidas a zero para produtos com alíquota histórica inferior a 6,5% na Tipi vigente em 31/12/2023, desde que tenham sido industrializados na ZFM em 2024 ou possuam projeto aprovado pelo CAS entre 01/01/2022 e a publicação da Lei.\nII. CERTA. A legislação estabelece expressamente que a redução a zero das alíquotas do IPI não alcança os produtos enquadrados como bens de tecnologia da informação e comunicação (TIC).\nIII. CERTA. Para bens sem similar nacional instalados na ZFM, a alíquota do IPI pode ser majorada em até 30 pontos percentuais, e sua eventual redução posterior deve ocorrer de forma gradual, limitada a no máximo 5 pontos percentuais por ano.\nIV. ERRADA. A legislação estende essas mesmas condições de majoração e redução gradual aos produtos industrializados na Zona Franca de Manaus que possuam alíquota positiva de IPI, não sendo uma prerrogativa exclusiva dos bens sem similar nacional.\nArt. 454.A partir de 1º de janeiro de 2027, as alíquotas do IPI ficam reduzidas a zero para produtos sujeitos a alíquota inferior a 6,5% (seis inteiros e cinco décimos por cento) prevista na Tabela de Incidência do Imposto sobre Produtos Industrializados - Tipi vigente em 31 de dezembro de 2023 e que tenham:\nI - sido industrializados na Zona Franca de Manaus no ano de 2024; ou\nII - projeto técnico-econômico aprovado pelo Conselho de Administração da Suframa (CAS) entre 1º de janeiro de 2022 e a data de publicação desta Lei.\n§ 2º A redução a zero das alíquotas a que se refere o caput deste artigo não alcança os produtos enquadrados como bem de tecnologia da informação e comunicação, conforme regulamentação do art. 16-A da Lei nº 8.248, de 23 de outubro de 1991.\nArt. 455.Em relação a bens sem similar nacional cuja produção venha a ser instalada na Zona Franca de Manaus:\nII - a alíquota do IPI será de, no mínimo, 6,5% (seis inteiros e cinco décimos por cento), podendo o chefe do Poder Executivo da União majorá-la ou restabelecê-la, atendidas as seguintes condições:\na) a majoração da alíquota será de, no máximo, trinta pontos percentuais;\nc) a redução ou restabelecimento não poderá ser efetivada antes de decorridos 60 (sessenta) meses da fixação ou majoração da alíquota do IPI;\nd) a redução deverá ser feita de forma gradual, limitada a, no máximo, cinco pontos percentuais por ano.\n§ 2º Aplicam-se as condições previstas no inciso II do caput e suas alíneas para os produtos industrializados na Zona Franca de Manaus que possuam alíquota positiva de IPI.\nResposta: Letra A"
+  },
+  {
+   "id": "q-zfmref-50",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "Julgue os itens a seguir, relativos às disposições gerais aplicáveis aos benefícios fiscais da Zona Franca de Manaus.\nI. Os créditos presumidos dos benefícios fiscais da Zona Franca de Manaus só podem ser compensados com o próprio tributo que os originou, vedadas a compensação com outros tributos e a devolução em dinheiro.\nII. O direito de utilizar esses créditos presumidos se extingue em cinco anos, contados do primeiro dia do mês seguinte ao da apropriação.\nIII. As operações realizadas dentro da Zona Franca de Manaus, ou a ela destinadas, que não estejam entre as hipóteses expressamente beneficiadas sujeitam-se à tributação comum.\nIV. A renúncia de arrecadação decorrente dos benefícios fiscais da Zona Franca de Manaus é desconsiderada na fixação das alíquotas de referência, para não onerar os demais contribuintes.\nÉ CORRETO o que se afirma apenas em:",
+   "alts": [
+    "I e II.",
+    "I, II e III.",
+    "II e IV.",
+    "III e IV.",
+    "I, II, III e IV."
+   ],
+   "correta": 1,
+   "fundamento": "I. CERTA. Os créditos presumidos de IBS e de CBS concedidos na Zona Franca de Manaus possuem vinculação estrita com o tributo de origem, sendo utilizáveis apenas para compensação com os valores devidos do próprio tributo. A legislação proíbe expressamente a compensação com outros tributos e o ressarcimento em espécie.\nII. CERTA. A legislação estabelece que o direito de utilização dos créditos presumidos caduca no prazo de 5 anos, contados do primeiro dia do mês subsequente àquele em que ocorreu a sua apropriação.\nIII. CERTA. Trata-se da cláusula geral de encerramento do regime prevista na legislação, dispondo que as operações ocorridas na ZFM ou a ela destinadas que não estejam expressamente contempladas nos regimes especiais sujeitam-se à incidência ordinária do IBS e da CBS.\nIV. ERRADA. Na verdade, a legislação estabelece que a redução da arrecadação decorrente dos incentivos da ZFM deverá ser explicitamente considerada na fixação das alíquotas de referência do IBS e da CBS, de modo a preservar a receita necessária aos entes federativos.\nArt. 452. Os créditos presumidos de IBS e de CBS estabelecidos pelos arts. 444, 447, 449 e 450 desta Lei Complementar somente poderão ser utilizados para compensação, respectivamente, com o valor do IBS e da CBS devidos pelo contribuinte, VEDADA a compensação com outros tributos e o ressarcimento em dinheiro.\nParágrafo único. O direito à utilização dos créditos presumidos de que trata o caput extingue-se após 5 (cinco) anos, contados do primeiro dia do mês subsequente àquele em que ocorrer sua apropriação.\nArt. 453. As operações com bens e serviços ocorridas dentro da Zona Franca de Manaus ou destinadas à referida área, inclusive importações, que não estejam contempladas pelo disposto nos arts. 443, 445, 446 e 448 desta Lei Complementar sujeitam-se à incidência do IBS e da CBS com base nas demais regras previstas nesta Lei Complementar.\nArt. 456.A redução da arrecadação do IBS e da CBS decorrente dos benefícios previstos neste Capítulo, inclusive em decorrência dos créditos presumidos previstos nos arts. 444, 447, 449 e 450 desta Lei Complementar, deverá ser considerada para fixação das alíquotas de referência.\nResposta: Letra B"
+  },
+  {
+   "id": "q-zfmref-51",
+   "materia": "ZFM - Regimes Tributários Favorecidos da ZFM na EC nº 13223 e na LC nº 21425",
+   "origem": "INÉDITA – LTF – PROF. RABELO – ISS/MANAUS",
+   "enunciado": "A legislação da reforma fixou para a Zona Franca de Manaus marcos temporais que as bancas costumam embaralhar. Assinale a alternativa que os associa corretamente.",
+   "alts": [
+    "A redução a zero das alíquotas do imposto federal sobre produtos industrializados alcança os produtos qualificados a partir de 2027; a contribuição de contrapartida do Estado do Amazonas passa a ser cobrada em 2033; e os benefícios do regime vigoram até 2073.",
+    "A redução a zero das alíquotas daquele imposto federal alcança os produtos qualificados a partir de 2026; a contribuição de contrapartida do Estado do Amazonas passa a ser cobrada em 2033; e os benefícios do regime vigoram até 2073.",
+    "A redução a zero das alíquotas daquele imposto federal e a cobrança da contribuição de contrapartida do Estado do Amazonas começam ambas em 2027, e os benefícios do regime vigoram até 2050.",
+    "A redução a zero alcança os produtos qualificados a partir de 2027 e a contrapartida é cobrada desde 2033, mas os benefícios do regime não têm prazo final, por serem de matriz constitucional permanente.",
+    "A redução a zero alcança os produtos industrializados na área em 2024, com efeitos desde aquele mesmo ano; a contribuição de contrapartida do Estado do Amazonas é cobrada a partir de 2032; e os benefícios do regime vigoram até 2073."
+   ],
+   "correta": 0,
+   "fundamento": "a) CERTA. Essa opção encadeia corretamente os três marcos temporais independentes: o início da desoneração do tributo federal sobre produtos industrializados a partir de 2027, a cobrança da contrapartida estadual a partir de 2033 e o termo final dos incentivos fixado até 2073.\nb) ERRADA. A opção antecipa erroneamente em um ano o início da redução a zero do imposto federal, cujo marco inicial ocorre apenas em 2027.\nc) ERRADA. A assertiva unifica indevidamente datas que possuem marcos iniciais distintos e reduz significativamente o prazo de vigência do regime regional.\nd) ERRADA. O regime favorecido possui limitação temporal expressa na matriz constitucional, de modo que os benefícios não vigoram de forma ilimitada ou perpétua.\ne) ERRADA. A industrialização ocorrida em 2024 funciona apenas como requisito de enquadramento do bem e não como início dos efeitos, além de antecipar em um ano a cobrança da contrapartida estadual.\nArt. 439. Os benefícios relativos à Zona Franca de Manaus estabelecidos neste Capítulo aplicam-se até a data estabelecida pelo art. 92-A do ADCT.\nArt. 454.A partir de 1º de janeiro de 2027, as alíquotas do IPI ficam reduzidas a zero para produtos sujeitos a alíquota inferior a 6,5% (seis inteiros e cinco décimos por cento) prevista na Tabela de Incidência do Imposto sobre Produtos Industrializados - Tipi vigente em 31 de dezembro de 2023 e que tenham:\nI - sido industrializados na Zona Franca de Manaus no ano de 2024; ou\nII - projeto técnico-econômico aprovado pelo Conselho de Administração da Suframa (CAS) entre 1º de janeiro de 2022 e a data de publicação desta Lei.\nArt. 457.O Estado do Amazonas poderá instituir contribuição de contrapartida semelhante àquelas existentes em 31 de dezembro de 2023, desde que destinadas ao financiamento do ensino superior, ao fomento da micro, pequena e média empresa e da interiorização do desenvolvimento, conforme previsão do caput do art. 92-B do ADCT da Constituição Federal, devendo observar que:\nII - a contrapartida a que se refere o caput será cobrada a partir do ano de 2033, quando do fim da transição prevista nos arts. 124 a 133 do Ato das Disposições Constitucionais Transitórias;\nResposta: Letra A"
   }
  ],
  "simulados": [
