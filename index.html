@@ -13,20 +13,20 @@
   --bg-elevated: #334155;
   --border-subtle: #334155;
   --border-strong: #475569;
-  
+
   --accent: #3B82F6;
   --accent-soft: rgba(59, 130, 246, 0.15);
   --accent-hover: #2563EB;
   --ouro: #F59E0B;
   --ouro-soft: rgba(245, 158, 11, 0.12);
-  
+
   --certo: #10B981;
   --errado: #EF4444;
-  
+
   --texto-primary: #F8FAFC;
   --texto-secondary: #94A3B8;
   --texto-muted: #64748B;
-  
+
   --r: 12px;
   --font-size-base: 16px;
 }
@@ -44,7 +44,7 @@ header{
   position:sticky;top:0;z-index:20;
   background:linear-gradient(180deg,var(--bg-surface) 85%,rgba(30,41,59,.9));
   border-bottom:1px solid var(--border-subtle);
-  padding:calc(env(safe-area-inset-top) + 10px) 14px 8px;
+  padding:calc(env(safe-area-inset-top) + 10px) 8px 8px;
 }
 .topo{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
 h1{font-size:15px;margin:0;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--texto-primary)}
@@ -67,17 +67,17 @@ textarea{min-height:78px;resize:vertical;line-height:1.4}
 .chip.erradas-on{background:var(--errado);border-color:var(--errado);color:#ffffff;font-weight:700}
 
 main{
-  padding:12px 14px;
+  padding:12px 6px;
   width:100%;
   max-width:100%;
   margin:0;
 }
 @media (min-width: 768px) {
-  main { padding: 16px 20px; }
-  .questao-container { padding: 22px 24px; }
+  main { padding: 16px 10px; }
+  .questao-container { padding: 22px 14px; }
 }
 
-.vazio{border:1px dashed var(--border-strong);border-radius:var(--r);padding:26px 18px;text-align:center;color:var(--texto-secondary);font-size:14px}
+.vazio{border:1px dashed var(--border-strong);border-radius:var(--r);padding:26px 12px;text-align:center;color:var(--texto-secondary);font-size:14px}
 .vazio b{color:var(--texto-primary);display:block;margin-bottom:6px;font-size:15px}
 
 .acoes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
@@ -97,7 +97,7 @@ main{
 .questao-container{
   background:#ffffff;
   border-radius:10px;
-  padding:20px 16px;
+  padding:20px 10px;
   color:#1e293b;
   box-shadow:0 4px 14px rgba(0,0,0,.25);
   width:100%;
@@ -131,8 +131,8 @@ main{
 
 .alts{margin:16px 0;display:flex;flex-direction:column;gap:10px}
 .alt{
-  display:flex;gap:14px;text-align:left;align-items:flex-start;background:#f8fafc;
-  border:1px solid #cbd5e1;color:#1e293b;border-radius:8px;padding:14px 16px;cursor:pointer;
+  display:flex;gap:10px;text-align:left;align-items:flex-start;background:#f8fafc;
+  border:1px solid #cbd5e1;color:#1e293b;border-radius:8px;padding:14px 10px;cursor:pointer;
   font-size:var(--font-size-base);line-height:1.55;width:100%;position:relative;
   transition:all .15s ease;-webkit-user-select:none;user-select:none;
 }
@@ -154,7 +154,7 @@ main{
 .alt.errada .letra{color:#b91c1c!important;border-color:#ef4444!important;background:#fee2e2!important}
 
 .gab{
-  margin-top:18px;border-left:4px solid #10b981;padding:16px;background:#f0fdf4;
+  margin-top:18px;border-left:4px solid #10b981;padding:16px 12px;background:#f0fdf4;
   border-radius:0 8px 8px 0;font-size:calc(var(--font-size-base) - 1px);line-height:1.65;color:#166534;
   white-space:pre-wrap;overflow-wrap:anywhere;
 }
@@ -162,7 +162,7 @@ main{
 
 .controles-questao{
   display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0 20px;
-  padding:8px 12px;background:#f1f5f9;border-radius:8px;
+  padding:8px 10px;background:#f1f5f9;border-radius:8px;
 }
 .controle-fonte{display:flex;gap:6px;align-items:center}
 .btn-fonte{
@@ -186,7 +186,7 @@ main{
 
 .juris-card{
   background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r);
-  padding:20px 18px;min-height:210px;display:flex;flex-direction:column;justify-content:space-between;
+  padding:20px 12px;min-height:210px;display:flex;flex-direction:column;justify-content:space-between;
   box-shadow:0 8px 24px rgba(0,0,0,0.25);cursor:pointer;position:relative;
 }
 .juris-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
@@ -196,24 +196,24 @@ main{
 .juris-resposta{margin-top:16px;padding-top:16px;border-top:1px dashed var(--border-strong);animation:fadeInJuris 0.2s ease-in-out}
 .juris-tese-box{
   background:rgba(16,185,129,0.12);border-left:4px solid var(--certo);border-radius:0 8px 8px 0;
-  padding:12px 14px;color:#6ee7b7;font-size:14.5px;line-height:1.5;font-weight:600;margin-bottom:12px;
+  padding:12px 10px;color:#6ee7b7;font-size:14.5px;line-height:1.5;font-weight:600;margin-bottom:12px;
 }
 .juris-obs-box{
-  background:var(--ouro-soft);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:11px 13px;color:#fde68a;font-size:13px;line-height:1.5;
+  background:var(--ouro-soft);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:11px 10px;color:#fde68a;font-size:13px;line-height:1.5;
 }
 .juris-obs-box b{color:var(--ouro)}
 
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
-.stat-card{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r);padding:14px;text-align:center}
+.stat-card{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r);padding:14px 12px;text-align:center}
 .stat-card h3{margin:0;font-size:24px;font-weight:700;color:var(--texto-primary)}
 .stat-card p{margin:4px 0 0;font-size:12px;color:var(--texto-secondary)}
 /* ==== Relatório de desempenho do simulado (por bloco/matéria) ==== */
 .res-tab{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r);overflow:hidden;margin-bottom:14px}
-.res-titulo{padding:10px 12px;font-size:12px;font-weight:700;color:var(--texto-primary);border-bottom:1px solid var(--border-subtle);background:var(--bg-elevated)}
-.res-linha{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--border-subtle)}
+.res-titulo{padding:10px 10px;font-size:12px;font-weight:700;color:var(--texto-primary);border-bottom:1px solid var(--border-subtle);background:var(--bg-elevated)}
+.res-linha{display:flex;align-items:center;gap:8px;padding:9px 10px;border-bottom:1px solid var(--border-subtle)}
 .res-linha:last-child{border-bottom:none}
 .res-bloco{background:var(--bg-elevated)}
-.res-mat{padding-left:26px}
+.res-mat{padding-left:20px}
 .res-mat .res-nome{font-weight:500;color:var(--texto-secondary);font-size:12px}
 .res-bloco .res-nome{font-weight:700;font-size:13px}
 .res-nome{flex:1;color:var(--texto-primary);line-height:1.3}
@@ -231,11 +231,11 @@ main{
 .sim-nav-btn.respondida{background:var(--bg-elevated);color:var(--texto-primary);border-color:var(--accent)}
 .sim-nav-btn.atual{border:2px solid var(--accent);color:#fff;background:var(--accent-soft)}
 
-.item{border:1px solid var(--border-subtle);border-radius:12px;padding:14px;margin-bottom:10px;background:var(--bg-surface)}
+.item{border:1px solid var(--border-subtle);border-radius:12px;padding:14px 12px;margin-bottom:10px;background:var(--bg-surface)}
 .item h4{margin:0 0 6px;font-size:14.5px;color:var(--texto-primary)}
 .item p{margin:0;font-size:13px;color:var(--texto-secondary)}
 label{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--texto-secondary);margin:12px 0 5px;font-weight:600}
-.aviso{font-size:13px;color:var(--texto-secondary);border:1px dashed var(--border-subtle);border-radius:10px;padding:12px;margin-top:14px}
+.aviso{font-size:13px;color:var(--texto-secondary);border:1px dashed var(--border-subtle);border-radius:10px;padding:12px 10px;margin-top:14px}
 hr{border:0;border-top:1px solid var(--border-subtle);margin:20px 0}
 
 nav{
@@ -492,9 +492,9 @@ async function sincronizar(opcoes){
     if(!Array.isArray(meus.excluidos)) meus.excluidos=[];
 
     const mudouLocal = JSON.stringify(progresso)!==progAntes || JSON.stringify(meus)!==meusAntes;
-    if(mudouLocal){ 
-      store.set(KEY_PROG,progresso); 
-      store.set(KEY_USER,meus); 
+    if(mudouLocal){
+      store.set(KEY_PROG,progresso);
+      store.set(KEY_USER,meus);
     }
 
     const precisaSubir = !data
@@ -616,8 +616,8 @@ function devida(id){ return prog(id).prox <= hoje() }
 const simSalvo = store.get(KEY_SIM_SALVO) || {};
 
 let estado={
-  aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false, 
-  idx:0, revelado:false, respondida:null, fontSize:store.get(KEY_FONT)||16, riscadas:{}, selecionada:null, 
+  aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false,
+  idx:0, revelado:false, respondida:null, fontSize:store.get(KEY_FONT)||16, riscadas:{}, selecionada:null,
   errMateria:'TODAS', errTema:'TODOS',
   simuladoId: null, simIdx: 0, simRespostas: {}, simFinalizado: false, simModoRevisao: 'todas', tentativaId: null
 };
@@ -837,7 +837,7 @@ function vQuestao(){
   const l=fila('questoes');
   if(!l.length) return vazio('Sem questões com os filtros aplicados.');
   if(estado.idx>=l.length) estado.idx=0;
-  
+
   const q=l[estado.idx], p=prog(q.id);
   const r = respostaVisivel(p);
   const letras='ABCDE';
@@ -850,12 +850,12 @@ function vQuestao(){
       resolvidasCaderno++; acertosCaderno += pr.acertos; errosCaderno += pr.erros;
     }
   });
-  
+
   return `
     <div class="questao-container" id="questao-container">
       <div class="tec-stats-container">
         <div class="tec-stats">
-          Questão <b>${estado.idx + 1}</b> de <b>${totalCaderno}</b> 
+          Questão <b>${estado.idx + 1}</b> de <b>${totalCaderno}</b>
           <span style="font-size:12px; display:block; margin-top:2px;">(<span class="st-res"><b>${resolvidasCaderno}</b> Resolvidas</span>, <span class="st-ok"><b>${acertosCaderno}</b> Acertos</span> e <span class="st-err"><b>${errosCaderno}</b> Erros</span>)</span>
         </div>
         <button class="btn-restaurar-todas" id="btn-restaurar-todas">${estado.soErradas?'Restaurar Erradas':'Restaurar Todas'}</button>
@@ -865,7 +865,7 @@ function vQuestao(){
         <div class="eyebrow"><b>#${q.id||'--'}</b> ${esc(q.origem||'')} — ${esc(q.materia||'')}</div>
         <div class="txt">${esc(q.enunciado)}</div>
       </div>
-      
+
       <div class="controles-questao">
         <div class="controle-fonte">
           <button class="btn-fonte" id="diminuir-fonte">A-</button>
@@ -873,7 +873,7 @@ function vQuestao(){
         </div>
         <div class="info-questao">${estado.idx+1} de ${l.length}</div>
       </div>
-      
+
       <div class="alts">
         ${q.alts.map((a,i)=>{
           let cls='alt';
@@ -884,7 +884,7 @@ function vQuestao(){
                     <span class="letra">${letras[i]}</span><span class="texto-alt">${esc(a)}</span></button>`;
         }).join('')}
       </div>
-      
+
       ${r!==null?`
         <div class="gab"><b>${r===q.correta?'✓ Acertou!':'✗ Errou.'} Gabarito: ${letras[q.correta]}</b><br>${esc(q.fundamento||'')}</div>
         <div class="linha-refazer">
@@ -1293,7 +1293,7 @@ function navegarSimulado(delta){
 }
 
 function irParaQuestaoSimulado(idx){
-  estado.simIdx = idx; 
+  estado.simIdx = idx;
   salvarProgressoSimuladoLocal();
   render();
 }
@@ -1330,12 +1330,12 @@ function incorporarAoBanco(simId){
   sim.questoes.forEach(q=>{
     const item = Object.assign({}, q);
     item.id = item.id || 'q-sim-'+Math.random().toString(36).slice(2,8);
-    if(!jaTem.has(item.id)){ 
+    if(!jaTem.has(item.id)){
       item._em = Date.now();
       tirarDosExcluidos(item.id);
-      meus.questoes.push(item); 
-      jaTem.add(item.id); 
-      n++; 
+      meus.questoes.push(item);
+      jaTem.add(item.id);
+      n++;
     }
   });
   salvarMeus(); toast(n + ' questões adicionadas ao treino geral!');
@@ -1481,19 +1481,19 @@ function vAjustes(){
       <button class="btn linha" id="btEntrar">Entrar / trocar conta</button>
       <button class="btn linha err" id="btSair">Sair da conta neste aparelho</button></div>
     <div class="item"><h4>Situação</h4><p>Conteúdo: <b>${esc(fonteConteudo)}</b><br>${SEED.juris.length+SEED.questoes.length} itens no arquivo base · ${meus.juris.length+meus.questoes.length} adicionados por você · ${vistos} estudados</p></div>
-    
+
     <hr>
     <label>Backup de Dados</label>
     <button class="btn linha" id="exportar">Exportar Backup (.json)</button>
     <button class="btn linha" id="expBase">⬇ Exportar conteudo.json (base atual)</button>
     <button class="btn linha cheio" id="expTudo">⬇ Exportar conteudo.json CONSOLIDADO (base + meus)</button>
     <p style="font-size:11px; color:var(--texto-secondary); margin:6px 0 0">O consolidado junta o arquivo base com tudo que você adicionou, sem duplicar id e já sem os itens excluídos. É o arquivo pronto para subir no GitHub.</p>
-    
+
     <label>Restaurar Backup</label>
     <input type="file" accept=".json,application/json" id="arqBackup" style="margin-bottom:8px">
     <textarea id="restaurar" placeholder="Ou cole o conteúdo do JSON aqui"></textarea>
     <button class="btn linha" id="btRestaurar">Restaurar backup</button>
-    
+
     <hr>
     <label>Restaurar somente as questões ERRADAS (por caderno)</label>
     <select id="errMateria">${optErrMateria()}</select>
@@ -1648,11 +1648,11 @@ function ligarForm(){
     let item;
     if(tipo==='simulados'){
       let questoes = [];
-      try { 
-        questoes = JSON.parse(v.questoes_json); 
+      try {
+        questoes = JSON.parse(v.questoes_json);
         if(!Array.isArray(questoes)) throw new Error();
-      } catch(e){ 
-        return toast('JSON de questões inválido! Verifique o formato.'); 
+      } catch(e){
+        return toast('JSON de questões inválido! Verifique o formato.');
       }
       item = { id, titulo: v.titulo || 'Simulado Sem Título', descricao: v.descricao || '', questoes };
     } else if(tipo==='questoes'){
@@ -1664,7 +1664,7 @@ function ligarForm(){
       if(!v.ref||!v.tese) return toast('Falta referência ou tese');
       item={id,materia:v.materia||'Sem matéria',tribunal:v.tribunal,ref:v.ref,tese:v.tese,obs:v.obs};
     }
-    
+
     if(!meus[tipo]) meus[tipo] = [];
     item._em = Date.now();
     tirarDosExcluidos(item.id);
@@ -1673,10 +1673,10 @@ function ligarForm(){
     salvarMeus();
     marcarApagamento();
     f.querySelectorAll('[data-k]').forEach(e=>e.value='');
-    toast('Item adicionado!'); 
-    listaMeus(); 
-    ligarDel(); 
-    placar(); 
+    toast('Item adicionado!');
+    listaMeus();
+    ligarDel();
+    placar();
     filtros();
   };
   ligarDel();
@@ -1686,19 +1686,19 @@ function ligarDel(){
   document.querySelectorAll('[data-del]').forEach(a=>a.onclick=ev=>{
     ev.preventDefault();
     const {del,tipo}=a.dataset;
-    
+
     if(meus[tipo]) {
       meus[tipo] = meus[tipo].filter(i=>i.id !== del);
     }
-    
+
     tirarDosExcluidos(del);
     meus.excluidos.push({ id: del, em: Date.now() });
-    
+
     delete progresso[del];
     salvarMeus();
     salvarProg();
     marcarApagamento();
-    
+
     listaMeus();
     ligarDel();
     placar();
@@ -1719,15 +1719,15 @@ function importarArray(arr){
   arr.forEach(o => {
     const tipo = o.tipo || (Array.isArray(o.questoes) ? 'simulados' : (o.alts ? 'questoes' : 'juris'));
     if(!meus[tipo]) meus[tipo] = [];
-    const item = Object.assign({}, o); 
+    const item = Object.assign({}, o);
     delete item.tipo;
     item.id = item.id || (tipo[0] + '-u-' + Math.random().toString(36).slice(2,9));
     item._em = Date.now();
     tirarDosExcluidos(item.id);
-    
+
     if(jaTem.has(item.id)){ pulados++; return; }
-    meus[tipo].push(item); 
-    jaTem.add(item.id); 
+    meus[tipo].push(item);
+    jaTem.add(item.id);
     n++;
   });
   salvarMeus();
@@ -1841,33 +1841,33 @@ document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   window.scrollTo(0,0); render();
 });
 
-document.getElementById('fMateria').onchange=e=>{ 
-  estado.materia=e.target.value; estado.tema='TODOS'; estado.revelado=false; estado.respondida=null; estado.selecionada=null; 
-  if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
-  else estado.idx=0;
-  render(); 
-};
-
-document.getElementById('fTema').onchange=e=>{ 
-  estado.tema=e.target.value; estado.revelado=false; estado.respondida=null; estado.selecionada=null; 
-  if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
-  else estado.idx=0;
-  render(); 
-};
-
-document.getElementById('cDevidas').onclick=()=>{ 
-  estado.soDevidas = !estado.soDevidas; 
-  if(estado.soDevidas) estado.soErradas = false;
-  estado.revelado=false; estado.respondida=null; 
+document.getElementById('fMateria').onchange=e=>{
+  estado.materia=e.target.value; estado.tema='TODOS'; estado.revelado=false; estado.respondida=null; estado.selecionada=null;
   if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
   else estado.idx=0;
   render();
 };
 
-document.getElementById('cErradas').onclick=()=>{ 
-  estado.soErradas = !estado.soErradas; 
+document.getElementById('fTema').onchange=e=>{
+  estado.tema=e.target.value; estado.revelado=false; estado.respondida=null; estado.selecionada=null;
+  if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
+  else estado.idx=0;
+  render();
+};
+
+document.getElementById('cDevidas').onclick=()=>{
+  estado.soDevidas = !estado.soDevidas;
+  if(estado.soDevidas) estado.soErradas = false;
+  estado.revelado=false; estado.respondida=null;
+  if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
+  else estado.idx=0;
+  render();
+};
+
+document.getElementById('cErradas').onclick=()=>{
+  estado.soErradas = !estado.soErradas;
   if(estado.soErradas) estado.soDevidas = false;
-  estado.revelado=false; estado.respondida=null; 
+  estado.revelado=false; estado.respondida=null;
   if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
   else estado.idx=0;
   render();
