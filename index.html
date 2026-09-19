@@ -619,7 +619,7 @@ let estado={
   aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false,
   idx:0, revelado:false, respondida:null, fontSize:store.get(KEY_FONT)||16, riscadas:{}, selecionada:null,
   errMateria:'TODAS', errTema:'TODOS',
-  simuladoId: null, simIdx: 0, simRespostas: {}, simFinalizado: false, simModoRevisao: 'todas', tentativaId: null
+  simuladoId: null, simIdx: 0, simRespostas: {}, simRiscadas: {}, simFinalizado: false, simModoRevisao: 'todas', tentativaId: null
 };
 
 function respostaVisivel(p){
@@ -931,7 +931,7 @@ function calcularResultado(sim, respostas){
     const peso = q.peso || 1;
     r.total += peso;
     const mat = q.materia || 'Sem matéria';
-    if(!porMateria[mat]) porMateria[mat] = {materia:mat, bloco:blocoDaMateria(mat), obtida:0, total:0, qtd:0, certas:0};
+    if(!porMateria[mat]) porMateria[mat] = {materia:mat, bloco:blocoDaMateria(mat), obtida:0, total:0, qtd:0, certas:0, peso};
     const m = porMateria[mat];
     m.total += peso; m.qtd++;
     const resp = respostas ? respostas[idx] : undefined;
@@ -947,9 +947,120 @@ function calcularResultado(sim, respostas){
   });
   r.blocos = Object.values(mapa).sort((a,b)=> b.total - a.total || a.nome.localeCompare(b.nome));
   r.blocos.forEach(b=> b.materias.sort((x,y)=> y.total - x.total || x.materia.localeCompare(y.materia)));
+  const ref = refComposicao();
+  r.blocos.forEach(b=>{
+    b.materias.forEach(m=>{ m.pct = pctOf(m.certas, m.qtd); m.refQtd = ref[m.materia] ? ref[m.materia].qtd : m.qtd });
+    b.pctBruto = pctOf(b.obtida, b.total);
+    b.pctAj = pctAjustado(b.materias, ref);
+  });
+  r.provas = provasDasMaterias(r.blocos.flatMap(b=> b.materias), ref);
   r.pct = pctOf(r.obtida, r.total);
   return r;
 }
+
+/* ================= ESTATÍSTICA À PROVA DE COMPOSIÇÃO =================
+   Cada cursinho estima quantas questões de cada matéria cairão dentro de um bloco
+   (ex.: Matemática x RLM x Estatística; Contabilidade Geral x Economia; ADC x Auditoria).
+   Por isso:
+   1) a unidade de comparação entre simulados é a MATÉRIA (nunca o bloco bruto);
+   2) o % do bloco é "ajustado": média dos % das matérias, ponderada pela composição
+      MÉDIA de todos os simulados do app (qtd média × peso) — assim o bloco não sobe/desce
+      só porque um simulado trouxe mais questões da matéria em que você é mais forte;
+   3) entre simulados diferentes conta só a 1ª tentativa de cada um (refazer infla a nota);
+   4) matéria com poucas questões é sinalizada como amostra pequena.
+   Nada disso altera dados salvos: tudo é recalculado a partir das respostas guardadas. */
+function refComposicao(){
+  const sims = base('simulados');
+  const soma = {}, peso = {};
+  sims.forEach(s=> (s.questoes||[]).forEach(q=>{
+    const m = q.materia || 'Sem matéria';
+    soma[m] = (soma[m]||0) + 1;
+    peso[m] = q.peso || 1;
+  }));
+  const n = sims.length || 1, ref = {};
+  Object.keys(soma).forEach(m=> ref[m] = { qtd: soma[m]/n, peso: peso[m] });
+  return ref;
+}
+function pctAjustado(materias, ref){
+  let num = 0, den = 0;
+  materias.forEach(m=>{
+    if(!m.qtd) return;
+    const r = ref[m.materia];
+    const w = r ? r.qtd * r.peso : m.qtd * (m.peso||1);
+    num += w * (m.certas / m.qtd); den += w;
+  });
+  return den > 0 ? num/den*100 : 0;
+}
+/* 1ª tentativa de cada simulado (ordem cronológica), opcionalmente sem um simulado */
+function primeirasTentativas(excetoSimId){
+  const sims = base('simulados'), primeira = new Map();
+  base('tentativas').slice()
+    .sort((a,b)=> String(a.em||'').localeCompare(String(b.em||'')))
+    .forEach(t=>{ if(!primeira.has(t.simuladoId)) primeira.set(t.simuladoId, t) });
+  return [...primeira.values()]
+    .filter(t=> t.simuladoId !== excetoSimId)
+    .map(t=> ({ t, sim: sims.find(s=>s.id===t.simuladoId) }))
+    .filter(x=> x.sim);
+}
+/* Soma acertos/questões por matéria ao longo de várias tentativas */
+function historicoPorMateria(lista){
+  const mat = {};
+  lista.forEach(({t, sim})=>{
+    calcularResultado(sim, t.respostas).blocos.forEach(b=> b.materias.forEach(m=>{
+      if(!mat[m.materia]) mat[m.materia] = { materia:m.materia, bloco:b.nome, peso:m.peso, certas:0, qtd:0, serie:[] };
+      const x = mat[m.materia];
+      x.certas += m.certas; x.qtd += m.qtd;
+      x.serie.push({ titulo: sim.titulo, em: t.em, certas: m.certas, qtd: m.qtd });
+    }));
+  });
+  Object.values(mat).forEach(x=> x.pct = pctOf(x.certas, x.qtd));
+  return mat;
+}
+/* Nível por prova (P1 = peso 1, P2 = peso 3), ajustado à composição média:
+   é o % que você faria numa prova com a distribuição média de questões por matéria. */
+function nomeProva(peso){
+  return peso===1 ? 'P1 · Conhec. Gerais' : (peso===3 ? 'P2 · Conhec. Específicos' : 'Peso '+peso);
+}
+function provasDasMaterias(materias, ref){
+  ref = ref || refComposicao();
+  const por = {};
+  materias.forEach(m=>{ const p = m.peso||1; (por[p] = por[p] || []).push(m) });
+  return Object.keys(por).map(Number).sort((a,b)=>a-b).map(p=>{
+    const ms = por[p];
+    const certas = ms.reduce((a,m)=>a+m.certas,0), qtd = ms.reduce((a,m)=>a+m.qtd,0);
+    return { peso:p, nome:nomeProva(p), certas, qtd, pctBruto:pctOf(certas,qtd), pctAj:pctAjustado(ms, ref) };
+  });
+}
+function cardsProvas(provas, antPorPeso, rotulo){
+  if(!provas || !provas.length) return '';
+  return `<div class="stat-grid" style="margin-bottom:6px">${provas.map(p=>{
+    const ant = antPorPeso ? antPorPeso[p.peso] : undefined;
+    let delta = '';
+    if(ant !== undefined && ant !== null){
+      const d = p.pctAj - ant;
+      delta = Math.abs(d) < 0.05 ? '<span style="font-size:11px; color:var(--texto-secondary)">=</span>'
+        : `<span style="font-size:11px; font-weight:700; color:${d>0?'var(--certo)':'var(--errado)'}">${d>0?'▲':'▼'} ${Math.abs(d).toFixed(1)} p.p.</span>`;
+    }
+    const difere = Math.abs(p.pctAj - p.pctBruto) >= 0.5;
+    return `<div class="stat-card">
+      <p style="margin:0 0 4px; font-weight:700; color:var(--texto-primary)">${esc(p.nome)}</p>
+      <h3 style="color:${corPct(p.pctAj)}">${p.pctAj.toFixed(1)}%</h3>
+      <p>nível ajustado ${delta}</p>
+      <p style="font-size:10px">${p.certas}/${p.qtd} questões${difere?` · bruto ${p.pctBruto.toFixed(1)}%`:''}</p>
+    </div>`;
+  }).join('')}</div>
+  <p style="font-size:10px; color:var(--texto-secondary); margin:0 0 14px">Nível ajustado = % que você faria numa prova com a distribuição média de questões por matéria (não oscila pela estimativa de cada cursinho).${rotulo?' '+esc(rotulo)+'.':''}</p>`;
+}
+
+function blocosDoHistorico(mat){
+  const ref = refComposicao(), por = {};
+  Object.values(mat).forEach(m=>{ (por[m.bloco] = por[m.bloco] || []).push(m) });
+  const out = {};
+  Object.entries(por).forEach(([nome, ms])=> out[nome] = pctAjustado(ms, ref));
+  return out;
+}
+const AMOSTRA_MIN_SIM = 5;    // questões da matéria num único simulado
+const AMOSTRA_MIN_HIST = 10;  // questões acumuladas da matéria em todos os simulados
 
 /* ----- Histórico de simulados respondidos (fica em meus.tentativas, sincroniza junto) ----- */
 function tentativasDoSimulado(simuladoId){
@@ -1093,40 +1204,64 @@ function vSimulados(){
     const listaErradas = res.erradas;
     const listaBlocos = res.blocos;
 
-    // Comparação com o resultado anterior do MESMO simulado, quando existir
+    // Comparação: 1) com a tentativa anterior do MESMO simulado (mesma composição);
+    //             2) senão, com a média das 1ªs tentativas dos OUTROS simulados, matéria a matéria.
     const anterior = tentativaAnterior(sim.id, estado.tentativaId);
     const resAnt = anterior ? calcularResultado(sim, anterior.respostas) : null;
-    const pctAntPorBloco = {};
-    if(resAnt) resAnt.blocos.forEach(b=> pctAntPorBloco[b.nome] = pctOf(b.obtida, b.total));
-    const pctAntTotal = resAnt ? pctOf(resAnt.obtida, resAnt.total) : null;
+    const pctAntPorBloco = {}, pctAntPorMat = {}, pctAntPorProva = {};
+    let pctAntTotal = null, rotuloComp = '';
+    if(resAnt){
+      resAnt.provas.forEach(p=> pctAntPorProva[p.peso] = p.pctAj);
+      resAnt.blocos.forEach(b=>{ pctAntPorBloco[b.nome] = b.pctAj; b.materias.forEach(m=> pctAntPorMat[m.materia] = m.pct) });
+      pctAntTotal = pctOf(resAnt.obtida, resAnt.total);
+      rotuloComp = `comparando com sua tentativa de ${dataBR(anterior.em)}`;
+    } else {
+      const outros = primeirasTentativas(sim.id);
+      if(outros.length){
+        const hist = historicoPorMateria(outros);
+        Object.values(hist).forEach(m=> pctAntPorMat[m.materia] = m.pct);
+        Object.assign(pctAntPorBloco, blocosDoHistorico(hist));
+        provasDasMaterias(Object.values(hist)).forEach(p=> pctAntPorProva[p.peso] = p.pctAj);
+        pctAntTotal = pctOf(
+          outros.reduce((a,x)=> a + calcularResultado(x.sim, x.t.respostas).obtida, 0),
+          outros.reduce((a,x)=> a + calcularResultado(x.sim, x.t.respostas).total, 0));
+        rotuloComp = `comparando com a média de ${outros.length} outro(s) simulado(s), matéria a matéria`;
+      }
+    }
+    const temComp = !!rotuloComp;
 
-    const marcaDelta = (atual, ant)=>{
-      if(ant===null || ant===undefined) return '<span class="res-delta">—</span>';
+    const marcaDelta = (atual, ant, fraco)=>{
+      if(ant===null || ant===undefined) return '<span class="res-delta" style="color:var(--texto-muted)">—</span>';
       const d = atual - ant;
       if(Math.abs(d) < 0.05) return '<span class="res-delta" style="color:var(--texto-secondary)">=</span>';
-      const cor = d>0 ? 'var(--certo)' : 'var(--errado)';
-      return `<span class="res-delta" style="color:${cor}">${d>0?'▲':'▼'} ${Math.abs(d).toFixed(1)}</span>`;
+      const cor = fraco ? 'var(--texto-muted)' : (d>0 ? 'var(--certo)' : 'var(--errado)');
+      return `<span class="res-delta" style="color:${cor}" ${fraco?'title="Poucas questões: variação pouco confiável"':''}>${d>0?'▲':'▼'} ${Math.abs(d).toFixed(1)}</span>`;
     };
 
-    const linhaRes = (nome, sub, obtida, total, ant, classe)=>{
-      const p = pctOf(obtida, total);
+    const linhaRes = (nome, sub, obtida, total, ant, classe, pctForcado, fraco)=>{
+      const p = (pctForcado===undefined) ? pctOf(obtida, total) : pctForcado;
       return `<div class="res-linha ${classe}">
-        <span class="res-nome">${esc(nome)}${sub?`<span class="res-sub">${esc(sub)}</span>`:''}</span>
+        <span class="res-nome">${esc(nome)}${sub?`<span class="res-sub">${sub}</span>`:''}</span>
         <span class="res-nota">${obtida.toFixed(1)} / ${total.toFixed(1)} pts</span>
-        <span class="res-pct" style="color:${corPct(p)}">${p.toFixed(1)}%</span>
-        ${resAnt ? marcaDelta(p, ant) : ''}
+        <span class="res-pct" style="color:${fraco?'var(--texto-secondary)':corPct(p)}">${p.toFixed(1)}%</span>
+        ${temComp ? marcaDelta(p, ant, fraco) : ''}
       </div>`;
     };
 
     const tabelaDesempenho = `
       <div class="res-tab">
-        <div class="res-titulo">📊 Nota ponderada por bloco e matéria${resAnt ? ` <span style="font-weight:400; color:var(--texto-secondary)">· comparando com ${dataBR(anterior.em)}</span>` : ''}</div>
+        <div class="res-titulo">📊 Nota por bloco e matéria${temComp ? ` <span style="font-weight:400; color:var(--texto-secondary)">· ${esc(rotuloComp)}</span>` : ''}
+          <span class="res-sub" style="font-size:10px">% do bloco = ajustado à composição média dos simulados (não oscila pela quantidade de questões de cada matéria). ⚠ = poucas questões.</span></div>
         ${listaBlocos.map(b=>{
           const soUma = b.materias.length===1 && b.materias[0].materia===b.nome;
-          return linhaRes(b.nome, `${b.certas}/${b.qtd} questões`, b.obtida, b.total, pctAntPorBloco[b.nome], 'res-bloco')
-            + (soUma ? '' : b.materias.map(m=>
-                linhaRes(m.materia, `${m.certas}/${m.qtd} questões`, m.obtida, m.total, undefined, 'res-mat')
-              ).join(''));
+          const difere = Math.abs(b.pctAj - b.pctBruto) >= 0.5;
+          const subB = `${b.certas}/${b.qtd} questões${difere ? ` · bruto ${b.pctBruto.toFixed(1)}%` : ''}`;
+          return linhaRes(b.nome, esc(subB), b.obtida, b.total, pctAntPorBloco[b.nome], 'res-bloco', b.pctAj, false)
+            + (soUma ? '' : b.materias.map(m=>{
+                const fraco = m.qtd < AMOSTRA_MIN_SIM;
+                const media = Math.abs(m.refQtd - m.qtd) >= 0.5 ? ` · média ${m.refQtd.toFixed(1).replace('.0','')}` : '';
+                return linhaRes(m.materia, esc(`${m.certas}/${m.qtd} questões${media}`) + (fraco?' ⚠':''), m.obtida, m.total, pctAntPorMat[m.materia], 'res-mat', m.pct, fraco);
+              }).join(''));
         }).join('')}
         ${linhaRes('TOTAL DA PROVA', `${acertos}/${questoes.length} questões · ${res.brancos} em branco`, notaObtida, notaTotal, pctAntTotal, 'res-total')}
       </div>`;
@@ -1147,6 +1282,8 @@ function vSimulados(){
           <button class="chip ${estado.simModoRevisao==='erradas'?'on':''}" onclick="setModoRevisao('erradas')">Rever Só as que Errei (${listaErradas.length})</button>
           <button class="chip" onclick="sairSimulado()">${estado.tentativaId ? 'Voltar ao histórico' : 'Sair do Simulado'}</button>
         </div>
+        ${cardsProvas(res.provas, rotuloComp ? pctAntPorProva : null, rotuloComp ? 'Setas: '+rotuloComp : '')
+          .replace('<div class="stat-grid" style="margin-bottom:6px">','<div class="stat-grid" style="margin:14px 0 6px">')}
         ${estado.tentativaId ? `<p style="font-size:11px; color:var(--texto-secondary); margin:8px 0 0">Revisão do simulado respondido em ${dataBR((base('tentativas').find(x=>x.id===estado.tentativaId)||{}).em)} — resultado guardado no histórico.</p>` : ''}
       </div>
 
@@ -1203,13 +1340,16 @@ function vSimulados(){
         <div class="txt">${esc(q.enunciado)}</div>
       </div>
       <div class="alts">
-        ${q.alts.map((a,i)=>`
-          <button class="alt ${respAtual===i?'selecionada':''}" onclick="responderItemSimulado(${i})">
+        ${q.alts.map((a,i)=>{
+          const risc = (estado.simRiscadas[estado.simIdx]||{})[i];
+          return `
+          <button class="alt ${respAtual===i?'selecionada':''} ${risc?'riscada':''}" data-simalt="${i}">
             <span class="letra">${letras[i]}</span>
             <span class="texto-alt">${esc(a)}</span>
-          </button>
-        `).join('')}
+          </button>`;
+        }).join('')}
       </div>
+      <p style="font-size:11px; color:#64748b; margin:8px 0 0; text-align:center">Toque = marcar/desmarcar · Toque duplo = riscar/desriscar alternativa</p>
       <div style="display:flex; justify-content:space-between; margin-top:12px">
         <button class="btn" style="width:48%" onclick="navegarSimulado(-1)">← Anterior</button>
         <button class="btn" style="width:48%; background:var(--accent); color:#fff" onclick="navegarSimulado(1)">Próxima →</button>
@@ -1225,7 +1365,8 @@ function salvarProgressoSimuladoLocal(){
     titulo: sim ? sim.titulo : 'Simulado',
     totalQuestoes: sim && sim.questoes ? sim.questoes.length : 0,
     simIdx: estado.simIdx,
-    simRespostas: estado.simRespostas
+    simRespostas: estado.simRespostas,
+    simRiscadas: estado.simRiscadas
   });
 }
 
@@ -1247,6 +1388,7 @@ function retomarSimuladoSalvo(){
   estado.simuladoId = salvo.simuladoId;
   estado.simIdx = salvo.simIdx || 0;
   estado.simRespostas = salvo.simRespostas || {};
+  estado.simRiscadas = salvo.simRiscadas || {};
   estado.simFinalizado = false;
   toast('Simulado retomado!');
   render();
@@ -1268,19 +1410,26 @@ function iniciarSimulado(id){
       return;
     }
   }
-  estado.simuladoId = id; estado.simIdx = 0; estado.simRespostas = {}; estado.simFinalizado = false;
+  estado.simuladoId = id; estado.simIdx = 0; estado.simRespostas = {}; estado.simRiscadas = {}; estado.simFinalizado = false;
   salvarProgressoSimuladoLocal();
   render();
 }
 
+// Toque simples: marca a alternativa (tocar de novo na marcada desmarca). NÃO avança sozinho.
 function responderItemSimulado(altIdx){
-  estado.simRespostas[estado.simIdx] = altIdx;
+  if(estado.simRespostas[estado.simIdx] === altIdx) delete estado.simRespostas[estado.simIdx];
+  else estado.simRespostas[estado.simIdx] = altIdx;
   salvarProgressoSimuladoLocal();
-  const sim = base('simulados').find(s=>s.id===estado.simuladoId);
-  if(sim && estado.simIdx < sim.questoes.length - 1){
-    estado.simIdx++;
-    salvarProgressoSimuladoLocal();
-  }
+  render();
+}
+// Toque duplo: risca/desrisca a alternativa (se riscar a que estava marcada, desmarca)
+function riscarItemSimulado(altIdx){
+  const k = estado.simIdx;
+  if(!estado.simRiscadas[k]) estado.simRiscadas[k] = {};
+  estado.simRiscadas[k][altIdx] = !estado.simRiscadas[k][altIdx];
+  if(!estado.simRiscadas[k][altIdx]) delete estado.simRiscadas[k][altIdx];
+  if(estado.simRiscadas[k][altIdx] && estado.simRespostas[k] === altIdx) delete estado.simRespostas[k];
+  salvarProgressoSimuladoLocal();
   render();
 }
 
@@ -1319,6 +1468,7 @@ function sairSimulado(){
   estado.tentativaId = null;
   estado.simFinalizado = false;
   estado.simRespostas = {};
+  estado.simRiscadas = {};
   estado.simIdx = 0;
   render();
 }
@@ -1362,6 +1512,7 @@ function vStats(){
     }
   });
 
+  const painelSim = painelSimuladosPorMateria();
   const percGeral = (totalAcertos + totalErros) > 0 ? ((totalAcertos / (totalAcertos + totalErros)) * 100).toFixed(1) : 0;
   const todasJuris = base('juris');
   const dominadasJuris = todasJuris.filter(j=>prog(j.id).acertos >= 3).length;
@@ -1382,8 +1533,10 @@ function vStats(){
       </div>
     </div>
 
+    ${painelSim}
+
     <div class="item">
-      <h4>Desempenho por Matéria</h4>
+      <h4>Desempenho por Matéria (treino de questões)</h4>
       ${Object.entries(porMateria).map(([m, dados])=>{
         const totResp = dados.acertos + dados.erros;
         const perc = totResp > 0 ? ((dados.acertos / totResp)*100).toFixed(0) : 0;
@@ -1398,6 +1551,74 @@ function vStats(){
             </div>
           </div>
         `;
+      }).join('')}
+    </div>`;
+}
+
+function painelSimuladosPorMateria(){
+  const lista = primeirasTentativas(null)
+    .sort((a,b)=> String(a.t.em||'').localeCompare(String(b.t.em||'')));
+  if(!lista.length) return '';
+  const hist = historicoPorMateria(lista);
+  const pctBloco = blocosDoHistorico(hist);
+  const provasHist = provasDasMaterias(Object.values(hist));
+  // seta: último simulado x anteriores
+  let antProva = null;
+  if(lista.length >= 2){
+    antProva = {};
+    provasDasMaterias(Object.values(historicoPorMateria(lista.slice(0,-1)))).forEach(p=> antProva[p.peso] = p.pctAj);
+    const ult = calcularResultado(lista[lista.length-1].sim, lista[lista.length-1].t.respostas).provas;
+    // mostra o nível acumulado, mas a seta compara o último simulado com os anteriores
+    provasHist.forEach(p=>{ const u = ult.find(x=>x.peso===p.peso); p._ult = u ? u.pctAj : null });
+  }
+  const por = {};
+  Object.values(hist).forEach(m=>{ (por[m.bloco] = por[m.bloco] || []).push(m) });
+  const pesoBloco = nome => por[nome].reduce((a,m)=> a + m.qtd*(m.peso||1), 0);
+  const blocos = Object.keys(por).sort((a,b)=> pesoBloco(b) - pesoBloco(a));
+
+  const tendencia = m=>{
+    // último simulado x média dos anteriores, só com amostra mínima dos dois lados
+    if(m.serie.length < 2) return '';
+    const ult = m.serie[m.serie.length-1];
+    const ant = m.serie.slice(0,-1).reduce((a,x)=>({c:a.c+x.certas, q:a.q+x.qtd}), {c:0,q:0});
+    if(ult.qtd < 3 || ant.q < 3) return '<span class="res-delta" style="color:var(--texto-muted)" title="Amostra pequena">~</span>';
+    const d = pctOf(ult.certas, ult.qtd) - pctOf(ant.c, ant.q);
+    if(Math.abs(d) < 0.05) return '<span class="res-delta" style="color:var(--texto-secondary)">=</span>';
+    return `<span class="res-delta" style="color:${d>0?'var(--certo)':'var(--errado)'}">${d>0?'▲':'▼'} ${Math.abs(d).toFixed(0)}</span>`;
+  };
+
+  const cards = cardsProvas(
+    provasHist.map(p=> Object.assign({}, p)),
+    null, '').replace(/<p>nível ajustado <\/p>/g, '<p>nível atual ajustado</p>');
+  const setas = (antProva && provasHist.every(p=>p._ult!==null)) ? `<p style="font-size:11px; color:var(--texto-secondary); margin:-8px 0 14px">Último simulado vs. anteriores: ${provasHist.map(p=>{
+      const d = p._ult - antProva[p.peso];
+      return `${p.peso===1?'P1':(p.peso===3?'P2':'Peso '+p.peso)} <b style="color:${Math.abs(d)<0.05?'var(--texto-secondary)':(d>0?'var(--certo)':'var(--errado)')}">${Math.abs(d)<0.05?'=':(d>0?'▲':'▼')+' '+Math.abs(d).toFixed(1)+' p.p.'}</b>`;
+    }).join(' · ')}</p>` : '';
+  return `
+    <label>Nível atual nos simulados (1ª tentativa de cada, ${lista.length} simulado(s))</label>
+    ${cards}${setas}
+    <div class="res-tab">
+      <div class="res-titulo">⏱ Simulados por matéria <span style="font-weight:400; color:var(--texto-secondary)">· ${lista.length} simulado(s), 1ª tentativa de cada</span>
+        <span class="res-sub">Acertos somados por matéria entre simulados (quem teve mais questões pesa mais). % do bloco ajustado à composição média. Seta = último simulado vs. anteriores. ⚠ = menos de ${AMOSTRA_MIN_HIST} questões acumuladas.</span></div>
+      ${blocos.map(nome=>{
+        const ms = por[nome].sort((a,b)=> b.qtd*(b.peso||1) - a.qtd*(a.peso||1));
+        const certas = ms.reduce((a,m)=>a+m.certas,0), qtd = ms.reduce((a,m)=>a+m.qtd,0);
+        const soUma = ms.length===1 && ms[0].materia===nome;
+        const pb = pctBloco[nome];
+        const linhaB = `<div class="res-linha res-bloco">
+          <span class="res-nome">${esc(nome)}<span class="res-sub">${certas}/${qtd} questões</span></span>
+          <span class="res-pct" style="color:${corPct(pb)}">${pb.toFixed(1)}%</span>
+          <span class="res-delta"></span></div>`;
+        if(soUma) return linhaB.replace('<span class="res-delta"></span>', tendencia(ms[0]));
+        return linhaB + ms.map(m=>{
+          const fraco = m.qtd < AMOSTRA_MIN_HIST;
+          const serie = m.serie.map((x,k)=> `S${k+1}: ${x.certas}/${x.qtd}`).join(' · ');
+          return `<div class="res-linha res-mat">
+            <span class="res-nome">${esc(m.materia)}${fraco?' ⚠':''}<span class="res-sub">${m.certas}/${m.qtd} · ${esc(serie)}</span></span>
+            <span class="res-pct" style="color:${fraco?'var(--texto-secondary)':corPct(m.pct)}">${m.pct.toFixed(1)}%</span>
+            ${tendencia(m)}
+          </div>`;
+        }).join('');
       }).join('')}
     </div>`;
 }
@@ -1590,6 +1811,21 @@ function ligar(){
           tapTimer = null; lastTapAlt = null;
           render();
         }, 250);
+      }
+    };
+  });
+
+  document.querySelectorAll('[data-simalt]').forEach(b=>{
+    b.onclick = ev => {
+      ev.preventDefault();
+      const i = +b.dataset.simalt;
+      if (tapTimer && lastTapAlt === i) {
+        clearTimeout(tapTimer); tapTimer = null; lastTapAlt = null;
+        riscarItemSimulado(i);
+      } else {
+        clearTimeout(tapTimer);
+        lastTapAlt = i;
+        tapTimer = setTimeout(() => { tapTimer = null; lastTapAlt = null; responderItemSimulado(i); }, 250);
       }
     };
   });
