@@ -619,6 +619,7 @@ let estado={
   aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false,
   idx:0, revelado:false, respondida:null, fontSize:store.get(KEY_FONT)||16, riscadas:{}, selecionada:null,
   errMateria:'TODAS', errTema:'TODOS',
+  fixasDevidas: new Set(),
   simuladoId: null, simIdx: 0, simRespostas: {}, simRiscadas: {}, simFinalizado: false, simModoRevisao: 'todas', tentativaId: null
 };
 
@@ -645,7 +646,7 @@ function fila(tipo){
   l=l.filter(i=>estado.tema==='TODOS'||(i.tema||'Sem tema')===estado.tema);
   if(tipo==='juris' && estado.adiantarJuris){ return l; }
   if(estado.soErradas){ l=l.filter(i=>prog(i.id).erros > 0); }
-  else if(estado.soDevidas){ l=l.filter(i=>{ const p=prog(i.id); return (p.acertos||0)+(p.erros||0) === 0 }) }
+  else if(estado.soDevidas){ l=l.filter(i=>{ const p=prog(i.id); return (p.acertos||0)+(p.erros||0) === 0 || estado.fixasDevidas.has(i.id) }) }
   else if(tipo==='juris'){ l=l.filter(i=>devida(i.id)) }
   return l;
 }
@@ -658,6 +659,27 @@ function irParaPrimeiraNaoResolvida(){
     return (p.acertos + p.erros) === 0;
   });
   estado.idx = iNaoResolvida !== -1 ? iNaoResolvida : 0;
+}
+
+function irParaProximaNaoResolvida(){
+  const l = fila('questoes');
+  const n = l.length;
+  for(let k=1; k<=n; k++){
+    const i = (estado.idx + k) % n;
+    const p = prog(l[i].id);
+    if((p.acertos||0)+(p.erros||0) === 0 && i !== estado.idx){
+      estado.idx = i; estado.respondida=null; estado.riscadas={}; estado.selecionada=null;
+      render(); window.scrollTo(0,0); return;
+    }
+  }
+  toast('Não há outra questão não respondida neste filtro');
+}
+
+/* Comentários com alternativas coladas ("... a) ERRADA. xx. b) CERTA...") → uma por linha */
+function fmtComentario(t){
+  return String(t||'')
+    .replace(/([.:;])[ \t]+([a-eA-E]\)\s)/g, '$1\n$2')
+    .replace(/[ \t]+([a-eA-E]\)\s*(?:CERTA|ERRADA|CORRETA|INCORRETA|VERDADEIRA|FALSA)\b)/g, '\n$1');
 }
 
 function responderJuris(id, dias){
@@ -886,13 +908,14 @@ function vQuestao(){
       </div>
 
       ${r!==null?`
-        <div class="gab"><b>${r===q.correta?'✓ Acertou!':'✗ Errou.'} Gabarito: ${letras[q.correta]}</b><br>${esc(q.fundamento||'')}</div>
+        <div class="gab"><b>${r===q.correta?'✓ Acertou!':'✗ Errou.'} Gabarito: ${letras[q.correta]}</b><br>${esc(fmtComentario(q.fundamento))}</div>
         <div class="linha-refazer">
           <button class="btn-refazer-circulo" id="btn-refazer" title="Refazer questão">↺</button>
           <button class="btn" id="proxima" style="padding:6px 12px; background:var(--accent); color:#fff">Próxima →</button>
         </div>`
        :`
         <button class="btn-resolver" id="resolver" style="width:100%; margin-top:12px">RESOLVER</button>`}
+      <button class="btn linha" id="prox-nao-resp">Próxima não respondida ⏭</button>
     </div>`;
 }
 
@@ -1304,7 +1327,7 @@ function vSimulados(){
           }).join('')}
         </div>
         <div class="gab">
-          <b>${r===q.correta?'✓ Você Acertou':'✗ Você Errou'} · Gabarito: ${letras[q.correta]}</b><br>${esc(q.fundamento||'Sem comentário.')}
+          <b>${r===q.correta?'✓ Você Acertou':'✗ Você Errou'} · Gabarito: ${letras[q.correta]}</b><br>${esc(q.fundamento?fmtComentario(q.fundamento):'Sem comentário.')}
         </div>
         <div style="display:flex; justify-content:space-between; margin-top:12px">
           <button class="btn" style="width:48%" onclick="navegarRevisao(-1)">← Anterior</button>
@@ -1837,6 +1860,7 @@ function ligar(){
     } else {
       const l=fila('questoes'), q=l[estado.idx];
       estado.respondida=estado.selecionada;
+      if(estado.soDevidas) estado.fixasDevidas.add(q.id);
       responderQuestao(q.id, estado.selecionada===q.correta?2:0, estado.selecionada);
       render();
     }
@@ -1844,6 +1868,9 @@ function ligar(){
 
   const prox=document.getElementById('proxima');
   if(prox) prox.onclick=()=>{ estado.respondida=null; estado.idx++; estado.riscadas={}; estado.selecionada=null; render() };
+
+  const proxNR=document.getElementById('prox-nao-resp');
+  if(proxNR) proxNR.onclick=()=>irParaProximaNaoResolvida();
 
   const ant=document.getElementById('btn-anterior');
   if(ant) ant.onclick=()=>{ estado.respondida=null; estado.idx=Math.max(0,estado.idx-1); estado.riscadas={}; estado.selecionada=null; render() };
@@ -2093,6 +2120,7 @@ document.getElementById('fTema').onchange=e=>{
 
 document.getElementById('cDevidas').onclick=()=>{
   estado.soDevidas = !estado.soDevidas;
+  estado.fixasDevidas = new Set();
   if(estado.soDevidas) estado.soErradas = false;
   estado.revelado=false; estado.respondida=null;
   if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
@@ -2102,6 +2130,7 @@ document.getElementById('cDevidas').onclick=()=>{
 
 document.getElementById('cErradas').onclick=()=>{
   estado.soErradas = !estado.soErradas;
+  estado.fixasDevidas = new Set();
   if(estado.soErradas) estado.soDevidas = false;
   estado.revelado=false; estado.respondida=null;
   if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
