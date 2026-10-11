@@ -368,10 +368,30 @@ function escolherProg(a,b){
   return (a.prox||'')>=(b.prox||'')?a:b;
 }
 
-function mesclarProgresso(local,remoto){
-  const out=Object.assign({},local||{});
-  Object.entries(remoto||{}).forEach(([id,pr])=>{ out[id]=out[id]?escolherProg(out[id],pr):pr });
+function mesclarProgresso(local,remoto,resets){
+  const rs=resets||{};
+  const valido=(id,pr)=> pr && !(rs[id] && (pr.em||0) <= rs[id]);
+  const out={};
+  Object.entries(local||{}).forEach(([id,pr])=>{ if(valido(id,pr)) out[id]=pr });
+  Object.entries(remoto||{}).forEach(([id,pr])=>{
+    if(!valido(id,pr)) return;
+    out[id]=out[id]?escolherProg(out[id],pr):pr;
+  });
   return out;
+}
+/* Restaurar = apagar o progresso E registrar a data da restauração (sincroniza junto).
+   Assim a cópia antiga que está na nuvem/outro aparelho não "ressuscita" a questão. */
+/* Progresso vindo de backup ganha carimbo novo: vence restaurações anteriores */
+function carimbarProg(obj){
+  const out={}, agora=Date.now();
+  Object.entries(obj||{}).forEach(([id,pr])=>{ if(pr) out[id]=Object.assign({},pr,{em:agora}) });
+  return out;
+}
+function marcarResetProg(ids){
+  if(!meus.resetsProg || typeof meus.resetsProg!=='object' || Array.isArray(meus.resetsProg)) meus.resetsProg={};
+  const t=Date.now();
+  ids.forEach(id=>{ meus.resetsProg[id]=t; delete progresso[id]; });
+  store.set(KEY_USER,meus);
 }
 
 function normExcl(lista){
@@ -401,7 +421,10 @@ function mesclarMeus(local, remoto){
     m.forEach((em, id) => { xMap.set(id, Math.max(xMap.get(id) || 0, em)) });
   });
 
-  const out = { juris: [], questoes: [], simulados: [], tentativas: [], excluidos: [] };
+  const out = { juris: [], questoes: [], simulados: [], tentativas: [], excluidos: [], resetsProg: {} };
+  [localVal.resetsProg, remotoVal.resetsProg].forEach(o=>{
+    if(o && typeof o==='object') Object.entries(o).forEach(([id,t])=>{ out.resetsProg[id]=Math.max(out.resetsProg[id]||0, +t||0) });
+  });
   const vivos = new Set();
 
   ['juris', 'questoes', 'simulados', 'tentativas'].forEach(t => {
@@ -486,8 +509,8 @@ async function sincronizar(opcoes){
     const remoto=data||{};
     const progAntes=JSON.stringify(progresso), meusAntes=JSON.stringify(meus);
 
-    progresso = mesclarProgresso(progresso, remoto.progresso||{});
     meus      = mesclarMeus(meus, remoto.meus||{juris:[],questoes:[],simulados:[],tentativas:[],excluidos:[]});
+    progresso = mesclarProgresso(progresso, remoto.progresso||{}, meus.resetsProg);
     ['juris','questoes','simulados','tentativas'].forEach(t=>{ if(!Array.isArray(meus[t])) meus[t]=[] });
     if(!Array.isArray(meus.excluidos)) meus.excluidos=[];
 
@@ -687,6 +710,7 @@ function responderJuris(id, dias){
   p.acertos = (p.acertos || 0) + 1;
   p.prox = somaDias(dias);
   p.visto = hoje();
+  p.em = Date.now();
   progresso[id] = p;
   salvarProg();
 }
@@ -697,12 +721,13 @@ function responderQuestao(id, nota, altEscolhida=null){
   else { p.erros++ }
   p.prox = somaDias(nota===0 ? 0 : 3);
   p.visto = hoje();
+  p.em = Date.now();
   if(altEscolhida !== null) p.ultimaResp = altEscolhida;
   progresso[id]=p; salvarProg();
 }
 
 function refazerQuestao(id){
-  delete progresso[id];
+  marcarResetProg([id]);
   salvarProg(); marcarApagamento();
   estado.respondida = null;
   estado.selecionada = null;
@@ -727,7 +752,9 @@ function desfazerUltimaRestauracao(){
   const ult=lista[lista.length-1];
   const quando=new Date(ult.em).toLocaleString('pt-BR');
   if(!confirm(`Desfazer "${ult.rotulo}" e trazer de volta o progresso de ${quando}?`)) return;
-  progresso = mesclarProgresso(progresso, ult.progresso||{});
+  const volta={}, agora=Date.now();
+  Object.entries(ult.progresso||{}).forEach(([id,pr])=>{ volta[id]=Object.assign({},pr,{em:agora}) });
+  progresso = mesclarProgresso(progresso, volta);
   lista.pop(); store.set(KEY_BKP,lista);
   salvarProg(); marcarApagamento();
   estado.respondida=null; estado.selecionada=null;
@@ -747,7 +774,8 @@ function restaurarErradas(materia,tema){
   if(!l.length){ toast('Nenhuma questão errada nesse caderno'); return }
   if(!confirm(`Restaurar ${l.length} questão(ões) errada(s) de ${materia} / ${tema}?`)) return;
   snapshotProgresso(`erradas · ${materia} / ${tema}`);
-  l.forEach(i=>{ delete progresso[i.id]; if(estado.riscadas[i.id]) delete estado.riscadas[i.id] });
+  marcarResetProg(l.map(i=>i.id));
+  l.forEach(i=>{ if(estado.riscadas[i.id]) delete estado.riscadas[i.id] });
   salvarProg(); marcarApagamento();
   estado.idx=0; estado.respondida=null; estado.selecionada=null;
   toast(l.length+' questões erradas restauradas');
@@ -759,7 +787,7 @@ function restaurarTodasDoFiltro(){
   if(!l.length) return;
   if(confirm(`Restaurar o histórico das ${l.length} questões deste filtro?`)){
     snapshotProgresso('restaurar todas do filtro');
-    l.forEach(i => delete progresso[i.id]);
+    marcarResetProg(l.map(i=>i.id));
     salvarProg(); marcarApagamento();
     estado.idx = 0; estado.respondida = null; estado.selecionada = null;
     toast('Caderno restaurado!');
@@ -1957,7 +1985,7 @@ function ligarDel(){
     tirarDosExcluidos(del);
     meus.excluidos.push({ id: del, em: Date.now() });
 
-    delete progresso[del];
+    marcarResetProg([del]);
     salvarMeus();
     salvarProg();
     marcarApagamento();
@@ -2063,7 +2091,7 @@ function ligarAjustes(){
     fr.onload=()=>{
       try{
         const d=JSON.parse(fr.result);
-        if(d.progresso){ snapshotProgresso('restaurar backup arquivo'); progresso=d.progresso; salvarProg() }
+        if(d.progresso){ snapshotProgresso('restaurar backup arquivo'); progresso=carimbarProg(d.progresso); salvarProg(); marcarApagamento() }
         if(d.meus){ meus=d.meus; salvarMeus() }
         toast('Backup restaurado'); render();
       }catch(err){ toast('Arquivo inválido') }
@@ -2074,13 +2102,13 @@ function ligarAjustes(){
   document.getElementById('btRestaurar').onclick=()=>{
     try{
       const d=JSON.parse(document.getElementById('restaurar').value);
-      if(d.progresso){ snapshotProgresso('restaurar backup colado'); progresso=d.progresso; salvarProg() }
+      if(d.progresso){ snapshotProgresso('restaurar backup colado'); progresso=carimbarProg(d.progresso); salvarProg(); marcarApagamento() }
       if(d.meus){ meus=d.meus; salvarMeus() }
       toast('Backup restaurado'); render();
     }catch(e){ toast('JSON inválido') }
   };
   document.getElementById('zerar').onclick=()=>{
-    if(confirm('Zerar todo o progresso?')){ snapshotProgresso('zerar progresso'); progresso={}; salvarProg(); marcarApagamento(); toast('Progresso zerado'); render() }
+    if(confirm('Zerar todo o progresso?')){ snapshotProgresso('zerar progresso'); marcarResetProg(Object.keys(progresso)); salvarProg(); marcarApagamento(); toast('Progresso zerado'); render() }
   };
 
   const em=document.getElementById('errMateria'), et=document.getElementById('errTema');
