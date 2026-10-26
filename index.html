@@ -257,6 +257,52 @@ nav button.on{color:var(--accent);font-weight:700}
 }
 .toast.on{opacity:1}
 
+/* ==== Caixa de seleção múltipla de matérias ==== */
+.multi{flex:1;min-width:140px;position:relative}
+.multi-btn{
+  width:100%;text-align:left;background:var(--bg-elevated);color:var(--texto-primary);border:1px solid var(--border-strong);
+  border-radius:8px;padding:8px 28px 8px 10px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative
+}
+.multi-btn::after{content:'▾';position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--texto-secondary)}
+.multi-btn.ativo{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.multi-painel{
+  position:absolute;left:0;top:calc(100% + 4px);z-index:40;width:min(94vw,520px);max-height:62vh;overflow:auto;
+  background:var(--bg-surface);border:1px solid var(--border-strong);border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.55);padding:6px
+}
+.multi-painel[hidden]{display:none}
+label.multi-op{
+  display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:6px;cursor:pointer;margin:0;
+  font-size:14px;color:var(--texto-primary);text-transform:none;letter-spacing:0;font-weight:400
+}
+label.multi-op:hover{background:var(--bg-elevated)}
+label.multi-op.todas{font-weight:700;border-bottom:1px solid var(--border-subtle);border-radius:6px 6px 0 0;margin-bottom:2px}
+.multi-op input{width:18px;height:18px;flex-shrink:0;accent-color:var(--accent);padding:0;margin:0}
+.multi-op .n{margin-left:auto;font-size:11px;color:var(--texto-secondary);font-variant-numeric:tabular-nums}
+.multi-acoes{display:flex;gap:6px;position:sticky;bottom:-6px;background:var(--bg-surface);padding:8px 2px 6px;border-top:1px solid var(--border-subtle);margin-top:4px}
+.multi-acoes .btn{flex:1;padding:9px 6px;font-size:12px}
+
+/* ==== Modo revisão (rolagem) ==== */
+.chip.rev-on{background:var(--ouro);border-color:var(--ouro);color:#0f172a;font-weight:700}
+.rev-barra{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r);padding:10px;margin-bottom:12px}
+.rev-linha{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.rev-info{font-size:13px;color:var(--texto-primary);font-weight:700}
+.rev-info small{display:block;font-weight:400;color:var(--texto-secondary);font-size:11px;margin-top:2px}
+.rev-tams{display:flex;gap:5px;align-items:center;font-size:11px;color:var(--texto-secondary)}
+.rev-tams .chip{padding:5px 10px}
+.rev-pags{display:flex;align-items:center;gap:8px;margin-top:10px}
+.rev-pags .btn{flex:1;padding:9px 6px}
+.rev-pags select{flex:1.2;width:auto;padding:8px 6px;font-size:12px}
+.btn:disabled{opacity:.35;cursor:default}
+.rev-card{margin-bottom:14px}
+.rev-card .alt{cursor:default;-webkit-user-select:text;user-select:text;padding:11px 10px}
+.rev-card .enunciado{margin-bottom:12px}
+.rev-card .alts{margin:10px 0}
+.rev-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.rev-st{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0}
+.rev-st.ok{background:#d1fae5;color:#047857}
+.rev-st.er{background:#fee2e2;color:#b91c1c}
+.rev-st.nr{background:#e2e8f0;color:#475569}
+
 @keyframes fadeInJuris {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
@@ -271,10 +317,14 @@ nav button.on{color:var(--accent);font-weight:700}
     <div class="placar" id="placar"><b>0</b>/0 dominados<br>0 para revisar hoje</div>
   </div>
   <div class="filtros" id="filtros-container">
-    <select id="fMateria"><option selected="">TODAS</option></select>
+    <div class="multi" id="multiMat">
+      <button type="button" class="multi-btn" id="fMateriaBtn">TODAS as matérias</button>
+      <div class="multi-painel" id="painelMat" hidden></div>
+    </div>
     <select id="fTema"><option selected="">TODOS</option><option>Sem tema</option></select>
     <button class="chip" id="cDevidas">Não respondidas</button>
     <button class="chip" id="cErradas">Só as erradas</button>
+    <button class="chip" id="cRevisao">📖 Modo revisão</button>
   </div>
 </header>
 
@@ -302,6 +352,7 @@ let SEED = {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const KEY_PROG='semef2026_progresso_v1', KEY_USER='semef2026_meusitens_v1', KEY_FONT='semef2026_fontsize_v1', KEY_SIM_SALVO='semef2026_simulado_ativo_v1';
+const KEY_REVTAM='semef2026_revisao_tam_v1', KEY_SIMREVLISTA='semef2026_sim_rev_lista_v1';
 const mem={};
 const store={
   get(k){
@@ -548,8 +599,7 @@ async function sincronizar(opcoes){
 
 function atualizarTelaAposSync(){
   try{ placar() }catch(e){}
-  const ocupado = estado.revelado || estado.respondida!==null || estado.aba==='add';
-  if(!ocupado) render();
+  if(!telaOcupada()) render();
 }
 
 async function sincronizarNuvem(){
@@ -605,8 +655,7 @@ function aplicarConteudo(d,fonte){
   if(!d) return false;
   SEED = { juris:d.juris||[], questoes:d.questoes||[], simulados:d.simulados||[] };
   fonteConteudo = fonte;
-  const ocupado = estado.revelado || estado.respondida!==null || estado.aba==='add';
-  if(!ocupado && document.getElementById('tela')) render();
+  if(!telaOcupada() && document.getElementById('tela')) render();
   return true;
 }
 
@@ -639,12 +688,19 @@ function devida(id){ return prog(id).prox <= hoje() }
 const simSalvo = store.get(KEY_SIM_SALVO) || {};
 
 let estado={
-  aba:'juris', materia:'TODAS', tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false,
+  aba:'juris', materias:new Set(), tema:'TODOS', soDevidas:false, soErradas:false, adiantarJuris:false,
   idx:0, revelado:false, respondida:null, fontSize:store.get(KEY_FONT)||16, riscadas:{}, selecionada:null,
   errMateria:'TODAS', errTema:'TODOS',
   fixasDevidas: new Set(),
-  simuladoId: null, simIdx: 0, simRespostas: {}, simRiscadas: {}, simFinalizado: false, simModoRevisao: 'todas', tentativaId: null
+  simuladoId: null, simIdx: 0, simRespostas: {}, simRiscadas: {}, simFinalizado: false, simModoRevisao: 'todas', tentativaId: null,
+  revisao: false, revPag: 0, revTam: store.get(KEY_REVTAM) || 50, simRevLista: store.get(KEY_SIMREVLISTA) === true
 };
+
+function telaOcupada(){
+  return estado.revelado || estado.respondida!==null || estado.aba==='add'
+    || (estado.aba==='questoes' && estado.revisao)
+    || (estado.aba==='simulados' && !!estado.simuladoId);
+}
 
 function respostaVisivel(p){
   if(estado.respondida !== null) return estado.respondida;
@@ -655,17 +711,25 @@ function respostaVisivel(p){
 function materiasDisponiveis(){
   const s=new Set();
   ['juris','questoes'].forEach(t=>base(t).forEach(i=>s.add(i.materia||'Sem matéria')));
-  return ['TODAS',...[...s].sort()];
+  return [...s].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+}
+/* Matéria passa no filtro? (nenhuma marcada = TODAS) */
+const matOk = i => !estado.materias.size || estado.materias.has(i.materia||'Sem matéria');
+function rotuloMaterias(){
+  const s=[...estado.materias];
+  if(!s.length) return 'TODAS as matérias';
+  if(s.length<=2) return s.join(' + ');
+  return s.length+' matérias selecionadas';
 }
 function temasDisponiveis(){
   const s=new Set();
   ['juris','questoes'].forEach(t=>base(t).forEach(i=>{
-    if(estado.materia==='TODAS'||i.materia===estado.materia) s.add(i.tema||'Sem tema');
+    if(matOk(i)) s.add(i.tema||'Sem tema');
   }));
   return ['TODOS',...[...s].sort()];
 }
 function fila(tipo){
-  let l=base(tipo).filter(i=>estado.materia==='TODAS'||i.materia===estado.materia);
+  let l=base(tipo).filter(matOk);
   l=l.filter(i=>estado.tema==='TODOS'||(i.tema||'Sem tema')===estado.tema);
   if(tipo==='juris' && estado.adiantarJuris){ return l; }
   if(estado.soErradas){ l=l.filter(i=>prog(i.id).erros > 0); }
@@ -811,28 +875,114 @@ function filtros(){
     return;
   }
   fContainer.style.display = 'flex';
-  const sel=document.getElementById('fMateria');
-  const atual=estado.materia;
-  sel.innerHTML=materiasDisponiveis().map(m=>`<option ${m===atual?'selected':''}>${esc(m)}</option>`).join('');
+  // remove da seleção matérias que não existem mais
+  const existentes=new Set(materiasDisponiveis());
+  [...estado.materias].forEach(m=>{ if(!existentes.has(m)) estado.materias.delete(m) });
+  const bm=document.getElementById('fMateriaBtn');
+  bm.textContent=rotuloMaterias();
+  bm.title=[...estado.materias].join('\n') || 'Todas as matérias';
+  bm.classList.toggle('ativo', estado.materias.size>0);
   const st=document.getElementById('fTema');
   const temas=temasDisponiveis();
   if(!temas.includes(estado.tema)) estado.tema='TODOS';
   st.innerHTML=temas.map(m=>`<option ${m===estado.tema?'selected':''}>${esc(m)}</option>`).join('');
   document.getElementById('cDevidas').classList.toggle('on',estado.soDevidas);
   document.getElementById('cErradas').classList.toggle('erradas-on',estado.soErradas);
+  const cr=document.getElementById('cRevisao');
+  cr.style.display = estado.aba==='questoes' ? '' : 'none';
+  cr.classList.toggle('rev-on', estado.revisao);
 }
 
 function render(){
   filtros(); placar();
   const tela=document.getElementById('tela');
   tela.innerHTML = ({
-    juris:vJuris, questoes:vQuestao, simulados:vSimulados, stats:vStats, add:vAdd, ajustes:vAjustes
+    juris:vJuris, questoes:(estado.revisao ? vRevisaoQuestoes : vQuestao), simulados:vSimulados, stats:vStats, add:vAdd, ajustes:vAjustes
   })[estado.aba]();
   document.documentElement.style.setProperty('--font-size-base', estado.fontSize + 'px');
   ligar();
 }
 
 function vazio(msg){ return `<div class="vazio"><b>Nada por aqui</b>${msg}</div>` }
+
+/* ================= MODO REVISÃO (rolagem) =================
+   Gabarito aberto, certa em verde, sua resposta errada em vermelho e o comentário.
+   Só leitura: não conta como resposta nem mexe no progresso. Paginado em blocos (25/50/100). */
+function cardRevisao(q, resp, rotulo, txtSemResp){
+  const letras='ABCDE';
+  const semResp = resp===undefined || resp===null;
+  const st = semResp ? `<span class="rev-st nr">${txtSemResp||'Não respondida'}</span>`
+    : (resp===q.correta ? '<span class="rev-st ok">✓ Acertou</span>' : `<span class="rev-st er">✗ Marcou ${letras[resp]||'?'}</span>`);
+  return `<div class="questao-container rev-card">
+    <div class="enunciado">
+      <div class="eyebrow rev-cab"><span>${rotulo} · #${esc(q.id||'--')} ${esc(q.origem||'')} — ${esc(q.materia||'')}${q.tema?' · '+esc(q.tema):''}</span>${st}</div>
+      <div class="txt">${esc(q.enunciado)}</div>
+    </div>
+    <div class="alts">
+      ${(q.alts||[]).map((a,i)=>{
+        let cls='alt';
+        if(i===q.correta) cls+=' certa';
+        else if(i===resp) cls+=' errada';
+        return `<div class="${cls}"><span class="letra">${letras[i]}</span><span class="texto-alt">${esc(a)}</span></div>`;
+      }).join('')}
+    </div>
+    <div class="gab"><b>Gabarito: ${letras[q.correta]}</b>${esc(q.fundamento?fmtComentario(q.fundamento):'Sem comentário.')}</div>
+  </div>`;
+}
+function paginaRevisao(total){
+  const tam=estado.revTam, nPag=Math.max(1,Math.ceil(total/tam));
+  if(estado.revPag>=nPag || estado.revPag<0) estado.revPag=0;
+  const ini=estado.revPag*tam;
+  return { tam, nPag, ini, fim:Math.min(total, ini+tam) };
+}
+function barraRevisao(total, pg, titulo, completa){
+  const pags = pg.nPag>1 ? `<div class="rev-pags">
+      <button class="btn" data-revpag="-1" ${estado.revPag===0?'disabled':''}>← Anterior</button>
+      <select data-revir>${Array.from({length:pg.nPag},(_,k)=>`<option value="${k}" ${k===estado.revPag?'selected':''}>${k*pg.tam+1}–${Math.min(total,(k+1)*pg.tam)}</option>`).join('')}</select>
+      <button class="btn" data-revpag="1" ${estado.revPag>=pg.nPag-1?'disabled':''}>Próximo →</button>
+    </div>` : '';
+  if(!completa) return `<div class="rev-barra">${pags}<button class="btn linha" data-revtopo>↑ Voltar ao topo</button></div>`;
+  return `<div class="rev-barra">
+    <div class="rev-linha">
+      <div class="rev-info">${titulo} · ${pg.ini+1}–${pg.fim} de ${total}<small>Gabarito aberto · só leitura, não conta como resposta</small></div>
+      <div class="rev-tams">
+        <button class="btn-fonte" data-fonte="-1">A-</button><button class="btn-fonte" data-fonte="1">A+</button>
+        <span style="margin-left:4px">por bloco:</span>
+        ${[25,50,100].map(n=>`<button class="chip ${estado.revTam===n?'on':''}" data-revtam="${n}">${n}</button>`).join('')}
+      </div>
+    </div>
+    ${pags}
+  </div>`;
+}
+function vRevisaoQuestoes(){
+  const l=fila('questoes');
+  if(!l.length) return (estado.soErradas ? `<button class="chip on" data-reverr="0" style="margin-bottom:10px">Rever todas</button>` : '')
+    + vazio(estado.soErradas ? 'Você não errou nenhuma questão com esses filtros.' : 'Sem questões com os filtros aplicados.');
+  const pg=paginaRevisao(l.length);
+  const nErr=base('questoes').filter(i=>matOk(i) && (estado.tema==='TODOS'||(i.tema||'Sem tema')===estado.tema) && prog(i.id).erros>0).length;
+  return `<div style="display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap">
+      <button class="chip ${!estado.soErradas?'on':''}" data-reverr="0">Rever todas</button>
+      <button class="chip ${estado.soErradas?'erradas-on':''}" data-reverr="1">Rever só as que errei (${nErr})</button>
+    </div>`
+    + barraRevisao(l.length, pg, estado.soErradas?'📖 Só as que errei':'📖 Revisão', true)
+    + l.slice(pg.ini, pg.fim).map((q,k)=>cardRevisao(q, prog(q.id).ultimaResp, `<b>${pg.ini+k+1}</b>`)).join('')
+    + barraRevisao(l.length, pg, '', false);
+}
+function vRevisaoSimLista(sim, indices){
+  const questoes=sim.questoes||[];
+  if(!indices.length) return vazio('Nenhuma questão para revisar nesta categoria.');
+  const pg=paginaRevisao(indices.length);
+  return barraRevisao(indices.length, pg, estado.simModoRevisao==='erradas'?'📖 Erradas/brancos':'📖 Revisão', true)
+    + indices.slice(pg.ini, pg.fim).map(idx=>{
+        const q=questoes[idx];
+        return cardRevisao(q, estado.simRespostas[idx], `Questão <b>${idx+1}</b>/${questoes.length} · Peso ${q.peso||1}`, 'Em branco');
+      }).join('')
+    + barraRevisao(indices.length, pg, '', false);
+}
+function setSimRevLista(v){
+  estado.simRevLista=!!v; store.set(KEY_SIMREVLISTA, estado.simRevLista);
+  estado.revPag=0; estado.simIdx=0; render();
+}
 
 /* ================= ABA: JURISPRUDÊNCIA ================= */
 function vJuris(){
@@ -1153,7 +1303,7 @@ function reverTentativa(id){
   estado.simRespostas = t.respostas || {};
   estado.simFinalizado = true;
   estado.tentativaId = t.id;
-  estado.simIdx = 0;
+  estado.simIdx = 0; estado.revPag = 0;
   estado.simModoRevisao = 'erradas';
   render();
 }
@@ -1333,6 +1483,11 @@ function vSimulados(){
           <button class="chip ${estado.simModoRevisao==='erradas'?'on':''}" onclick="setModoRevisao('erradas')">Rever Só as que Errei (${listaErradas.length})</button>
           <button class="chip" onclick="sairSimulado()">${estado.tentativaId ? 'Voltar ao histórico' : 'Sair do Simulado'}</button>
         </div>
+        <div style="display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; align-items:center">
+          <span style="font-size:11px; color:var(--texto-secondary)">Exibição:</span>
+          <button class="chip ${!estado.simRevLista?'on':''}" onclick="setSimRevLista(false)">☝ Uma por vez</button>
+          <button class="chip ${estado.simRevLista?'rev-on':''}" onclick="setSimRevLista(true)">📖 Modo revisão (rolagem)</button>
+        </div>
         ${cardsProvas(res.provas, rotuloComp ? pctAntPorProva : null, rotuloComp ? 'Setas: '+rotuloComp : '')
           .replace('<div class="stat-grid" style="margin-bottom:6px">','<div class="stat-grid" style="margin:14px 0 6px">')}
         ${estado.tentativaId ? `<p style="font-size:11px; color:var(--texto-secondary); margin:8px 0 0">Revisão do simulado respondido em ${dataBR((base('tentativas').find(x=>x.id===estado.tentativaId)||{}).em)} — resultado guardado no histórico.</p>` : ''}
@@ -1340,7 +1495,9 @@ function vSimulados(){
 
       ${tabelaDesempenho}
 
-      ${q ? `
+      ${estado.simRevLista ? vRevisaoSimLista(sim, indicesRevisao)
+        + `<button class="btn linha" onclick="incorporarAoBanco('${sim.id}')" style="margin-top:12px">📥 Importar questões deste simulado para o treino diário</button>`
+      : q ? `
       <div class="questao-container" id="questao-container">
         <div class="enunciado">
           <div class="eyebrow">Questão <b>${qAtualIdx + 1}</b> de <b>${questoes.length}</b> (Peso ${q.peso||1}) — ${esc(q.materia||'')}</div>
@@ -1503,12 +1660,12 @@ function finalizarSimulado(){
     limparSimuladoSalvo();
     const sim = base('simulados').find(s=>s.id===estado.simuladoId);
     if(sim) registrarTentativa(sim);   // guarda o resultado no histórico
-    estado.simFinalizado = true; estado.simIdx = 0; estado.simModoRevisao = 'todas';
+    estado.simFinalizado = true; estado.simIdx = 0; estado.revPag = 0; estado.simModoRevisao = 'todas';
     render();
   }
 }
 function setModoRevisao(modo){
-  estado.simModoRevisao = modo; estado.simIdx = 0; render();
+  estado.simModoRevisao = modo; estado.simIdx = 0; estado.revPag = 0; render();
 }
 function navegarRevisao(delta){
   estado.simIdx += delta; render();
@@ -1928,6 +2085,26 @@ function ligar(){
     listaMeus(); ligarLote();
   }
   if(estado.aba==='ajustes') ligarAjustes();
+
+  // modo revisão: tamanho do bloco, páginas, topo, fonte
+  document.querySelectorAll('[data-revtam]').forEach(b=>b.onclick=()=>{
+    estado.revTam=+b.dataset.revtam; store.set(KEY_REVTAM,estado.revTam); estado.revPag=0; render(); window.scrollTo(0,0);
+  });
+  document.querySelectorAll('[data-revpag]').forEach(b=>b.onclick=()=>{
+    estado.revPag+=+b.dataset.revpag; render(); window.scrollTo(0,0);
+  });
+  document.querySelectorAll('[data-revir]').forEach(s=>s.onchange=()=>{
+    estado.revPag=+s.value; render(); window.scrollTo(0,0);
+  });
+  document.querySelectorAll('[data-reverr]').forEach(b=>b.onclick=()=>{
+    estado.soErradas = b.dataset.reverr==='1'; if(estado.soErradas) estado.soDevidas=false;
+    estado.fixasDevidas=new Set(); estado.revPag=0; render(); window.scrollTo(0,0);
+  });
+  document.querySelectorAll('[data-revtopo]').forEach(b=>b.onclick=()=>window.scrollTo({top:0,behavior:'smooth'}));
+  document.querySelectorAll('[data-fonte]').forEach(b=>b.onclick=()=>{
+    estado.fontSize=Math.max(12,Math.min(24,estado.fontSize+2*(+b.dataset.fonte)));
+    store.set(KEY_FONT,estado.fontSize); render();
+  });
 }
 
 function ligarForm(){
@@ -2123,7 +2300,8 @@ function ligarAjustes(){
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));
   b.classList.add('on');
-  estado.aba=b.dataset.aba; estado.revelado=false; estado.respondida=null; estado.riscadas={}; estado.selecionada=null;
+  estado.aba=b.dataset.aba; estado.revelado=false; estado.respondida=null; estado.riscadas={}; estado.selecionada=null; estado.revPag=0;
+  fecharPainelMat();
   if(estado.aba === 'questoes'){
     irParaPrimeiraNaoResolvida();
   } else {
@@ -2132,15 +2310,52 @@ document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   window.scrollTo(0,0); render();
 });
 
-document.getElementById('fMateria').onchange=e=>{
-  estado.materia=e.target.value; estado.tema='TODOS'; estado.revelado=false; estado.respondida=null; estado.selecionada=null;
-  if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
-  else estado.idx=0;
-  render();
+/* ---------- Caixa de seleção múltipla de matérias ---------- */
+function fecharPainelMat(){ const p=document.getElementById('painelMat'); if(p) p.hidden=true }
+function abrirPainelMat(){
+  const p=document.getElementById('painelMat');
+  const tipo = estado.aba==='juris' ? 'juris' : 'questoes';
+  const cont=new Map();
+  base(tipo).forEach(i=>{ const m=i.materia||'Sem matéria'; cont.set(m,(cont.get(m)||0)+1) });
+  const mats=materiasDisponiveis();
+  const nenhuma=!estado.materias.size;
+  p.innerHTML = `<label class="multi-op todas"><input type="checkbox" data-todas ${nenhuma?'checked':''}><span>TODAS</span><span class="n">${base(tipo).length}</span></label>`
+    + mats.map(m=>`<label class="multi-op"><input type="checkbox" data-m value="${esc(m)}" ${estado.materias.has(m)?'checked':''}><span>${esc(m)}</span><span class="n">${cont.get(m)||0}</span></label>`).join('')
+    + `<div class="multi-acoes"><button type="button" class="btn" data-matcancel>Cancelar</button><button type="button" class="btn cheio" data-matok>Aplicar</button></div>`;
+  const todas=p.querySelector('[data-todas]'), itens=[...p.querySelectorAll('[data-m]')];
+  todas.onchange=()=>{ if(todas.checked) itens.forEach(x=>x.checked=false); else if(!itens.some(x=>x.checked)) todas.checked=true };
+  itens.forEach(x=>x.onchange=()=>{ todas.checked = !itens.some(y=>y.checked) });
+  p.querySelector('[data-matcancel]').onclick=fecharPainelMat;
+  p.querySelector('[data-matok]').onclick=()=>{
+    const marcadas=itens.filter(x=>x.checked).map(x=>x.value);
+    estado.materias=new Set(marcadas.length===mats.length ? [] : marcadas);
+    estado.tema='TODOS'; estado.revelado=false; estado.respondida=null; estado.selecionada=null; estado.revPag=0;
+    fecharPainelMat();
+    if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
+    else estado.idx=0;
+    render(); window.scrollTo(0,0);
+  };
+  p.hidden=false;
+}
+document.getElementById('fMateriaBtn').onclick=e=>{
+  e.stopPropagation();
+  const p=document.getElementById('painelMat');
+  if(p.hidden) abrirPainelMat(); else fecharPainelMat();
+};
+document.addEventListener('click',e=>{
+  const box=document.getElementById('multiMat');
+  if(box && !box.contains(e.target)) fecharPainelMat();
+});
+
+document.getElementById('cRevisao').onclick=()=>{
+  estado.revisao=!estado.revisao; estado.revPag=0;
+  estado.respondida=null; estado.selecionada=null; estado.riscadas={};
+  if(!estado.revisao) irParaPrimeiraNaoResolvida();
+  render(); window.scrollTo(0,0);
 };
 
 document.getElementById('fTema').onchange=e=>{
-  estado.tema=e.target.value; estado.revelado=false; estado.respondida=null; estado.selecionada=null;
+  estado.tema=e.target.value; estado.revelado=false; estado.respondida=null; estado.selecionada=null; estado.revPag=0;
   if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
   else estado.idx=0;
   render();
@@ -2150,7 +2365,7 @@ document.getElementById('cDevidas').onclick=()=>{
   estado.soDevidas = !estado.soDevidas;
   estado.fixasDevidas = new Set();
   if(estado.soDevidas) estado.soErradas = false;
-  estado.revelado=false; estado.respondida=null;
+  estado.revelado=false; estado.respondida=null; estado.revPag=0;
   if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
   else estado.idx=0;
   render();
@@ -2160,7 +2375,7 @@ document.getElementById('cErradas').onclick=()=>{
   estado.soErradas = !estado.soErradas;
   estado.fixasDevidas = new Set();
   if(estado.soErradas) estado.soDevidas = false;
-  estado.revelado=false; estado.respondida=null;
+  estado.revelado=false; estado.respondida=null; estado.revPag=0;
   if(estado.aba === 'questoes') irParaPrimeiraNaoResolvida();
   else estado.idx=0;
   render();
