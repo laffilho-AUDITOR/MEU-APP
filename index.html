@@ -128,6 +128,7 @@ main{
 .enunciado .txt{
   font-size:var(--font-size-base);line-height:1.65;white-space:pre-line;text-align:justify;color:#0f172a
 }
+.enunciado .txt img.fig{display:block;max-width:100%;height:auto;margin:10px auto;border:1px solid #e2e8f0;border-radius:6px;background:#fff}
 
 .alts{margin:16px 0;display:flex;flex-direction:column;gap:10px}
 .alt{
@@ -345,7 +346,8 @@ label.multi-op.todas{font-weight:700;border-bottom:1px solid var(--border-subtle
 let SEED = {
   "juris": [],
   "questoes": [],
-  "simulados": []
+  "simulados": [],
+  "figuras": {}
 };
 </script>
 
@@ -647,13 +649,19 @@ const salvarMeus=()=>{ store.set(KEY_USER,meus); agendarSync(); };
 const hoje=()=>new Date().toISOString().slice(0,10);
 const somaDias=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* Enunciado com figuras: o marcador [[fig:chave]] vira a imagem guardada em conteudo.json → "figuras" */
+const txtFig=s=>esc(s).replace(/\n?\[\[fig:([\w.-]+)\]\]\n?/g,(m,k)=>{
+  const src=(SEED.figuras||{})[k];
+  return (typeof src==='string' && /^data:image\/(png|jpeg|gif|webp);base64,/.test(src))
+    ? `<img class="fig" src="${src}" alt="Figura da questão">` : '[figura indisponível]';
+});
 
 const KEY_CONT='semef2026_conteudo_v1';
 let fonteConteudo='carregando do servidor...';
 
 function aplicarConteudo(d,fonte){
   if(!d) return false;
-  SEED = { juris:d.juris||[], questoes:d.questoes||[], simulados:d.simulados||[] };
+  SEED = { juris:d.juris||[], questoes:d.questoes||[], simulados:d.simulados||[], figuras:d.figuras||{} };
   fonteConteudo = fonte;
   if(!telaOcupada() && document.getElementById('tela')) render();
   return true;
@@ -916,7 +924,7 @@ function cardRevisao(q, resp, rotulo, txtSemResp){
   return `<div class="questao-container rev-card">
     <div class="enunciado">
       <div class="eyebrow rev-cab"><span>${rotulo} · #${esc(q.id||'--')} ${esc(q.origem||'')} — ${esc(q.materia||'')}${q.tema?' · '+esc(q.tema):''}</span>${st}</div>
-      <div class="txt">${esc(q.enunciado)}</div>
+      <div class="txt">${txtFig(q.enunciado)}</div>
     </div>
     <div class="alts">
       ${(q.alts||[]).map((a,i)=>{
@@ -1063,7 +1071,7 @@ function vQuestao(){
 
       <div class="enunciado">
         <div class="eyebrow"><b>#${q.id||'--'}</b> ${esc(q.origem||'')} — ${esc(q.materia||'')}</div>
-        <div class="txt">${esc(q.enunciado)}</div>
+        <div class="txt">${txtFig(q.enunciado)}</div>
       </div>
 
       <div class="controles-questao">
@@ -1501,7 +1509,7 @@ function vSimulados(){
       <div class="questao-container" id="questao-container">
         <div class="enunciado">
           <div class="eyebrow">Questão <b>${qAtualIdx + 1}</b> de <b>${questoes.length}</b> (Peso ${q.peso||1}) — ${esc(q.materia||'')}</div>
-          <div class="txt">${esc(q.enunciado)}</div>
+          <div class="txt">${txtFig(q.enunciado)}</div>
         </div>
         <div class="alts">
           ${q.alts.map((a,i)=>{
@@ -1545,7 +1553,7 @@ function vSimulados(){
     <div class="questao-container" id="questao-container">
       <div class="enunciado">
         <div class="eyebrow">Questão <b>${estado.simIdx + 1}</b> de <b>${questoes.length}</b> (Peso ${q.peso||1}) — ${esc(q.materia||'')}</div>
-        <div class="txt">${esc(q.enunciado)}</div>
+        <div class="txt">${txtFig(q.enunciado)}</div>
       </div>
       <div class="alts">
         ${q.alts.map((a,i)=>{
@@ -2249,14 +2257,14 @@ function ligarAjustes(){
   }
   const bBase=document.getElementById('expBase');
   if(bBase) bBase.onclick=()=>{
-    const d={juris:SEED.juris||[], questoes:SEED.questoes||[], simulados:SEED.simulados||[]};
+    const d={juris:SEED.juris||[], questoes:SEED.questoes||[], simulados:SEED.simulados||[], figuras:SEED.figuras||{}};
     baixarJSON(d,'conteudo_base_'+hoje()+'.json');
     toast(`Base exportada: ${d.juris.length} juris · ${d.questoes.length} questões · ${d.simulados.length} simulados`);
   };
   const bTudo=document.getElementById('expTudo');
   if(bTudo) bTudo.onclick=()=>{
     // usa a mesma regra da tela: meus vence o SEED no mesmo id, excluídos ficam de fora
-    const d={juris:base('juris'), questoes:base('questoes'), simulados:base('simulados')};
+    const d={juris:base('juris'), questoes:base('questoes'), simulados:base('simulados'), figuras:SEED.figuras||{}};
     baixarJSON(d,'conteudo_'+hoje()+'.json');
     toast(`Consolidado: ${d.juris.length} juris · ${d.questoes.length} questões · ${d.simulados.length} simulados`);
   };
